@@ -1,0 +1,18 @@
+{
+    "name": "Immrsiv.QuestSetup.Editor",
+    "rootNamespace": "Immrsiv.QuestSetup.Editor",
+    "references": [
+        "Unity.XR.Management",
+        "Unity.XR.Management.Editor",
+        "Unity.XR.OpenXR",
+        "Unity.XR.OpenXR.Editor",
+        "Unity.XR.CoreUtils.Editor",
+        "Oculus.VR",
+        "Oculus.VR.Editor",
+        "Unity.TextMeshPro.Editor"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "autoReferenced": false
+}
