@@ -2,20 +2,20 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans for implementation in this same local project, or superpowers:subagent-driven-development only if the user selects delegation. Steps use checkbox syntax for tracking. This document is a plan; unchecked steps are not implemented.
 
-**Goal:** Make the current imported model visible, then implement the single-project contribution-scoring, exact-percentage review, accumulated-view iteration, and unchanged-row export workflow.
+**Goal:** Make the existing source model visible with the selected gsplat-unity renderer, obtain early standalone Android evidence when the user's device/setup is ready, then implement the single-project contribution-scoring, exact-percentage review, accumulated-view iteration, and unchanged-row export workflow.
 
-**Architecture:** Unity owns authoring, review and job control. A hidden local Python/CUDA process consumes versioned files and publishes complete results atomically. A small, documented extension to the installed Aras package preserves source identity and selects a frozen rank prefix before depth sorting.
+**Architecture:** Unity owns authoring, review and job control. A hidden local Python/CUDA process consumes versioned files and publishes complete results atomically. A documented extension to pinned `wu.yize.gsplat` preserves source identity and selects a frozen rank prefix before depth sorting. This is the one Unity renderer for Stage 1 and subsequent stages; keep existing Aras assets only as rollback material.
 
-**Tech stack:** Unity 6000.3.19f1, URP 17.3.0, existing Input System/Meta/OpenXR packages, C#, compute shaders, project-local Python 3.11, NumPy, PyTorch/cu128, gsplat plus a forward contribution accumulator. Worker versions are locked only after a successful native GPU smoke test.
+**Tech stack:** Unity 6000.3.19f1, URP 17.3.0, `wu.yize.gsplat` at `a2bf458d6b16395e6570e9345f9f4408f92684b8` (package metadata 1.4.0), existing Input System/Meta/OpenXR packages, C#, compute shaders, project-local Python 3.11, NumPy, PyTorch/cu128, Python gsplat plus a forward contribution accumulator. Worker versions are locked only after a successful native GPU smoke test.
 
 **Spec:** [Accepted Stage 1 report](../../../../STAGE1_PREPROCESSING_PLAN.md) and [project integration design/evidence](../specs/2026-09-21-stage1-project-integration.md). Read both before execution. [Stage 2 report](../../../../STAGE2_LOD_PLAN.md) defines the output boundary.
 
-**Planning update:** The user will implement the VR setup for walkable interaction in the existing Game scene after planning. Stage 1 integrates with that setup through explicit view/action bindings. See the [renderer comparison and VR handoff](../../stage1-renderer-comparison.md). Aras remains the recommended initial renderer; the alternative's stereo/MSAA and SH0 advantages are recorded alongside its Linear-color tradeoff.
+**Planning update:** The user prioritizes Android performance and larger usable splat counts over color fidelity. Select gsplat-unity and retain that choice unless measurements show a blocking limitation. This supersedes the Aras-specific integration plan. The user will implement the VR setup for walkable interaction in the existing Game scene; Stage 1 integrates through explicit view/action bindings. See the [renderer decision, evidence and VR handoff](../../stage1-renderer-comparison.md). No same-device FPS superiority or six-million-splat standalone capacity has been established.
 
 ## Global constraints
 
 - Use the existing local Unity/Git root `C:/Work/Unity/VR3DGS/VR3DGS`. Do not create a second Unity project or a worktree for Editor execution.
-- Preserve the existing scene, imported assets, packages, user changes and unsaved Editor work. Do not reset or stage unrelated changes.
+- Preserve the existing scene, imported assets, user changes and unsaved Editor work. Package changes are limited to adding/embedding the selected renderer; leave unrelated dependencies unchanged. Do not reset or stage unrelated changes.
 - The user owns VR rig/tracking configuration, locomotion, gameplay collision and walkable interaction. Stage 1 must not replace the rig, install movement systems or disable the user's inputs automatically.
 - Baseline: 6,011,316 original rows in `ScottVickers_CleanUp.ply`, identified by SHA-256 and zero-based source row ID. Original attributes are authoritative for export.
 - One Unity UI; hidden external worker; Python stays outside the future Quest player.
@@ -24,12 +24,13 @@
 - Ordinary movement records poses/projections and compatible scene metadata, not slider values.
 - Every scoring round uses the full original and all compatible historical paths/bookmarks. Verification memberships remain separate.
 - Rough guides are soft analysis evidence. They do not become opaque occluders or hard keep rules.
-- PC Editor/desktop first; PCVR optional and verified separately. No Stage 2 A/B controls, LOD generation, retraining, streaming or Android performance work.
+- PC Editor/desktop first; PCVR verified separately. Add an early standalone Android compatibility/performance probe when the user's device/setup is ready. No Stage 2 A/B controls, LOD generation, retraining, production streaming or Android production rollout.
+- One renderer with explicit profiles: Uncompressed SH0 for Stage 1 reference; Spark SH0 for intended Android performance. Both keep opacity pruning zero and complete source-ID accounting. Original PLY export remains byte preserving.
 - English communication unless the user asks in Chinese. The current unit transform is uncalibrated, not established meters.
 
 ## Review focus
 
-1. Reordered or duplicate-position splats must preserve identity: importer permutation tests in Task 3.
+1. Both import modes and duplicate-position splats must preserve identity: mapping and coordinate-conversion tests in Task 3.
 2. A reload, cancellation or crashed worker must not duplicate jobs or publish partial rankings: process tests in Task 2.
 3. Zero selection, tied depth and rapid percentage changes must yield a finite, correctly ordered image: GPU tests in Task 4.
 4. A bookmarked original view must retain the remembered candidate and survive session merging: state/union tests in Tasks 7 and 8.
@@ -39,7 +40,8 @@
 
 | Milestone | Deliverable | Required evidence |
 |---|---|---|
-| M0: current model visible | Repair the existing renderer setup | MCP reconnects to this project; required kernels supported; an actual Game-camera capture shows the model |
+| M0: source model visible | Migrate to pinned gsplat-unity and configure its rendering path | MCP reconnects to this project; required kernels supported; a full-count Game-camera capture shows the model; old assets preserved |
+| M0A: early Android evidence | Standalone probe using the user's VR/device setup as soon as available | Exact device/render profile; stereo correctness; measured count ladder, peak memory and sustained frame timing; no inference from Editor or Link |
 | M1: trustworthy source and worker | Inspection UI, source manifest, job lifecycle, GPU environment check | Full source scan; malformed fixtures rejected; cancel/reload tests; CUDA smoke render succeeds |
 | M2: identity and coordinates | Controlled import, source-ID sidecar, shared cameras | ID bijection; diagnostic splat projection/opacity checks; reference camera bundle |
 | M3: rank and preview | Measured contribution rank and exact GPU selection | CPU/GPU contribution oracle; exact selected counts; nested subsets; no reimport on slider movement |
@@ -79,7 +81,7 @@ All paths below are relative to the Unity/Git root. Preserve Unity `.meta` files
 | `Assets/SplatPreprocess/Runtime/Authoring/Stage1Annotations.cs` | Guides, targets and head-volume model |
 | `Assets/SplatPreprocess/Tests/EditMode/` and `Tests/PlayMode/` | Contract, state, mapping, GPU and integration tests |
 | `Assets/SplatPreprocess/Generated/<source>/<import>/` | New preview assets and sidecars; never overwrite `Assets/Art/3DGS` |
-| `Packages/org.nesnausk.gaussian-splatting/` | Embedded copy of the exact installed renderer when patching begins |
+| `Packages/wu.yize.gsplat/` | Embedded copy of the pinned selected renderer when patching begins; Aras remains unmodified |
 | `Tools/SplatWorker/pyproject.toml` and `requirements.lock` | Worker packaging and verified environment lock |
 | `Tools/SplatWorker/splat_worker/contracts.py` | Typed worker contracts, validation and hash rules |
 | `Tools/SplatWorker/splat_worker/source.py` | PLY header/record inspection, decode, immutable source access |
@@ -96,7 +98,7 @@ All paths below are relative to the Unity/Git root. Preserve Unity `.meta` files
 | `Tools/SplatWorker/THIRD_PARTY_NOTICES.md` | Attribution for the pinned CUDA source and dependencies |
 | `SplatData/` | Ignored local jobs, sources' manifests, rounds, sessions, reports and exports |
 
-Use `SplatPreprocess.Runtime.asmdef`, `SplatPreprocess.Editor.asmdef`, and test assemblies in their corresponding folders. Core recording and review actions do not require a Meta locomotion assembly. Existing SampleScene supplies the initial review environment. No replacement scene is required; changes are confined to a Stage 1 root, explicit bindings and the deliberate renderer repair.
+Use `SplatPreprocess.Runtime.asmdef`, `SplatPreprocess.Editor.asmdef`, and test assemblies in their corresponding folders. Core recording and review actions do not require a Meta locomotion assembly. Existing SampleScene supplies the initial review environment. No replacement scene is required; changes are confined to a Stage 1 root, explicit bindings and the deliberate renderer migration/settings.
 
 ### User-owned VR integration boundary
 
@@ -108,23 +110,22 @@ The user-authored gameplay walkable area may inform the analysis head-viewing re
 
 ## Renderer integration points
 
-These locations refer to the inspected upstream package, before embedding:
+These locations refer to gsplat-unity commit `a2bf458d6b16395e6570e9345f9f4408f92684b8`, inspected read-only before installation. Source inspection identifies hooks; it does not establish a working patch:
 
 | Existing file / method | Planned change |
 |---|---|
-| `Editor/GaussianSplatAssetCreator.cs`: `CreateAsset`, `ReorderMorton` around lines 247/411 | Expose a controlled import entry; emit parallel `storage_to_source` IDs from the same `(Morton code, source ID)` ordering; retain manual importer behavior |
-| `Editor/Utils/GaussianFileReader.cs`: `ReadFile`, `LinearizeDataJob` | Reuse named-property decoding; record log-scale, sigmoid opacity, wxyz normalization and rotation packing in the import manifest |
-| `Runtime/GaussianSplatRenderer.cs`: `CreateResourcesForAsset`, `InitSortBuffers` | Keep full source allocation; add rank, canonical source/storage mapping and selection/scratch buffers |
-| Same file: `SortPoints`, `CalcViewData` | Use selected count and selected storage indices; keep attribute addressing in full-source storage space |
-| Same file: `GaussianSplatRenderSystem.SortAndRenderSplats` | Draw k instances; skip zero safely; expose captured splat RGBA before final compositing |
-| `Runtime/GpuSorting.cs`: `Args.count` | Sort only selected entries; retain N-sized scratch allocations; verify partial counts and zero bypass |
-| `Shaders/Stage1Selection.compute` (new) | Stable parallel compaction of `rank_by_source[id] < k` in ascending source-ID order |
-| `Shaders/SplatUtilities.compute`: view/distance kernels | Distinguish dispatch slot from storage ID and full source count from selected count |
-| `Shaders/RenderGaussianSplats.shader` | Continue reading sorted storage IDs; optional importance color without changing alpha/footprint |
-| `Shaders/GaussianComposite.shader` | Guard empty-alpha division and preserve normal compositing; zero selection must remain finite |
-| `Runtime/GaussianSplatURPFeature.cs` | Preserve Render Graph integration; add an opt-in capture hook; no pass when no splats are selected |
+| `Editor/GsplatImporter.cs`: `OnImportAsset` | Controlled generated import with explicit compression/coordinate profile and opacity pruning zero; include source-ID mapping in validated import metadata |
+| `Runtime/GsplatAssetUncompressed.cs` and `GsplatAssetSpark.cs`: PLY readers | Emit source-row IDs in both paths; assert count and row order; record axis conversion, normalization/activation and any packing; compose export sidecars |
+| `Runtime/GsplatResource.cs` / `GsplatResourceManager.cs` | Keep full source allocations during review and SH0-aware buffers; release resources for worker handoff; do not add persistent duplicate source buffers |
+| `Runtime/GsplatRendererImpl.cs`: resource creation, `DispatchInitOrder`, `Render` | Add canonical selected IDs; stop the no-cutout path from overwriting selected count with uploaded count; draw ceil(k / splats-per-instance) batches with tail guards and zero bypass |
+| `Runtime/GsplatSorter.cs`: `DispatchSort` | Restore canonical selected order before depth calculation; avoid sequential InitPayload overwriting it; preserve back-to-front depth ordering and deterministic ties |
+| `Runtime/GsplatSortPass.cs`: `Args.Count` | Sort k entries while retaining N-sized scratch capacity; verify partial counts and zero bypass |
+| `Runtime/Shaders/Stage1Selection.compute` (new) | Stable parallel compaction of `rank_by_source[id] < k` in ascending source-ID order |
+| Asset `ComputeDepth` methods and `Runtime/Shaders/CalcDepth*.compute` | Pass selected count rather than UploadedCount; dispatch k slots and dereference the selected storage IDs |
+| `Runtime/Shaders/Gsplat.shader` and its included attribute readers | Keep sorted storage-ID addressing; guard padded final mesh instances; optional importance color must preserve opacity and footprint |
+| `Runtime/SRP/GsplatURPFeature.cs` and Stage 1 capture service | Preserve Render Graph integration. Capture isolated splats into a transparent RGBA target through the actual render path; there is no Aras-style separate composite buffer to read |
 
-Do not implement percentage selection using the destructive editor delete buffer, truncate storage to k rows, or replace depth sorting with importance order. Begin with one splat renderer so separately sorted overlapping objects do not invalidate transparency tests.
+Do not implement percentage selection with opacity pruning, cutouts, only a fragment mask, storage truncation or importance-order drawing. Begin with one active splat renderer and global sorting off. Use a correctness capture profile that refreshes sorting for every camera; later sort-frequency optimization must not reuse stale order across validation views. Any global-sort extension for later chunks requires its own evidence.
 
 ## Data contracts, version 1
 
@@ -165,7 +166,7 @@ Matrices serialize row-major with column-vector multiplication, with matrix role
 
 For a supported Unity perspective CPU projection P, start with `fx=P00*W/2`, `fy=P11*H/2`, `cx=(1-P02)*W/2`, `cy=(1+P12)*H/2`. Validate by reprojection and ray tests, including off-axis stereo projections. Do not export only FOV or feed a graphics-API/reversed-Z projection into a pinhole rasterizer. Unsupported oblique/orthographic projections receive an explicit error until implemented.
 
-Color/background, filtering, radius cutoff, alpha threshold, early termination, exposure, splat scale and opacity multiplier are versioned. Unity's gamma-to-linear composite and packed attributes mean cross-renderer identity is not assumed.
+Color/background, filtering, radius cutoff, alpha threshold, early termination, exposure, splat scale/brightness, compression, import coordinate convention and Gamma To Linear option are versioned. Compose the import axis transform with the scene transform explicitly, so source-to-Unity conversion occurs exactly once. The selected plugin's per-fragment color conversion and optional packed attributes mean cross-renderer identity is not assumed. Keep the project Linear initially; report packing and color-profile differences separately from pruning damage.
 
 ### Job contract
 
@@ -175,19 +176,30 @@ A job directory contains request, append-only event log, status, heartbeat and c
 
 Persist state outside Assets. Drain process pipes asynchronously; queue Unity API work onto `EditorApplication.update`. Before a GPU job, exit review and suspend/release the Stage 1 renderer resources. Restore preview state after completion/failure/reload. Do not kill unrelated Python processes.
 
-## Task 0 — Restore the existing model's rendering
+## Task 0 — Migrate the source model to the selected renderer
 
-**Files:** Modify only `ProjectSettings/ProjectSettings.asset` Windows graphics API configuration and `Assets/Settings/PC_Renderer.asset` plus the new feature subasset, using Unity APIs. Inspect the live URP global settings. Do not patch package code yet.
+**Files:** Add the pinned dependency through Package Manager; preserve unrelated manifest/lock changes. Use Unity APIs for Windows graphics settings, the active PC renderer/feature and the deliberate scene component changes. Create a generated PLY copy/import under the Stage 1 folder, leaving `Assets/Art` and the original PLY unchanged. Inspect live URP settings. Do not patch package code yet.
 
-**Consumes:** Current Model, current PC pipeline, MCP connection. **Produces:** A documented usable desktop baseline and capture.
+**Consumes:** Original cleaned PLY, current Model transform, PC pipeline, MCP connection. **Produces:** Full-count gsplat-unity desktop baseline/capture and a reversible migration record.
 
-- [ ] Re-run the read-only baseline: project path, dirty scenes, active pipeline/renderer, current graphics API, required compute-kernel `IsSupported`, feature list and camera pose. These checks already fail for the observed DX11 setup.
+- [ ] Re-run the read-only baseline: project path, dirty scenes, active pipeline/renderer, current graphics API, feature list, source hash and camera pose. Preserve user changes before migration; observed Aras kernels fail under DX11.
+- [ ] Add `wu.yize.gsplat` at the pinned revision and verify the resolved package/hash. Do not upgrade Meta, OpenXR or URP. Create a full-source Uncompressed SH0 import with opacity pruning zero and explicit source-coordinate convention; verify all 6,011,316 rows are present.
 - [ ] Set Windows graphics API to Direct3D12. At the reviewed restart checkpoint, preserve unsaved work and reopen this same project with D3D12. Reconnect MCP; query the actual API and all kernels before proceeding.
-- [ ] Add one `GaussianSplatURPFeature` to the active PC renderer, using Undo and saving only that asset. Keep Render Graph compatibility mode off. Confirm the feature is active and not duplicated.
-- [ ] Frame the existing model using an inspection camera/view that includes its bounds. Record any camera adjustment separately from calibration. Capture through the actual Game-camera URP path; check fresh console results and the visible image.
+- [ ] Add one `GsplatURPFeature` to the active PC renderer using Undo and targeted saving; keep Render Graph compatibility mode off. Add/bind `GsplatRenderer` to the generated import, disable only the old model renderer and preserve its settings/assets for rollback. Keep the user's rig and movement/input configuration intact.
+- [ ] Keep the current Linear project setting and explicitly record Gamma To Linear in the baseline profile. Use complete upload, sort-every-frame and no cutouts/global sorting. Check axis orientation, scale, framing and near/far planes; record any camera adjustment separately from calibration. Capture the full model through the actual Game-camera URP path and inspect fresh console output.
 - [ ] Record M0 evidence. If kernels still fail, inspect the new compilation error before adding another change. If kernels pass but the image is absent, inspect camera/frustum, feature scheduling, culling and ordinary scene depth one boundary at a time.
 
 **Gate:** A positive kernel check alone does not pass M0; a visible model capture is required. No promise of PCVR performance follows from this desktop result.
+
+## Task 0A — Early standalone Android performance evidence
+
+Run as soon as the user's Android device and VR setup are ready; desktop Tasks 1–6 can proceed while they are unavailable. This is a small renderer feasibility check before later runtime investment, not a new locomotion system or production deployment. Follow the detailed [device measurement protocol](../../stage1-renderer-comparison.md#early-android-performance-check).
+
+- [ ] Record exact device/OS, refresh target and fixed per-eye render dimensions. Use a standalone APK, Vulkan and the actual Android quality/URP renderer with `GsplatURPFeature`; disable Apply display rotation during rendering as upstream requires. Verify the configured Single Pass Instanced mode and actual left/right images on the user's rig.
+- [ ] Use Spark SH0 and opacity pruning zero. Start with MSAA off, fixed resolution, no global sort/cutouts and explicit sort settings. Test representative deterministic count fixtures at 100k, 250k, 500k, 1M and 2M; increase only while memory/frame-time headroom permits. Fixtures are not accepted contribution-pruned outputs.
+- [ ] Record native app FPS, CPU/GPU timing, dropped/reprojected frames, peak memory and load time across overview, moving and close-panel views. Begin with a provisional 72 Hz / 13.89 ms app budget until the target is confirmed; allow time for gameplay/XR. A compositor refresh rate or Editor/Link result does not count as native standalone FPS.
+- [ ] Sustain the proposed budget for at least ten minutes and record thermal/timing changes. Keep render settings fixed; profile sorting, vertex work and transparent overdraw before adjusting one setting at a time. Distinguish loaded, selected/submitted and visible count.
+- [ ] Publish the measured active-splat budget and unresolved limitations. Continue with gsplat-unity through normal optimization/LOD work; reconsider only if a demonstrated required capability or sustained budget remains infeasible after reasonable profiling/tuning. If hardware is absent, mark M0A unverified rather than claiming Android acceptance.
 
 ## Task 1 — Source inspection and immutable contracts
 
@@ -245,20 +257,20 @@ def test_reconciliation_does_not_launch_twice(job_harness):
 
 ## Task 3 — Source-ID import and coordinate calibration
 
-**Files:** Embed the inspected renderer package; modify its creator for a controlled import and sidecar; create `Stage1ImportService.cs`, `Stage1Workspace.cs`, `cameras.py`, `tests/test_cameras.py`, and `Tests/EditMode/Stage1ImportTests.cs`. Create generated diagnostic assets under the Stage 1 folder.
+**Files:** Embed the pinned selected package under `Packages/wu.yize.gsplat`; extend its PLY readers/importer for explicit mapping metadata; create `Stage1ImportService.cs`, `Stage1Workspace.cs`, `cameras.py`, `tests/test_cameras.py`, and `Tests/EditMode/Stage1ImportTests.cs`. Create generated diagnostic assets under the Stage 1 folder.
 
 **Interfaces:** `Stage1ImportService.Import(SourceManifest, ImportProfile, optional originalIds) -> ImportedSource`; `export_camera(camera, scene) -> ViewRecord`; `convert_to_worker_camera(view, scene) -> WorkerCamera`. `ImportedSource` carries asset reference, count, manifest and storage-to-source mapping.
 
-- [ ] Add an importer fixture whose PLY order differs from Morton order, including duplicate Morton keys and identical positions. Verify every stored row maps back to the correct original attributes; deliberately shuffle a mapping and require rejection.
-- [ ] Modify the exact Morton reorder loop to write the same permutation into a u32 sidecar. For subset PLY reimports, compose the permutation with the export's original-ID sidecar. Do not infer identity from position equality. Import into a new output directory.
+- [ ] Add importer fixtures with arbitrary PLY property/row order, duplicate positions with distinct attributes and both compression profiles. With pruning zero, verify count/order and every row's original identity; compare decoded Spark attributes with declared packing tolerances, not byte equality. Deliberately shuffle a mapping and require rejection.
+- [ ] Emit original row IDs alongside writes in both PLY readers. Assert the current no-pruning identity ordering, and keep an explicit sidecar for future reordering. For subset reimports compose it with the export's original-ID sidecar. Validate/disable hidden pruning and partial-upload reference rendering. Do not infer identity from position equality.
 - [ ] Add camera fixtures for asymmetric perspective projection, axis-colored splats, nonunit uniform scale, reflection, near/far clipping and a rotated anisotropic splat. Validate projected centers to 0.25 pixel on synthetic cases and quaternion/covariance conversion numerically.
-- [ ] Implement named camera/transform conventions from the contract. Capture front, side, oblique and close-panel reference views. Compare within each renderer and report cross-renderer differences separately, including color/composite and packed-rotation effects.
+- [ ] Implement named camera/transform conventions and verify the importer axis transform occurs exactly once. Capture front, side, oblique and close-panel reference views. Compare within each renderer/profile; report Python/Unity baseline differences and Spark packing loss separately from pruning.
 - [ ] Preserve the current uncalibrated transform until the user identifies a known distance and endpoints. Calibration scales by `real_distance / measured_source_distance`; store evidence and start a new scene version. It must not silently make earlier sessions compatible.
 - [ ] Run import/projection tests, validate the full-source ID bijection, and checkpoint the package patch and new files. Record upstream revision and hashes, preserving all existing GUIDs.
 
 ## Task 4 — Exact GPU subset preview and review state
 
-**Files:** Create the four Review state/selection/panel/navigation files, the three Integration view-provider/bindings/actions files, `Shaders/Stage1Selection.compute` inside the embedded package, and GPU/state tests. Modify the renderer/view/distance/draw/composite integration points listed above.
+**Files:** Create the four Review state/selection/panel/navigation files, the three Integration view-provider/bindings/actions files, `Runtime/Shaders/Stage1Selection.compute` inside the embedded package, and GPU/state tests. Modify the selected renderer's order/depth/sort/draw integration points listed above.
 
 **Interfaces:** `Stage1ReviewState.SetCandidate(int centiPercent)`, `ToggleOriginal()`, `GetBookmark(ViewRecord) -> MarkRecord`; `Stage1SelectionController.LoadRank(RankManifest, uint[] order)` and `SetKeepCount(int count)`; the view-provider and review-action methods defined in the VR integration boundary above. The state exposes candidate percentage, mode, selected count, displayed count and frozen rank ID.
 
@@ -276,7 +288,7 @@ Assert.That(state.DisplayedCount, Is.EqualTo(sourceCount / 4));
 
 - [ ] Test GPU selection against a CPU oracle for counts 0, 1, 7, 1023, 1024, 1025 and 4097; equal scores; decreasing/increasing percentages; and shuffled storage. With a frozen rank, lower k must always be a subset of higher k.
 - [ ] Upload rank/mapping once. On k changes, compact predicates in canonical source-ID order using block counts, an exclusive block-prefix scan, then scatter. Re-seed per-camera depth-sort inputs from this immutable selected list so equal-depth ties cannot depend on the previous frame.
-- [ ] Dispatch distance and view work for k; read/write attributes/view data by storage ID; set sort `Args.count=k`; draw k. Preserve full N allocations. B restores all original IDs through the same path. Handle k=0 before dispatch/sort/draw and guard transparent composite division by zero.
+- [ ] Dispatch depth work for k selected slots with storage-ID addressing; set sort `Args.Count=k`. Submit ceil(k / SplatInstanceSize) mesh instances with a final-instance guard, so exactly k splats enter projection/rendering. Preserve full N allocations and prevent upload/cutout bookkeeping from resetting k. B restores all IDs through the same path. Handle k=0 before dispatch/sort/draw, including safe empty-reference capture.
 - [ ] Show exact label `Keep splats (%)`, candidate/display mode, requested/kept count, source hash prefix and rank version. Desktop technical navigation is opt-in and uses its own test camera. Connect the user's camera through explicit bindings when ready; do not drive or reconfigure their rig, locomotion or gameplay cameras.
 - [ ] Validate source-buffer instance identities and importer invocation count during rapid slider movement. They must remain unchanged. Compare overlapping/tied-depth fixture images against an independently constructed retained subset; all output pixels must be finite.
 - [ ] Measure selected-count-dependent GPU work on the real source, without promising linear speedup or memory reduction. A late fragment-mask-only prototype does not pass this task. Checkpoint after the count/image tests pass.
@@ -358,8 +370,8 @@ Also test 0/100%, corrupted rank, source hash mismatch, edited source after insp
 
 - [ ] Render actual subsets at 100%, 75%, 50%, 25% and the selected user percentage. Zero is an endpoint correctness case. Candidate rendering must recompute compositing with discarded splats absent; an original image multiplied by a mask is invalid.
 - [ ] Produce per-view RGB MAE/PSNR, alpha MAE/max change, thresholded silhouette mismatch, panel-region scores, before/after/difference images, retained counts and worst-view ordering. Use source-only reference captures with a fixed background and no analysis overlays. Ordinary floor/cubes/controllers must not become unrecorded occluders in the comparison profile.
-- [ ] Implement Unity captures through the configured URP path, not an assumed `Camera.Render` fallback. Preserve/restore camera matrices, dimensions, renderer selection, model, visibility, background and temporary capture resources in `try/finally`. Read splat RGBA before final compositing for alpha checks. Initially use a small representative set; include all agreed final regression/panel views for final acceptance.
-- [ ] Keep different comparisons labeled: Python candidate versus Python original; Unity candidate versus Unity original; Python-versus-Unity calibration; and exported/reimported Unity candidate versus preview. A quality report must not combine these into one unexplained metric.
+- [ ] Implement Unity captures through the configured URP path, not an assumed `Camera.Render` fallback. Preserve/restore camera matrices, dimensions, renderer selection, model, visibility, background and temporary capture resources in `try/finally`. Render isolated splats into a transparent RGBA target with color/alpha preserved before postprocessing; verify alpha accumulation with a two-splat oracle. gsplat-unity has no separate Aras composite buffer to read. Initially use a small representative set; include all agreed final regression/panel views for final acceptance.
+- [ ] Keep comparisons labeled: Python candidate versus Python original; Unity candidate versus Unity original in the same profile; Python-versus-Unity calibration; Spark versus Uncompressed for the same IDs; and exported/reimported Unity candidate versus its preview/profile. Do not combine packing damage and pruning damage into one unexplained metric.
 - [ ] Implement raw-row streaming export with IDs/mask/rank/provenance. Hash and validate the produced PLY. Reimport that exact file through the controlled importer, composing original IDs. Temporarily render the reimported asset by itself, then restore the preview; do not render both overlapping models together.
 - [ ] For synthetic reimport cases, require exact selected IDs and raw records. For real Unity preview-versus-reimport captures at the same profile, start with at most one 8-bit RGB level of difference and alpha error at most 1e-3. Investigate larger differences in packing, ordering or capture state; do not silently loosen the gate. These equivalence tolerances are distinct from the user's acceptable pruning error.
 - [ ] Complete E1 on the full cleaned source: one real contribution rank, responsive exact slider, held-out/regression report, byte-preserving test export and actual reimport check. Label the small camera coverage as a technical pilot. Checkpoint only after recording this evidence.
@@ -422,7 +434,7 @@ def test_union_retains_history_and_exact_marks(history_fixture):
 
 **Interfaces:** `accept_export(rank_id, centi_percent, final_verify_views) -> AcceptedExportManifest`; an accepted manifest references the completed final report and reimport report. Acceptance is never inferred merely from a successful file write.
 
-- [ ] Ask for the user's selected percentage after reviewing representative close panels, openings, silhouettes and worst cases. Keep unresolved findings visible; do not make the chosen count an assumed target for later rounds.
+- [ ] Present representative close panels, openings, silhouettes and worst cases alongside available device timing, then obtain the user's selected percentage. Performance is the primary project priority; expose the corresponding quality loss without claiming that a Stage 1 retained count guarantees the later runtime budget. Keep unresolved findings visible.
 - [ ] Generate a fresh final verification set that has not informed ranking. Evaluate it with the fixed global/panel checks at the exact selected subset and capture profile. If it fails and informs further ranking, retire it to development and generate another independent final set.
 - [ ] Export original records and complete provenance through Task 6. Reimport the actual final file, compare to the accepted preview and record counts, hashes, image tolerances and any deviations. Verify that the source's current hash still matches the manifest.
 - [ ] Bundle source/export identity, original IDs, mask, rank, calibration, guides/domain, scoring/verification membership history, session/mark references, backend versions and final reports. Stage 2 receives this accepted retained set as its finest reference; no LOD assets are generated here.
@@ -448,10 +460,10 @@ For GPU validations, store the kernel support snapshot, actual API, device/drive
 ## Execution order and review points
 
 1. Review the integration design and this plan; recommended execution is native incremental work in this task, keeping all Editor actions in the current project.
-2. Start with Task 0 and the explicit Editor-restart checkpoint. Confirm the user's model is visible before attempting algorithm development.
+2. Start with Task 0 and the explicit Editor-restart checkpoint. Confirm the source model is visible in the selected renderer before attempting algorithm development. Run Task 0A as soon as the user's standalone device/VR setup is ready, before later runtime investment.
 3. Execute Tasks 1–6 to reach the first actual-source E1, with calibration status explicit and no accepted quality claims from the pilot.
 4. Add authored domain coverage and accumulated inspection in Tasks 7–8, then repeat until an acceptable percentage is found.
-5. Execute final verification/export in Task 9. PCVR and SH0 storage optimization remain conditional on observed needs; neither silently blocks desktop correctness.
+5. Execute final verification/export in Task 9. Validate Spark as the Android profile in this same renderer; SH0-aware storage is already part of both profiles. PCVR and device availability do not silently block desktop correctness, but an unrun device check leaves Android capacity unverified.
 
 If an implementation reveals that a planned integration point cannot meet the contract, update this plan and explain the measured failure before replacing the renderer or changing stage scope. Do not claim planned features or untested hardware support as implemented.
 
@@ -472,6 +484,6 @@ If an implementation reveals that a planned integration point cannot meet the co
 | Fresh nearby/final views, explicit development promotion | Tasks 8–9 |
 | Unchanged rows, provenance, actual reimport matches preview | Tasks 6 and 9 |
 | Hidden worker, progress/cancel/reload recovery, GPU handoff | Task 2 |
-| Preserve existing project and avoid Stage 2/3 expansion | Global constraints and Task 0 |
+| Preserve existing project; narrow early Android evidence without Stage 2/3 implementation | Global constraints and Tasks 0/0A |
 
 Planning self-review: all ten report steps map to tasks above. Physical measurement, headset operation and photo alignment remain explicit external evidence requirements rather than invented facts. No product code, dependencies, scene settings or renderer assets have been changed by writing this plan.

@@ -6,9 +6,9 @@ The authoritative functional brief remains [STAGE1_PREPROCESSING_PLAN.md](../../
 
 ## Intended result
 
-Operate source inspection, annotation, contribution scoring, review, recording, verification, and unchanged-row export from this one Unity project. A hidden local worker handles offline Python/CUDA work. A frozen ranking drives an exact retained-count preview. Repeated scoring always uses the complete original source and accumulated compatible views. Acceptance is a visual decision supported by independent reports, not an assumed reduction target.
+Operate source inspection, annotation, contribution scoring, review, recording, verification, and unchanged-row export from this one Unity project. A hidden local worker handles offline Python/CUDA work. A frozen ranking drives an exact retained-count preview. Repeated scoring always uses the complete original source and accumulated compatible views. Independent reports expose damage at each retained count; the user's performance priority and measured device budget inform the acceptable tradeoff. Stage 1 export alone does not establish the final runtime capacity.
 
-The user has confirmed that the model was imported using the existing plugin and is not yet visible in Game view. Retaining that plugin is the current recommendation, subject to the renderer comparison and plan review. The user will implement the VR setup for walkable interaction in the Game scene after planning. Communicate in English unless the user asks a question in Chinese. Physical scale has not been supplied; do not interpret the current unit transform as verified meters.
+The user has confirmed that the model was imported using the existing plugin and is not yet visible in Game view. Their subsequent priority is performance and larger usable splat counts on standalone Android, with one renderer choice carried through later stages unless it demonstrably fails. Select `wuyize25/gsplat-unity`; this supersedes the earlier recommendation to retain Aras for color fidelity. The user will implement the VR setup for walkable interaction in the Game scene after planning. Communicate in English unless the user asks a question in Chinese. Physical scale has not been supplied; do not interpret the current unit transform as verified meters.
 
 ## Observed project state
 
@@ -53,29 +53,35 @@ The existing imported asset has all 6,011,316 splats. Its four buffers total 1,4
 
 | Approach | Tradeoff | Decision |
 |---|---|---|
-| Extend the installed Aras renderer | Preserves existing assets and setup; needs explicit ID mapping, selection and capture hooks | Recommended |
-| Replace it with another Unity Gaussian plugin | Requires another importer, renderer and XR calibration before addressing Stage 1 | Keep as a contingency only if a measured requirement cannot be met |
+| Adopt gsplat-unity for all stages | Compact SH0/Spark storage, documented Android/URP stereo support; requires controlled migration and color-profile validation | Selected for the user's performance priority |
+| Extend the installed Aras renderer | Preserves existing assets and Linear color behavior; current import wastes SH0 storage and mobile support is uncertain | Preserve existing assets for rollback; no parallel Stage 1 implementation |
 | Implement scoring entirely in Unity compute | Avoids Python but adds the entire instrumented analysis renderer and reporting stack | Outside the minimum implementation |
 
-The earlier report named gsplat-unity as a proposed rendering foundation. Inspection now favors the renderer already imported by the user, especially because the project uses Linear color space. The alternative has documented URP stereo/MSAA support and more economical SH0 storage, but a significant color-blending tradeoff. See the [source-backed renderer comparison](../../stage1-renderer-comparison.md) for the advantages, limits and memory calculations. No plugin replacement is needed to address the observed Game-view blockers; both packages require a supported graphics API.
+Pin `wu.yize.gsplat` at commit `a2bf458d6b16395e6570e9345f9f4408f92684b8` (package metadata 1.4.0). Use this Unity renderer for Stage 1 and subsequent runtime development. The separate Python/CUDA gsplat worker choice is unchanged. See the [renderer decision and evidence](../../stage1-renderer-comparison.md): 6,011,316 SH0 splats need about 91.73 MiB of packed core attributes, versus the current import's 1.32 GiB. This supports a memory-efficiency decision, not a claim of measured FPS superiority. No controlled same-device Android comparison or maximum usable count has been established.
 
-### First repair
+### First migration and visibility check
 
-Use Direct3D12 for the Windows Editor and add `GaussianSplatURPFeature` to the active PC renderer. Check Render Graph compatibility mode, HDR, MSAA and camera framing. The existing PC asset already uses HDR and MSAA 1. Verify actual compute-kernel support after restart, then capture the model through the active render pipeline.
+Install the pinned gsplat-unity package into this project, use Direct3D12 for the Windows Editor and add `GsplatURPFeature` to the active PC renderer. Import the unchanged source into a new generated asset and bind `GsplatRenderer`. Preserve the old imported asset/component as rollback material, disabling its rendering while the new one is active. Check Render Graph compatibility mode, shader support and camera framing. Verify actual compute-kernel support after restart, then capture the model through the active render pipeline.
 
 Changing the graphics API requires an Editor restart. Treat that as a distinct checkpoint: finish the plan review, recheck scene dirtiness, preserve unsaved work, restart this same project, then reconnect MCP and verify its path. Do not start another Editor against the locked project, terminate Unity forcibly, or silently save every dirty asset.
 
-The installed package has a Render Graph URP pass and wave-operation sorting requirements. These match the [upstream integration instructions](https://raw.githubusercontent.com/aras-p/UnityGaussianSplatting/main/docs/render-pipeline-integration.md). Camera placement/orientation may still need correction after the two rendering blockers are removed; the identity model transform has not been calibrated.
+Both packages need wave-operation-capable APIs; changing the package does not fix Direct3D11. The selected package's [setup instructions](https://github.com/wuyize25/gsplat-unity/tree/a2bf458d6b16395e6570e9345f9f4408f92684b8) require Render Graph compatibility mode off and, on Android, Vulkan with Apply display rotation during rendering disabled. Inspect the active Android quality/renderer separately rather than assuming the current PC renderer is used there. Camera placement/orientation and importer axis conversion must be verified; the old identity transform is not calibration.
+
+Keep the initial Linear project setting and record the plugin's Gamma To Linear workaround explicitly. Color fidelity is subordinate to performance in this choice, but reference and candidate settings must still match. Use an Uncompressed SH0 profile for Stage 1 reference checks and a Spark SH0 profile for Android performance. Pruning thresholds stay zero; packing and contribution selection are separate operations. No partial upload is accepted as a complete original reference.
+
+### Early Android evidence
+
+Run a small standalone Android performance check after desktop visibility, as soon as the user's device/VR setup is available, before investing in later runtime stages. Record device, per-eye resolution, real stereo mode, native app FPS, CPU/GPU frame times, peak memory, load time and ten-minute sustained behavior at overview and close-panel views. Use a count ladder and a provisional 72 Hz target until the device/product target is confirmed. This is an early compatibility/capacity check, not Stage 3 streaming implementation. Desktop correctness work may continue while hardware is unavailable, with Android suitability explicitly unverified. The measured budget, not the PLY count or compressed size, defines how many splats may be active simultaneously.
 
 ### Renderer development
 
-When implementation reaches the ID/selection work, embed the exact installed package under `Packages/org.nesnausk.gaussian-splatting`, preserving package identity and GUIDs. Record its upstream revision and changes. Never edit `Library/PackageCache` as the durable implementation.
+When implementation reaches the ID/selection work, embed the pinned selected package under `Packages/wu.yize.gsplat`, preserving its package identity and GUIDs. Record its upstream revision and changes. Never edit `Library/PackageCache` as the durable implementation. Leave the old Aras package unmodified.
 
-Create Stage 1 data in its own generated folder. Keep the existing imported asset available as the untouched Unity reference. Carry original source IDs through `GaussianSplatAssetCreator.ReorderMorton`; do not match splats by nearest position. The old asset has no trustworthy source-ID sidecar, so ranking requires a controlled import with an emitted mapping.
+Create Stage 1 data in its own generated folder. Carry original source IDs through both gsplat-unity PLY import modes using an explicit mapping emitted alongside the attributes. The inspected readers preserve PLY row order when opacity pruning is disabled; assert this rather than relying on it implicitly. Compose the mapping with original-ID sidecars on subset reimport. Do not match splats by nearest position. Record the selected import coordinate convention and apply axis conversion exactly once.
 
 Separate selection from source storage. Stable GPU compaction selects exactly k IDs, before distance calculation, sorting and drawing. Depth order remains camera-dependent. Stable source-ID order resolves equal-depth ties consistently between preview and reimport. Keep the source buffers resident; a lower percentage is not a promise of lower VRAM use.
 
-Very High is suitable as an initial preview precision preset, but its packed rotations and shader precision mean it is not an archival representation. Final PLY export reads untouched original row bytes, never the GPU export path. SH0-aware storage is an optional measured optimization after the first loop; setting SH order to zero alone does not remove the existing SH allocation.
+Uncompressed is the diagnostic reference profile; Spark is the intended Android profile and must be validated separately. Both avoid higher-order SH allocation for this SH0 source. Final PLY export reads untouched original row bytes, never decoded or packed renderer attributes. Render quality reports must distinguish pruning loss from packing loss and baseline Python/Unity differences. Keep global sorting and cutouts off in the initial single-renderer Stage 1 path; neither substitutes for exact source-ID selection.
 
 ### Authoring and review
 
@@ -102,8 +108,8 @@ Export selected original rows in source-ID order, with a sidecar mapping and com
 ## Decisions still needing external evidence
 
 1. A known physical measurement and identified endpoints are needed before claiming meters or trustworthy head-clearance limits. Inspection and technical fixtures can proceed with an explicit uncalibrated status.
-2. PCVR integration follows the user's VR/walkable-interaction setup and requires a connected headset plus actual per-eye tests. OpenXR configuration alone does not establish compatibility or frame rate. Desktop development can proceed independently.
+2. VR integration follows the user's VR/walkable-interaction setup and requires a connected headset plus actual per-eye tests. Confirm the exact standalone Android device and refresh target for the early performance check. PCVR/Quest Link and Editor timing do not establish standalone performance. Desktop development can proceed independently.
 3. Capture-photo and pose locations can be provided when alignment work is useful. They do not block the first loop.
 4. The implementation plan and its first Editor-restart checkpoint are presented for review before product changes.
 
-No Stage 2 chunking/LOD controls, Gaussian retraining, learned visibility network, production streaming, Android deployment or Quest performance claims are part of this design.
+No Stage 2 chunking/LOD controls, Gaussian retraining, learned visibility network or production streaming are part of this design. The early standalone Android probe is now included to validate the selected foundation; a production Android rollout and capacity guarantees remain outside Stage 1.
