@@ -8,7 +8,7 @@ The authoritative functional brief remains [STAGE1_PREPROCESSING_PLAN.md](../../
 
 Operate source inspection, annotation, contribution scoring, review, recording, verification, and unchanged-row export from this one Unity project. A hidden local worker handles offline Python/CUDA work. A frozen ranking drives an exact retained-count preview. Repeated scoring always uses the complete original source and accumulated compatible views. Acceptance is a visual decision supported by independent reports, not an assumed reduction target.
 
-The user has confirmed that the model was imported using the existing plugin and is not yet visible in Game view. Keep that plugin for the initial implementation. Communicate in English unless the user asks a question in Chinese. Physical scale has not been supplied; do not interpret the current unit transform as verified meters.
+The user has confirmed that the model was imported using the existing plugin and is not yet visible in Game view. Retaining that plugin is the current recommendation, subject to the renderer comparison and plan review. The user will implement the VR setup for walkable interaction in the Game scene after planning. Communicate in English unless the user asks a question in Chinese. Physical scale has not been supplied; do not interpret the current unit transform as verified meters.
 
 ## Observed project state
 
@@ -57,7 +57,7 @@ The existing imported asset has all 6,011,316 splats. Its four buffers total 1,4
 | Replace it with another Unity Gaussian plugin | Requires another importer, renderer and XR calibration before addressing Stage 1 | Keep as a contingency only if a measured requirement cannot be met |
 | Implement scoring entirely in Unity compute | Avoids Python but adds the entire instrumented analysis renderer and reporting stack | Outside the minimum implementation |
 
-The earlier report named gsplat-unity as a proposed rendering foundation. Inspection now favors the renderer already imported by the user. No plugin replacement is needed to address the observed Game-view blockers.
+The earlier report named gsplat-unity as a proposed rendering foundation. Inspection now favors the renderer already imported by the user, especially because the project uses Linear color space. The alternative has documented URP stereo/MSAA support and more economical SH0 storage, but a significant color-blending tradeoff. See the [source-backed renderer comparison](../../stage1-renderer-comparison.md) for the advantages, limits and memory calculations. No plugin replacement is needed to address the observed Game-view blockers; both packages require a supported graphics API.
 
 ### First repair
 
@@ -81,7 +81,9 @@ Very High is suitable as an initial preview precision preset, but its packed rot
 
 Use standard Unity Scene-view handles first: planes, oriented boxes, openings/recesses, panel rectangles and permitted head volumes. Store them under a dedicated Stage 1 root in the existing scene. Guides are analysis metadata/Gizmos, excluded from scoring/reference images. Full headset authoring is unnecessary for the first version.
 
-Use desktop controls initially; provide a separate optional Meta input adapter for right A/B. Existing XR objects remain in place. A bookmarks the exact view and candidate percentage; B switches full-original display without replacing the candidate setting. Play-session ranking is immutable. Ordinary trajectory files have no slider values.
+The user owns the VR rig, tracking/locomotion, gameplay collision boundaries and walkable interaction setup. Stage 1 supplies explicit scene bindings for the user's head/camera/tracking-origin references, callable bookmark/toggle actions, and the recorder. It does not create a replacement rig, configure locomotion or disable existing input handlers automatically. A bookmarks the exact view and candidate percentage; B switches full-original display without replacing the candidate setting. Play-session ranking is immutable. Ordinary trajectory files have no slider values.
+
+Technical checks can use Editor reference cameras and an opt-in desktop test camera while the user prepares VR. When that scene is ready, bind its actual head and per-eye view/projection data, source root and calibrated viewing region; the user connects right A/B to Stage 1 actions. The authored analysis head volume describes camera-sampling limits, independently of gameplay walkable-area enforcement or collision geometry.
 
 ### Worker and scoring
 
@@ -100,7 +102,7 @@ Export selected original rows in source-ID order, with a sidecar mapping and com
 ## Decisions still needing external evidence
 
 1. A known physical measurement and identified endpoints are needed before claiming meters or trustworthy head-clearance limits. Inspection and technical fixtures can proceed with an explicit uncalibrated status.
-2. PCVR readiness requires a connected headset and actual per-eye tests. OpenXR configuration alone does not establish compatibility or frame rate. Desktop development can proceed independently.
+2. PCVR integration follows the user's VR/walkable-interaction setup and requires a connected headset plus actual per-eye tests. OpenXR configuration alone does not establish compatibility or frame rate. Desktop development can proceed independently.
 3. Capture-photo and pose locations can be provided when alignment work is useful. They do not block the first loop.
 4. The implementation plan and its first Editor-restart checkpoint are presented for review before product changes.
 

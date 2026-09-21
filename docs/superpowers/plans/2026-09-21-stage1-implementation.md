@@ -10,10 +10,13 @@
 
 **Spec:** [Accepted Stage 1 report](../../../../STAGE1_PREPROCESSING_PLAN.md) and [project integration design/evidence](../specs/2026-09-21-stage1-project-integration.md). Read both before execution. [Stage 2 report](../../../../STAGE2_LOD_PLAN.md) defines the output boundary.
 
+**Planning update:** The user will implement the VR setup for walkable interaction in the existing Game scene after planning. Stage 1 integrates with that setup through explicit view/action bindings. See the [renderer comparison and VR handoff](../../stage1-renderer-comparison.md). Aras remains the recommended initial renderer; the alternative's stereo/MSAA and SH0 advantages are recorded alongside its Linear-color tradeoff.
+
 ## Global constraints
 
 - Use the existing local Unity/Git root `C:/Work/Unity/VR3DGS/VR3DGS`. Do not create a second Unity project or a worktree for Editor execution.
 - Preserve the existing scene, imported assets, packages, user changes and unsaved Editor work. Do not reset or stage unrelated changes.
+- The user owns VR rig/tracking configuration, locomotion, gameplay collision and walkable interaction. Stage 1 must not replace the rig, install movement systems or disable the user's inputs automatically.
 - Baseline: 6,011,316 original rows in `ScottVickers_CleanUp.ply`, identified by SHA-256 and zero-based source row ID. Original attributes are authoritative for export.
 - One Unity UI; hidden external worker; Python stays outside the future Quest player.
 - Exact count: `k = floor(N * keep_percent / 100)`, with explicit 0 and 100 endpoints. A frozen ranking defines nested subsets.
@@ -44,7 +47,7 @@
 | M4: authored coverage | Surface/opening/panel guides, allowed head volume and generated camera sets | Guides absent from captures; legal eye positions; reproducible independent set membership |
 | M5: repeated inspection loop | Pose recording, bookmarks, historical union and new scoring rounds | Old views retained, marks exact, discarded splats can return, independent nearby/global checks |
 | M6: accepted Stage 1 output | User-selected percentage, fresh final verification and provenance | Final file reimport checked; unresolved visual failures visible; reproducible export package |
-| Optional PCVR gate | Existing rig participates in review | Real left/right eye capture and A/B press tests on the connected headset; measured timing |
+| Optional PCVR gate | User's completed VR setup participates in review | Bind the user's camera/origin/actions; real left/right eye capture and A/B press tests on the connected headset; measured timing |
 
 The smallest E1 uses the complete 6,011,316-splat source with four scoring cameras, two independently sampled verification cameras and a small fixed regression set. Low-resolution technical checks come first, followed by at least one panel-resolution view. This is evidence that the pipeline works, not adequate coverage to accept a production reduction. Synthetic fixtures test algorithms; they never substitute for the actual-source E1.
 
@@ -68,10 +71,12 @@ All paths below are relative to the Unity/Git root. Preserve Unity `.meta` files
 | `Assets/SplatPreprocess/Runtime/Review/Stage1ReviewState.cs` | Frozen rank, candidate percentage, displayed mode and session state machine |
 | `Assets/SplatPreprocess/Runtime/Review/Stage1SelectionController.cs` | Validated rank upload and exact keep-count selection API |
 | `Assets/SplatPreprocess/Runtime/Review/Stage1PreviewPanel.cs` | Slider, counts, rank, mode, recording and bookmark feedback |
-| `Assets/SplatPreprocess/Runtime/Review/Stage1DesktopNavigation.cs` | Desktop camera movement without changing the saved XR rig |
+| `Assets/SplatPreprocess/Runtime/Review/Stage1DesktopNavigation.cs` | Opt-in technical test-camera navigation, independent of user-owned VR locomotion |
+| `Assets/SplatPreprocess/Runtime/Integration/IStage1ViewProvider.cs` | Rig-independent current head/eye pose and projection contract |
+| `Assets/SplatPreprocess/Runtime/Integration/Stage1SceneBindings.cs` | Explicit user-supplied camera, tracking-origin, source-root and viewing-region references |
+| `Assets/SplatPreprocess/Runtime/Integration/Stage1ReviewActions.cs` | Callable bookmark/toggle functions for the user's input bindings and desktop buttons |
 | `Assets/SplatPreprocess/Runtime/Recording/Stage1SessionRecorder.cs` | Append-only pose/projection logs and separate bookmarks |
 | `Assets/SplatPreprocess/Runtime/Authoring/Stage1Annotations.cs` | Guides, targets and head-volume model |
-| `Assets/SplatPreprocess/Runtime/Meta/Stage1MetaInput.cs` | Optional Meta right A/B adapter and haptic confirmation |
 | `Assets/SplatPreprocess/Tests/EditMode/` and `Tests/PlayMode/` | Contract, state, mapping, GPU and integration tests |
 | `Assets/SplatPreprocess/Generated/<source>/<import>/` | New preview assets and sidecars; never overwrite `Assets/Art/3DGS` |
 | `Packages/org.nesnausk.gaussian-splatting/` | Embedded copy of the exact installed renderer when patching begins |
@@ -91,7 +96,15 @@ All paths below are relative to the Unity/Git root. Preserve Unity `.meta` files
 | `Tools/SplatWorker/THIRD_PARTY_NOTICES.md` | Attribution for the pinned CUDA source and dependencies |
 | `SplatData/` | Ignored local jobs, sources' manifests, rounds, sessions, reports and exports |
 
-Use `SplatPreprocess.Runtime.asmdef`, `SplatPreprocess.Editor.asmdef`, optional `SplatPreprocess.Meta.asmdef`, and test assemblies in their corresponding folders. Existing SampleScene supplies the initial review environment. No replacement scene is required; changes are confined to a Stage 1 root and the deliberate renderer repair.
+Use `SplatPreprocess.Runtime.asmdef`, `SplatPreprocess.Editor.asmdef`, and test assemblies in their corresponding folders. Core recording and review actions do not require a Meta locomotion assembly. Existing SampleScene supplies the initial review environment. No replacement scene is required; changes are confined to a Stage 1 root, explicit bindings and the deliberate renderer repair.
+
+### User-owned VR integration boundary
+
+`IStage1ViewProvider.TryCaptureViews(out ViewSample sample)` supplies one timestamped head pose, actual eye `ViewRecord` entries (or one mono view), and tracking-origin identity. `ViewSample` belongs to the shared runtime contracts. `Stage1SceneBindings` adapts explicitly assigned cameras and transforms; stereo matrices come from the active stereo camera/provider rather than assumed offsets on disabled eye cameras.
+
+`Stage1ReviewActions.BookmarkCurrentView()` and `ToggleOriginal()` expose the agreed Stage 1 A/B semantics. The user connects their right-controller press events and resolves conflicts with gameplay bindings; Stage 1 does not claim ownership of all controller input. Visible mark feedback is supplied by Stage 1; haptics may be connected through a user-supplied callback.
+
+The user-authored gameplay walkable area may inform the analysis head-viewing region, but the two are separate. Stage 1's region includes head height, leaning and eye positions and guides camera generation; it does not add collision meshes or enforce locomotion. Coordinate/projection/state changes are recorded and validated before using paths for scoring. Until the VR scene is ready, Editor cameras and an opt-in desktop test camera keep preprocessing development independent.
 
 ## Renderer integration points
 
@@ -245,9 +258,9 @@ def test_reconciliation_does_not_launch_twice(job_harness):
 
 ## Task 4 — Exact GPU subset preview and review state
 
-**Files:** Create the four Review state/selection/panel/navigation files, `Shaders/Stage1Selection.compute` inside the embedded package, and GPU/state tests. Modify the renderer/view/distance/draw/composite integration points listed above.
+**Files:** Create the four Review state/selection/panel/navigation files, the three Integration view-provider/bindings/actions files, `Shaders/Stage1Selection.compute` inside the embedded package, and GPU/state tests. Modify the renderer/view/distance/draw/composite integration points listed above.
 
-**Interfaces:** `Stage1ReviewState.SetCandidate(int centiPercent)`, `ToggleOriginal()`, `GetBookmark(ViewRecord) -> MarkRecord`; `Stage1SelectionController.LoadRank(RankManifest, uint[] order)` and `SetKeepCount(int count)`. The state exposes candidate percentage, mode, selected count, displayed count and frozen rank ID.
+**Interfaces:** `Stage1ReviewState.SetCandidate(int centiPercent)`, `ToggleOriginal()`, `GetBookmark(ViewRecord) -> MarkRecord`; `Stage1SelectionController.LoadRank(RankManifest, uint[] order)` and `SetKeepCount(int count)`; the view-provider and review-action methods defined in the VR integration boundary above. The state exposes candidate percentage, mode, selected count, displayed count and frozen rank ID.
 
 - [ ] Test B/slider behavior independently of graphics. A representative sequence is:
 
@@ -264,7 +277,7 @@ Assert.That(state.DisplayedCount, Is.EqualTo(sourceCount / 4));
 - [ ] Test GPU selection against a CPU oracle for counts 0, 1, 7, 1023, 1024, 1025 and 4097; equal scores; decreasing/increasing percentages; and shuffled storage. With a frozen rank, lower k must always be a subset of higher k.
 - [ ] Upload rank/mapping once. On k changes, compact predicates in canonical source-ID order using block counts, an exclusive block-prefix scan, then scatter. Re-seed per-camera depth-sort inputs from this immutable selected list so equal-depth ties cannot depend on the previous frame.
 - [ ] Dispatch distance and view work for k; read/write attributes/view data by storage ID; set sort `Args.count=k`; draw k. Preserve full N allocations. B restores all original IDs through the same path. Handle k=0 before dispatch/sort/draw and guard transparent composite division by zero.
-- [ ] Show exact label `Keep splats (%)`, candidate/display mode, requested/kept count, source hash prefix and rank version. Desktop navigation uses a designated review camera and restores the existing camera/rig state on exit. Do not replace the user's rig.
+- [ ] Show exact label `Keep splats (%)`, candidate/display mode, requested/kept count, source hash prefix and rank version. Desktop technical navigation is opt-in and uses its own test camera. Connect the user's camera through explicit bindings when ready; do not drive or reconfigure their rig, locomotion or gameplay cameras.
 - [ ] Validate source-buffer instance identities and importer invocation count during rapid slider movement. They must remain unchanged. Compare overlapping/tied-depth fixture images against an independently constructed retained subset; all output pixels must be finite.
 - [ ] Measure selected-count-dependent GPU work on the real source, without promising linear speedup or memory reduction. A late fragment-mask-only prototype does not pass this task. Checkpoint after the count/image tests pass.
 
@@ -353,9 +366,9 @@ Also test 0/100%, corrupted rank, source hash mismatch, edited source after insp
 
 ## Task 7 — Guides, head domain, generated views and bookmarks
 
-**Files:** Create authoring data/tools, session recorder, optional Meta adapter and corresponding EditMode/PlayMode tests; extend `cameras.py`, `scoring.py` and the preview panel. Add `tests/test_sampling.py`.
+**Files:** Create authoring data/tools, session recorder and corresponding EditMode/PlayMode tests; use Task 4's scene bindings/actions; extend `cameras.py`, `scoring.py` and the preview panel. Add `tests/test_sampling.py`.
 
-**Interfaces:** `Stage1Annotations.Export() -> SceneManifest`; `generate_views(scene, SamplingConfig) -> ViewSets`; `Stage1SessionRecorder.Start(SessionMetadata)`, `AppendPose(PoseSample)`, `AppendMark(MarkRecord)`, `Stop()`; `Stage1MetaInput` emits discrete bookmark/toggle events into review state.
+**Interfaces:** `Stage1Annotations.Export() -> SceneManifest`; `generate_views(scene, SamplingConfig) -> ViewSets`; `Stage1SessionRecorder.Start(SessionMetadata)`, `AppendPose(PoseSample)`, `AppendMark(MarkRecord)`, `Stop()`; `Stage1ReviewActions` forwards the user's discrete input events into review state and recording.
 
 - [ ] Test that guide serialization and Unity Undo preserve IDs, transforms, roles and openings. Make handles for planes/oriented boxes, panel rectangles, allowed head volumes and forbidden regions. Persist exact guides as source-relative analysis geometry. Keep them out of reference render layers and do not create opaque occlusion meshes.
 - [ ] Sample positions throughout authored head volumes with coarse global coverage and denser panel/opening inspection. Include head height, leaning/crouching limits, nearest inspection distance and eye offsets; reject forbidden locations. Directional samples cover authored targets and general orientations. Enforce `calibration_status` before interpreting meter-valued limits.
@@ -373,8 +386,8 @@ def test_generated_views_stay_legal_and_separate(scene_fixture):
 
 - [ ] Add importance display using the frozen score-to-storage map. Normal/heatmap mode must use the same selected set, opacity, footprint and depth order. Show sparse/unobserved evidence separately so black does not claim invisibility.
 - [ ] Record ordinary movement at a bounded cadence with movement/rotation/projection-change triggers and monotonic timestamps. Store head and available per-eye matrices; buffer writes and flush on stop, scene exit and Play Mode exit. Keep source/rank/state metadata in the session header or referenced change events.
-- [ ] Implement A on a rising edge; snapshot exact view, candidate percent, currently displayed original/candidate mode, source/rank/scene versions and capped priority. Provide visible confirmation, plus optional haptics. Preserve multiple percentage observations at the same view.
-- [ ] Implement B through the tested review state machine. Desktop buttons/shortcuts and Meta buttons use the same handlers. Identify existing input consumers before enabling Stage 1 bindings; suppress only conflicting A/B handlers during Stage 1 review and restore their state on exit.
+- [ ] Implement `BookmarkCurrentView()` for right A press events; snapshot exact view, candidate percent, currently displayed original/candidate mode, source/rank/scene versions and capped priority. Provide visible confirmation and an optional feedback callback for the user's haptics. Preserve multiple percentage observations at the same view.
+- [ ] Implement `ToggleOriginal()` through the tested review state machine. Desktop buttons and the user's controller action bindings call the same functions. Document rising-edge binding requirements; identify conflicts for the user to resolve without disabling or replacing their input handlers.
 - [ ] Test that recording JSON has no percentage fields, while marks do; A while Original is showing still records the remembered candidate. Test held-button behavior, one event per press, projection changes and interrupted final log lines. Checkpoint once desktop authoring/recording works.
 
 ## Task 8 — Historical union, second scoring round and independent verification
@@ -413,7 +426,7 @@ def test_union_retains_history_and_exact_marks(history_fixture):
 - [ ] Generate a fresh final verification set that has not informed ranking. Evaluate it with the fixed global/panel checks at the exact selected subset and capture profile. If it fails and informs further ranking, retire it to development and generate another independent final set.
 - [ ] Export original records and complete provenance through Task 6. Reimport the actual final file, compare to the accepted preview and record counts, hashes, image tolerances and any deviations. Verify that the source's current hash still matches the manifest.
 - [ ] Bundle source/export identity, original IDs, mask, rank, calibration, guides/domain, scoring/verification membership history, session/mark references, backend versions and final reports. Stage 2 receives this accepted retained set as its finest reference; no LOD assets are generated here.
-- [ ] If a headset is connected for PCVR testing, use the existing rig and check actual left/right image differences, eye projection/offsets, A/B edge behavior, UI usability and memory/frame timing. Validate the configured stereo mode explicitly. Mono success is not a stereo test. If unsupported, retain working desktop review and report the precise limitation.
+- [ ] After the user supplies the VR/walkable-interaction setup, bind its view provider/origin/actions. With a connected headset, check actual left/right image differences, eye projection/offsets, A/B edge behavior, UI usability and memory/frame timing. Validate the configured stereo mode explicitly. Mono success is not a stereo test. If unsupported, retain working desktop review and report the precise limitation; do not replace the user's rig as an implicit repair.
 - [ ] Document Setup → Process → Review → Export, failure recovery and restart requirements. Run only the relevant suites and actual-source acceptance checks; review the scoped changes and checkpoint the final implemented milestone.
 
 ## Validation commands and evidence storage
