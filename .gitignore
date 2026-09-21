@@ -58,3 +58,15 @@ Assets/StreamingAssets/data.meta
 Assets/StreamingAssets/data/RaceTrace.meta
 Assets/StreamingAssets/data/RaceTrace/RaceTraceSaveData.txt
 Assets/StreamingAssets/data/RaceTrace/RaceTraceSaveData.txt.meta
+
+# Local Stage 1 processing data, imported source copies and worker runtimes
+/SplatData/
+/Assets/SplatPreprocess/Generated/*
+!/Assets/SplatPreprocess/Generated/*.meta
+/Tools/SplatWorker/.bootstrap/
+/Tools/SplatWorker/.python/
+/Tools/SplatWorker/.venv/
+/Tools/SplatWorker/.uv-cache/
+__pycache__/
+.pytest_cache/
+*.egg-info/
