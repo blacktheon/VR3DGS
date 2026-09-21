@@ -170,11 +170,11 @@ Color/background, filtering, radius cutoff, alpha threshold, early termination, 
 
 ### Job contract
 
-Unity launches the absolute isolated Python executable directly with `UseShellExecute=false`, `CreateNoWindow=true`, redirected stdout/stderr and correctly quoted arguments. The command is `python -m splat_worker --job <absolute-job-json>`. No shell commands are assembled from source paths.
+Unity launches the absolute isolated Python executable directly with `UseShellExecute=false`, `CreateNoWindow=true` and correctly quoted arguments. The command is `python -m splat_worker --job <absolute-job-json>`. The CLI redirects its own OS stdout/stderr descriptors to durable job logs before importing heavy dependencies, so Editor domain reload cannot break pipes. No shell commands are assembled from source paths.
 
 A job directory contains request, append-only event log, status, heartbeat and cancellation marker. States are Queued, Running, Cancelling, Succeeded, Failed, Cancelled and Interrupted. Publish into a temporary result directory, validate, rename on the same volume, then atomically replace the small current-result pointer. Failure never replaces the last successful rank. Reconcile a worker using job ID, PID and process start time; PID alone is insufficient.
 
-Persist state outside Assets. Drain process pipes asynchronously; queue Unity API work onto `EditorApplication.update`. Before a GPU job, exit review and suspend/release the Stage 1 renderer resources. Restore preview state after completion/failure/reload. Do not kill unrelated Python processes.
+Persist state outside Assets; poll job snapshots on `EditorApplication.update`. Before full-source scoring/verification GPU jobs in Task 5, exit review and suspend/release the Stage 1 renderer resources, then restore preview state after completion/failure/reload. M1's one-splat environment check keeps the existing preview active and reports only its own tiny allocation; it is not a capacity benchmark. Do not kill unrelated Python processes.
 
 ## Task 0 — Migrate the source model to the selected renderer
 
@@ -182,12 +182,12 @@ Persist state outside Assets. Drain process pipes asynchronously; queue Unity AP
 
 **Consumes:** Original cleaned PLY, current Model transform, PC pipeline, MCP connection. **Produces:** Full-count gsplat-unity desktop baseline/capture and a reversible migration record.
 
-- [ ] Re-run the read-only baseline: project path, dirty scenes, active pipeline/renderer, current graphics API, feature list, source hash and camera pose. Preserve user changes before migration; observed Aras kernels fail under DX11.
-- [ ] Add `wu.yize.gsplat` at the pinned revision and verify the resolved package/hash. Do not upgrade Meta, OpenXR or URP. Create a full-source Uncompressed SH0 import with opacity pruning zero and explicit source-coordinate convention; verify all 6,011,316 rows are present.
-- [ ] Set Windows graphics API to Direct3D12. At the reviewed restart checkpoint, preserve unsaved work and reopen this same project with D3D12. Reconnect MCP; query the actual API and all kernels before proceeding.
-- [ ] Add one `GsplatURPFeature` to the active PC renderer using Undo and targeted saving; keep Render Graph compatibility mode off. Add/bind `GsplatRenderer` to the generated import, disable only the old model renderer and preserve its settings/assets for rollback. Keep the user's rig and movement/input configuration intact.
-- [ ] Keep the current Linear project setting and explicitly record Gamma To Linear in the baseline profile. Use complete upload, sort-every-frame and no cutouts/global sorting. Check axis orientation, scale, framing and near/far planes; record any camera adjustment separately from calibration. Capture the full model through the actual Game-camera URP path and inspect fresh console output.
-- [ ] Record M0 evidence. If kernels still fail, inspect the new compilation error before adding another change. If kernels pass but the image is absent, inspect camera/frustum, feature scheduling, culling and ordinary scene depth one boundary at a time.
+- [x] Re-run the read-only baseline: project path, dirty scenes, active pipeline/renderer, current graphics API, feature list, source hash and camera pose. Preserve user changes before migration; observed Aras kernels fail under DX11.
+- [x] Add `wu.yize.gsplat` at the pinned revision and verify the resolved package/hash. Do not upgrade Meta, OpenXR or URP. Create a full-source Uncompressed SH0 import with opacity pruning zero and explicit source-coordinate convention; verify all 6,011,316 rows are present.
+- [x] Set Windows graphics API to Direct3D12. At the reviewed restart checkpoint, preserve unsaved work and reopen this same project with D3D12. Reconnect MCP; query the actual API and all kernels before proceeding.
+- [x] Add one `GsplatURPFeature` to the active PC renderer using Undo and targeted saving; keep Render Graph compatibility mode off. Add/bind `GsplatRenderer` to the generated import, disable only the old model renderer and preserve its settings/assets for rollback. Keep the user's rig and movement/input configuration intact.
+- [x] Keep the current Linear project setting and explicitly record Gamma To Linear in the baseline profile. Use complete upload, sort-every-frame and no cutouts/global sorting. Check axis orientation, scale, framing and near/far planes; record any camera adjustment separately from calibration. Capture the full model through the actual Game-camera URP path and inspect fresh console output.
+- [x] Record M0 evidence. If kernels still fail, inspect the new compilation error before adding another change. If kernels pass but the image is absent, inspect camera/frustum, feature scheduling, culling and ordinary scene depth one boundary at a time.
 
 **Gate:** A positive kernel check alone does not pass M0; a visible model capture is required. No promise of PCVR performance follows from this desktop result.
 
@@ -207,7 +207,7 @@ Run as soon as the user's Android device and VR setup are ready; desktop Tasks 1
 
 **Interfaces:** `inspect_source(path: Path, output_dir: Path) -> SourceManifest`; `read_source(manifest: SourceManifest) -> SourceTable`; `keep_count(n: int, keep_centi_percent: int) -> int`; `validate_rank(order: ndarray, source: SourceManifest) -> None`. `SourceTable` exposes immutable raw records and decoded named attributes.
 
-- [ ] Write fixtures with reordered PLY properties, a duplicate-position pair with different color, truncated payload, one NaN, and a zero quaternion. Add concrete assertions:
+- [x] Write fixtures with reordered PLY properties, a duplicate-position pair with different color, truncated payload, one NaN, and a zero quaternion. Add concrete assertions:
 
 ```python
 def test_exact_counts():
@@ -224,10 +224,10 @@ def test_source_identity_survives_inspection(named_property_ply, tmp_path):
     assert manifest.id_rule == "zero_based_vertex_row"
 ```
 
-- [ ] Run `python -m pytest tests/test_source.py tests/test_contracts.py -q` from `Tools/SplatWorker`; confirm failures concern missing behavior.
-- [ ] Implement a bounded-memory header parser and full validity scan. Decode fields by name, normalize valid wxyz quaternions, exponentiate scale and apply sigmoid opacity in scratch arrays. Reject malformed source as an actionable inspection failure; do not silently drop rows or change N.
-- [ ] Run the tests, then inspect the actual source. Verify all 6,011,316 rows, byte length and known hash; save ranges, invalid counts and decoding conventions. Preserve a clear uncalibrated marker.
-- [ ] Check the narrowly scoped diff and checkpoint this deliverable. Do not include the pre-existing imported assets or project changes in its commit.
+- [x] Run `python -m pytest tests/test_source.py tests/test_contracts.py -q` from `Tools/SplatWorker`; confirm failures concern missing behavior.
+- [x] Implement a bounded-memory header parser and full validity scan. Decode fields by name, normalize valid wxyz quaternions, exponentiate scale and apply sigmoid opacity in scratch arrays. Reject malformed source as an actionable inspection failure; do not silently drop rows or change N.
+- [x] Run the tests, then inspect the actual source. Verify all 6,011,316 rows, byte length and known hash; save ranges, invalid counts and decoding conventions. Preserve a clear uncalibrated marker.
+- [x] Check the narrowly scoped diff and checkpoint this deliverable. Do not include the pre-existing imported assets or project changes in its commit.
 
 ## Task 2 — Unity window, durable jobs and GPU environment check
 
@@ -235,7 +235,7 @@ def test_source_identity_survives_inspection(named_property_ply, tmp_path):
 
 **Interfaces:** `WorkerProcessHost.Start(JobRequest) -> string jobId`; `Cancel(string jobId)`; `WorkerJobStore.Reconcile() -> JobSnapshot[]`; worker `run_job(request: JobRequest) -> JobResult`. `JobRequest` carries ID, operation, source/scene/rank/view references and output directory. Operations: inspect, check_environment, score, verify, export.
 
-- [ ] Write process tests using a tiny subprocess fixture that emits progress, fills stderr, waits for cancellation and optionally exits with an error. Test a path containing spaces and non-ASCII characters, and a reload against the same live job:
+- [x] Write process tests using a tiny subprocess fixture that emits progress, fills stderr, waits for cancellation and optionally exits with an error. Test a path containing spaces and non-ASCII characters, and a reload against the same live job:
 
 ```python
 def test_failed_job_does_not_replace_current(job_harness):
@@ -249,11 +249,11 @@ def test_reconciliation_does_not_launch_twice(job_harness):
     assert job_harness.launch_count(job_id) == 1
 ```
 
-- [ ] Run the worker lifecycle tests and EditMode process-store tests. Implement the file protocol and hidden launch described above. Keep long operations off the Unity main thread; reject a second GPU job while one is active.
-- [ ] Wire Setup/Inspect and progress/log/cancel controls to the real source inspector. Reopen the window and trigger a script reload during the subprocess test; retain the existing job and last successful result.
-- [ ] Create a separate Python 3.11 environment through the Editor setup action. Initial candidate: PyTorch 2.7.1/cu128, gsplat v1.5.3 at commit `937e29912570c372bed6747a5c9bf85fed877bae`; select VS 2022/MSVC 14.44 explicitly. Do not replace Python 3.14, CUDA, the graphics driver or Unity packages. Lock exact dependencies after a successful compile.
-- [ ] Run `check_environment`: report interpreter, CUDA runtime/toolkit, compiler, device capability, extension build, a small actual rasterization, finite RGB/alpha and peak allocated/reserved GPU memory. Save results. A successful torch import is insufficient. If extension compilation fails, keep CPU inspection/export usable and report the exact failure.
-- [ ] Run cancellation/reload/crash tests and inspect the final diff before checkpointing.
+- [x] Run the worker lifecycle tests and EditMode process-store tests. Implement the file protocol and hidden launch described above. Keep long operations off the Unity main thread; reject a second GPU job while one is active.
+- [x] Wire Setup/Inspect and progress/log/cancel controls to the real source inspector. Reopen the window and trigger a script reload during the subprocess test; retain the existing job and last successful result.
+- [x] Create a separate Python 3.11 environment through the Editor setup action. Initial candidate: PyTorch 2.7.1/cu128, gsplat v1.5.3 at commit `937e29912570c372bed6747a5c9bf85fed877bae`; select VS 2022/MSVC 14.44 explicitly. Do not replace Python 3.14, CUDA, the graphics driver or Unity packages. Lock exact dependencies after a successful compile.
+- [x] Run `check_environment`: report interpreter, CUDA runtime/toolkit, compiler, device capability, extension build, a small actual rasterization, finite RGB/alpha and peak allocated/reserved GPU memory. Save results. A successful torch import is insufficient. If extension compilation fails, keep CPU inspection/export usable and report the exact failure.
+- [x] Run cancellation/reload/crash tests and inspect the final diff before checkpointing.
 
 ## Task 3 — Source-ID import and coordinate calibration
 

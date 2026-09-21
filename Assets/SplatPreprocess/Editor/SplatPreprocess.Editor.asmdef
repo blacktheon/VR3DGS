@@ -1,0 +1,6 @@
+{
+  "name": "SplatPreprocess.Editor",
+  "rootNamespace": "SplatPreprocess.Editor",
+  "references": ["SplatPreprocess.Runtime", "Gsplat", "Gsplat.Editor", "Unity.RenderPipelines.Universal.Runtime", "Unity.RenderPipelines.Core.Runtime"],
+  "includePlatforms": ["Editor"]
+}

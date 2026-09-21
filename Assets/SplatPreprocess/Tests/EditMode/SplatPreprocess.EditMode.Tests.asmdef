@@ -1,0 +1,6 @@
+{
+  "name": "SplatPreprocess.EditMode.Tests",
+  "references": ["SplatPreprocess.Runtime", "SplatPreprocess.Editor"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}

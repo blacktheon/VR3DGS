@@ -1,0 +1,26 @@
+# Verified on Windows / CPython 3.11.16 / RTX 5060 Ti / CUDA 12.8 / MSVC 14.44.
+# Install torch first; gsplat's source metadata imports torch.
+colorama==0.4.6
+filelock==3.32.3
+fsspec==2026.7.0
+gsplat @ git+https://github.com/nerfstudio-project/gsplat.git@937e29912570c372bed6747a5c9bf85fed877bae
+iniconfig==2.3.0
+jaxtyping==0.3.11
+Jinja2==3.1.6
+markdown-it-py==4.2.0
+MarkupSafe==3.0.3
+mdurl==0.1.2
+mpmath==1.3.0
+networkx==3.6.1
+ninja==1.11.1.4
+numpy==2.2.6
+packaging==26.3
+pluggy==1.6.0
+psutil==7.0.0
+Pygments==2.21.0
+pytest==8.4.2
+rich==15.0.0
+sympy==1.14.0
+torch==2.7.1+cu128
+typing_extensions==4.16.0
+wadler_lindig==0.1.7
