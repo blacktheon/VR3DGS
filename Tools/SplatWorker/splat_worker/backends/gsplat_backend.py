@@ -14,16 +14,16 @@ import tempfile
 from ..contracts import write_json_atomic
 
 
-def _build_directory(output_root):
+def _build_directory(output_root, stem="gsplat_cuda"):
     cache = Path(output_root) / "cuda"
     cache.mkdir(parents=True, exist_ok=True)
-    pointer = cache / "gsplat_cuda.current.json"
-    name = "gsplat_cuda"
+    pointer = cache / (stem + ".current.json")
+    name = stem
     try:
         saved = json.loads(pointer.read_text(encoding="utf-8"))
         candidate = saved.get("directory") if isinstance(saved, dict) else None
         if (isinstance(candidate, str) and Path(candidate).name == candidate
-                and (candidate == name or candidate.startswith("gsplat_cuda-"))):
+                and (candidate == name or candidate.startswith(stem + "-"))):
             name = candidate
     except (OSError, ValueError):
         pass
@@ -31,7 +31,7 @@ def _build_directory(output_root):
     if (build / "lock").exists():
         # A dead Python worker may leave both PyTorch's baton and live compiler
         # descendants. Never remove their lock or reuse their build directory.
-        build = Path(tempfile.mkdtemp(prefix="gsplat_cuda-", dir=cache))
+        build = Path(tempfile.mkdtemp(prefix=stem + "-", dir=cache))
     else:
         build.mkdir(parents=True, exist_ok=True)
     return build, pointer

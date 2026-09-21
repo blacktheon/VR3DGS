@@ -11,6 +11,8 @@ namespace SplatPreprocess.Editor
     public sealed class SplatPreprocessorWindow : EditorWindow
     {
         [SerializeField] string sourcePath = "";
+        [SerializeField] string rankManifestPath = "";
+        [SerializeField] string lastSceneSnapshot = "";
         [SerializeField] int tab;
         Vector2 scroll;
         WorkerJobStore store;
@@ -58,13 +60,13 @@ namespace SplatPreprocess.Editor
         }
         void OnGUI()
         {
-            EditorGUILayout.LabelField("Stage 1 · Source and worker setup", EditorStyles.boldLabel);
-            EditorGUILayout.LabelField("gsplat-unity · Uncompressed SH0 reference · scale uncalibrated", EditorStyles.miniLabel);
+            EditorGUILayout.LabelField("Stage 1 · Splat preprocessing", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("gsplat-unity · Uncompressed SH0 reference · user-authored Unity units", EditorStyles.miniLabel);
             tab = GUILayout.Toolbar(tab, new[] { "Setup", "Process", "Review", "Export" });
             scroll = EditorGUILayout.BeginScrollView(scroll);
             if (!string.IsNullOrEmpty(error)) EditorGUILayout.HelpBox(error, MessageType.Error);
             if (tab == 0) DrawSetup();
-            else if (tab == 1) EditorGUILayout.HelpBox("Source inspection and the CUDA environment check are available in Setup. Contribution scoring is the next milestone.", MessageType.Info);
+            else if (tab == 1) DrawProcess();
             else if (tab == 2) DrawReview();
             else EditorGUILayout.HelpBox("Export becomes available after a verified ranking and subset review. The original PLY is never modified.", MessageType.Info);
             DrawJobs();
@@ -130,7 +132,101 @@ namespace SplatPreprocess.Editor
                 EditorGUILayout.LabelField($"Uploaded: {renderer.SplatCount:N0} / {renderer.GsplatAsset.SplatCount:N0} · {renderer.GsplatAsset.Compression}");
                 if (GUILayout.Button("Select model in Scene view")) { Selection.activeGameObject=renderer.gameObject; SceneView.lastActiveSceneView?.FrameSelected(); }
             }
-            EditorGUILayout.HelpBox("The full source is available for inspection. Exact percentage selection, contribution ranking and A/B review are not implemented yet. Bindings for your VR rig will follow those controls.", MessageType.Info);
+            EditorGUILayout.Space();
+            var latest = DrawRoundResult();
+            if (latest != null && string.IsNullOrEmpty(rankManifestPath)) rankManifestPath = Path.Combine(latest.result_dir, "rank_manifest.json");
+            EditorGUILayout.LabelField("Frozen ranking for review", EditorStyles.boldLabel);
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                rankManifestPath = EditorGUILayout.TextField(rankManifestPath);
+                if (GUILayout.Button("Browse…", GUILayout.Width(80)))
+                {
+                    var selected = EditorUtility.OpenFilePanel("Choose a completed rank manifest", Path.GetDirectoryName(rankManifestPath) ?? WorkerEnvironment.DataRoot, "json");
+                    if (!string.IsNullOrEmpty(selected)) rankManifestPath = selected;
+                }
+            }
+            using (new EditorGUI.DisabledScope(latest == null || !File.Exists(latest == null ? "" : Path.Combine(latest.result_dir, "rank_manifest.json"))))
+                if (GUILayout.Button("Select latest completed ranking")) rankManifestPath = Path.Combine(latest.result_dir, "rank_manifest.json");
+            using (new EditorGUI.DisabledScope(Busy || EditorApplication.isPlayingOrWillChangePlaymode || !File.Exists(rankManifestPath)))
+                if (GUILayout.Button("Load selected ranking into review")) Attempt(() =>
+                {
+                    Stage1Round1Service.LoadReviewRank(rankManifestPath, sourcePath);
+                    foreach (var panel in FindObjectsByType<Stage1PreviewPanel>(FindObjectsSortMode.None)) panel.Refresh();
+                });
+            foreach (var controller in FindObjectsByType<Stage1SelectionController>(FindObjectsSortMode.None))
+            {
+                if (controller.State == null) continue;
+                var state = controller.State;
+                EditorGUILayout.LabelField("Loaded rank: " + state.FrozenRankId, EditorStyles.wordWrappedLabel);
+                EditorGUILayout.LabelField($"Candidate: {state.CandidateCentiPercent / 100.0:F2}% · Showing {state.DisplayMode} · {state.DisplayedCount:N0} / {state.EligibleCount:N0}");
+                EditorGUILayout.LabelField($"Original source provenance: {state.SourceCount:N0} rows", EditorStyles.miniLabel);
+            }
+            EditorGUILayout.HelpBox("In Play Mode, the existing physical slider controls Keep splats (%). Right A saves the exact view and remembered candidate; right B compares the eligible original with that candidate. Rank changes are available only between review sessions.", MessageType.Info);
+            EditorGUILayout.HelpBox("Ordinary pose recording and exact bookmarks are saved separately under SplatData/sessions. Use the scene review controls to start or stop pose recording. The source and scene must match the selected rank.", MessageType.None);
+        }
+
+        void DrawProcess()
+        {
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("First scoring round", EditorStyles.boldLabel);
+            EditorGUILayout.HelpBox("Capture the saved scene, score full-source contribution, freeze one ranking, then verify independent views. Eye positions are sampled 0.3–1.8 units above each authored NavMesh surface. The floor excludes splat centers below its plane; directional wall tests use the finite wall bounds and a 0.1-unit rear band.", MessageType.Info);
+            EditorGUILayout.HelpBox("These distances use your authored Unity units. The source renderer is temporarily paused during GPU processing and restored when the job ends. Save scene edits and exit Play Mode before starting.", MessageType.None);
+            EditorGUILayout.LabelField("Source", sourcePath, EditorStyles.wordWrappedLabel);
+            using (new EditorGUI.DisabledScope(Busy || EditorApplication.isPlayingOrWillChangePlaymode || !File.Exists(sourcePath)))
+            {
+                if (GUILayout.Button("Capture immutable scene snapshot")) Attempt(() => lastSceneSnapshot = Stage1Round1Service.ExportScene(sourcePath));
+                using (new EditorGUI.DisabledScope(!File.Exists(WorkerEnvironment.Python)))
+                    if (GUILayout.Button("Score scene and run first-round verification")) Attempt(() =>
+                    {
+                        EditorPrefs.SetString(PreferenceKey, sourcePath);
+                        Stage1Round1Service.StartRound(sourcePath);
+                    });
+            }
+            if (!string.IsNullOrEmpty(lastSceneSnapshot))
+            {
+                EditorGUILayout.LabelField("Last captured snapshot", EditorStyles.miniBoldLabel);
+                EditorGUILayout.SelectableLabel(lastSceneSnapshot, EditorStyles.wordWrappedLabel, GUILayout.Height(38));
+                if (GUILayout.Button("Show snapshot file")) EditorUtility.RevealInFinder(lastSceneSnapshot);
+            }
+            if (File.Exists(Stage1Round1Service.LeasePath))
+                EditorGUILayout.HelpBox("Preview pause recovery is active. Keep this scene available until processing finishes.", MessageType.Info);
+            var latestJob = jobs.FirstOrDefault(job => job.operation == "round1");
+            if (latestJob != null)
+                EditorGUILayout.LabelField("Round-one status: " + latestJob.state + " · " + latestJob.message, EditorStyles.wordWrappedLabel);
+            DrawRoundResult();
+        }
+
+        ResultPointer DrawRoundResult()
+        {
+            ResultPointer latest;
+            try { latest = store.Current("round1"); }
+            catch (Exception exception) { EditorGUILayout.HelpBox(exception.Message, MessageType.Error); return null; }
+            if (latest == null)
+            {
+                EditorGUILayout.HelpBox("No completed first-round result has been published yet.", MessageType.None);
+                return null;
+            }
+            var rankPath = Path.Combine(latest.result_dir, "rank_manifest.json");
+            var reportPath = Path.Combine(latest.result_dir, "report.html");
+            if (!File.Exists(rankPath))
+            {
+                EditorGUILayout.HelpBox("The published result is missing its rank manifest. Inspect the job logs before review.", MessageType.Error);
+                return null;
+            }
+            try
+            {
+                var manifest = WorkerJobStore.Read<RankManifest>(rankPath);
+                manifest.Validate(manifest.source_hash, manifest.scene_hash);
+                EditorGUILayout.LabelField("Latest completed round", EditorStyles.boldLabel);
+                EditorGUILayout.LabelField(manifest.rank_id, EditorStyles.wordWrappedLabel);
+                EditorGUILayout.LabelField($"Eligible baseline: {manifest.eligible_count:N0} / {manifest.source_count:N0} original rows");
+                EditorGUILayout.LabelField("Rank manifest: " + rankPath, EditorStyles.wordWrappedMiniLabel);
+            }
+            catch (Exception exception) { EditorGUILayout.HelpBox(exception.Message, MessageType.Error); return null; }
+            using (new EditorGUI.DisabledScope(!File.Exists(reportPath)))
+                if (GUILayout.Button("Open verification report")) Application.OpenURL(new Uri(reportPath).AbsoluteUri);
+            if (GUILayout.Button("Show completed result files")) EditorUtility.RevealInFinder(latest.result_dir);
+            return latest;
         }
         void DrawJobs()
         {

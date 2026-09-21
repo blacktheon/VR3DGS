@@ -12,13 +12,14 @@ namespace SplatPreprocess.Editor
         readonly string python, workerFolder;
         public WorkerProcessHost(WorkerJobStore store, string python, string workerFolder)
         { this.store=store; this.python=python; this.workerFolder=workerFolder; }
-        public string Start(string operation, string sourcePath)
+        public string Start(string operation, string sourcePath, string scenePath = "", string samplingJson = "")
         {
             WorkerJobStore.ValidateOperation(operation);
             if (!File.Exists(python)) throw new FileNotFoundException("Set up the local Python worker first", python);
-            if (operation == "inspect" && !File.Exists(sourcePath)) throw new FileNotFoundException("Choose the original PLY", sourcePath);
+            if ((operation == "inspect" || operation == "round1") && !File.Exists(sourcePath)) throw new FileNotFoundException("Choose the original PLY", sourcePath);
+            if (operation == "round1" && !string.IsNullOrEmpty(scenePath) && !File.Exists(scenePath)) throw new FileNotFoundException("Scene snapshot is missing", scenePath);
             if (store.Reconcile().Any(s => !s.IsTerminal)) throw new InvalidOperationException("A worker job is already active; wait or cancel it first");
-            string id = store.Create(operation, sourcePath);
+            string id = store.Create(operation, sourcePath, scenePath, samplingJson);
             string directory = store.JobDirectory(id);
             try
             {

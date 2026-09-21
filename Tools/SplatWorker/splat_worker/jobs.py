@@ -94,6 +94,8 @@ def run_job(request_path, handlers=None):
     heartbeat = threading.Thread(target=pulse, name="job-heartbeat", daemon=True)
     heartbeat.start()
     operations = {"inspect": _inspect, "check_environment": check_environment}
+    from .round1 import run_round1
+    operations["round1"] = run_round1
     if handlers:
         operations.update(handlers)
     try:
@@ -101,7 +103,7 @@ def run_job(request_path, handlers=None):
         if request["operation"] not in operations:
             raise ValueError(f"Operation is not available: {request['operation']}")
         context.result_dir.mkdir(parents=True, exist_ok=False)
-        lock = gpu_workspace_lock(context.output_root) if request["operation"] in {"check_environment", "score", "verify"} else nullcontext()
+        lock = gpu_workspace_lock(context.output_root) if request["operation"] in {"check_environment", "score", "verify", "round1"} else nullcontext()
         with lock:
             artifacts = operations[request["operation"]](context, request)
         context.check_cancelled()

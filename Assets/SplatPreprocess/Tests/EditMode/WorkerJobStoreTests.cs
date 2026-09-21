@@ -13,6 +13,19 @@ namespace SplatPreprocess.Tests
         [TearDown] public void Cleanup() { if (Directory.Exists(root)) Directory.Delete(root, true); }
 
         [Test]
+        public void RoundOneRequestCarriesItsImmutableSceneAndSamplingInputs()
+        {
+            var create = typeof(WorkerJobStore).GetMethod("Create", new[] { typeof(string), typeof(string), typeof(string), typeof(string) });
+            Assert.NotNull(create, "Round-one request inputs are not implemented");
+            var store = new WorkerJobStore(root);
+            var id = (string)create.Invoke(store, new object[] { "round1", "original.ply", "scene-immutable.json", "{\"size\":64}" });
+            var json = File.ReadAllText(Path.Combine(store.JobDirectory(id), "request.json"));
+            StringAssert.Contains("scene-immutable.json", json);
+            StringAssert.Contains("sampling_json", json);
+            Assert.AreEqual("round1", store.Reconcile()[0].operation);
+        }
+
+        [Test]
         public void ReopeningStoreDoesNotDuplicateRequestsAndCancellationIsDurable()
         {
             var store = new WorkerJobStore(root);

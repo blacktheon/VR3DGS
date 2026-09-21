@@ -56,7 +56,17 @@ namespace SplatPreprocess.Tests
                     Thread.Sleep(20);
                 if (Path.GetDirectoryName(Path.GetFullPath(root)) != Path.GetFullPath(Path.GetTempPath()).TrimEnd(Path.DirectorySeparatorChar))
                     throw new InvalidOperationException("Test cleanup escaped the temporary directory");
-                if (last == null || !WorkerJobStore.IsSameProcess(last.worker_pid, last.worker_started_utc)) Directory.Delete(root, true);
+                if (last == null || !WorkerJobStore.IsSameProcess(last.worker_pid, last.worker_started_utc))
+                {
+                    // Windows may still be releasing inherited log handles after
+                    // the authoritative worker exits. Bound cleanup by the same
+                    // deadline instead of treating that release race as a job failure.
+                    while (Directory.Exists(root))
+                    {
+                        try { Directory.Delete(root, true); }
+                        catch (IOException) when (DateTime.UtcNow < cleanupDeadline) { Thread.Sleep(20); }
+                    }
+                }
             }
         }
     }

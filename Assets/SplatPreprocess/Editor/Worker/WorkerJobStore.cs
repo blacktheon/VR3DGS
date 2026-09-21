@@ -13,7 +13,7 @@ namespace SplatPreprocess.Editor
     public sealed class JobRequest
     {
         public int schema_version = 1;
-        public string job_id, operation, source_path, output_root;
+        public string job_id, operation, source_path, output_root, scene_path, sampling_json;
     }
 
     [Serializable]
@@ -45,13 +45,13 @@ namespace SplatPreprocess.Editor
             if (!Regex.IsMatch(id ?? "", "^[a-zA-Z0-9_-]{1,96}$")) throw new ArgumentException("Invalid job ID");
             return Path.Combine(Root, "jobs", id);
         }
-        public string Create(string operation, string sourcePath)
+        public string Create(string operation, string sourcePath, string scenePath = "", string samplingJson = "")
         {
             ValidateOperation(operation);
             string id = DateTime.UtcNow.ToString("yyyyMMdd-HHmmss") + "-" + Guid.NewGuid().ToString("N");
             string directory = JobDirectory(id);
             Directory.CreateDirectory(directory);
-            WriteAtomic(Path.Combine(directory, "request.json"), new JobRequest { job_id=id, operation=operation, source_path=sourcePath, output_root=Root });
+            WriteAtomic(Path.Combine(directory, "request.json"), new JobRequest { job_id=id, operation=operation, source_path=sourcePath, output_root=Root, scene_path=scenePath, sampling_json=samplingJson });
             WriteAtomic(Path.Combine(directory, "status.json"), new JobSnapshot { job_id=id, operation=operation, state="Queued", message="Starting worker", updated_utc=Now });
             return id;
         }
@@ -107,7 +107,7 @@ namespace SplatPreprocess.Editor
         }
         public static void ValidateOperation(string operation)
         {
-            if (operation != "inspect" && operation != "check_environment") throw new ArgumentException("This milestone supports Inspect and Check Environment");
+            if (operation != "inspect" && operation != "check_environment" && operation != "round1") throw new ArgumentException("Supported operations are Inspect, Check Environment and Round 1");
         }
         public static bool IsSameProcess(int pid, double started)
         {

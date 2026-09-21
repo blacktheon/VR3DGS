@@ -1,5 +1,5 @@
 {
   "name": "SplatPreprocess.Runtime",
   "rootNamespace": "SplatPreprocess",
-  "references": []
+  "references": ["Gsplat"]
 }
