@@ -98,7 +98,7 @@ All paths below are relative to the Unity/Git root. Preserve Unity `.meta` files
 | `Tools/SplatWorker/THIRD_PARTY_NOTICES.md` | Attribution for the pinned CUDA source and dependencies |
 | `SplatData/` | Ignored local jobs, sources' manifests, rounds, sessions, reports and exports |
 
-Use `SplatPreprocess.Runtime.asmdef`, `SplatPreprocess.Editor.asmdef`, and test assemblies in their corresponding folders. Core recording and review actions do not require a Meta locomotion assembly. Existing SampleScene supplies the initial review environment. No replacement scene is required; changes are confined to a Stage 1 root, explicit bindings and the deliberate renderer migration/settings.
+Use `SplatPreprocess.Runtime.asmdef`, `SplatPreprocess.Editor.asmdef`, and test assemblies in their corresponding folders. Core recording and review actions do not require a Meta locomotion assembly. Use the user's current review scene: the latest read-only MCP check found `Assets/Scenes/Stage1.unity`, in Edit Mode with unsaved changes. Recheck its references before implementation; do not restore the former SampleScene or overwrite ongoing edits. No replacement scene is required; changes are confined to a Stage 1 root, explicit bindings and the deliberate renderer migration/settings.
 
 ### User-owned VR integration boundary
 

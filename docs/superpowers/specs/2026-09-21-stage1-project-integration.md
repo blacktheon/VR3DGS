@@ -12,6 +12,8 @@ The user has confirmed that the model was imported using the existing plugin and
 
 ## Observed project state
 
+The table records the initial inspection. A later read-only MCP check during the renderer decision found the active scene is now `Assets/Scenes/Stage1.unity`, in Edit Mode with unsaved changes (`isDirty=true`). The user is editing the scene; use their current active scene and recheck all bindings before implementation. Do not restore the removed SampleScene, overwrite the new scene or save/restart over unsaved work automatically.
+
 | Item | Evidence from this task |
 |---|---|
 | Workspace / Git root | Workspace `C:/Work/Unity/VR3DGS`; Git and Unity root `C:/Work/Unity/VR3DGS/VR3DGS` |
