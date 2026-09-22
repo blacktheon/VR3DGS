@@ -193,6 +193,61 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7516989854395125638, guid: d2d6934a666a18d46b8b7a3864dc9f63, type: 3}
   m_PrefabInstance: {fileID: 1711282}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6424681
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6424682}
+  - component: {fileID: 6424683}
+  m_Layer: 0
+  m_Name: r070
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6424682
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6424681}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6424683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6424681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r070
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 25
+  _memberOffset: 0
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: -3.1244397, z: -0.8212553}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 1.8526876, y: -3.083473, z: -0.28276524}
+    m_Extent: {x: 0.08215457, y: 0.07604456, z: 0.14647812}
 --- !u!1 &14214679
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,6 +279,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1733018471}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &16680212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 16680213}
+  - component: {fileID: 16680214}
+  m_Layer: 0
+  m_Name: r704
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &16680213
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16680212}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &16680214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16680212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r704
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 9475
+  _memberOffset: 904234
+  _partitionBounds:
+    m_Center: {x: 3.8179135, y: -0.95085454, z: 2.4391227}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 3.5600648, y: -0.9287071, z: 2.458043}
+    m_Extent: {x: 0.43908274, y: 0.6491711, z: 0.69565564}
 --- !u!1 &16917295
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,6 +686,61 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!1 &53287899
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 53287900}
+  - component: {fileID: 53287901}
+  m_Layer: 0
+  m_Name: r615
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &53287900
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53287899}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &53287901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53287899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r615
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 2440
+  _memberOffset: 723485
+  _partitionBounds:
+    m_Center: {x: 2.731121, y: -0.95085454, z: 2.4391227}
+    m_Extent: {x: 0.54339623, y: 0.54339635, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 2.7509918, y: -0.69826627, z: 2.4784803}
+    m_Extent: {x: 0.7139561, y: 0.44003618, z: 0.6941227}
 --- !u!1 &56198629
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,6 +1055,116 @@ Transform:
   - {fileID: 1988505010}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &74723929
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 74723930}
+  - component: {fileID: 74723931}
+  m_Layer: 0
+  m_Name: r3440
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &74723930
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 74723929}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &74723931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 74723929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r3440
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 3410
+  _memberOffset: 311037
+  _partitionBounds:
+    m_Center: {x: 3.5462155, y: -1.2225528, z: -0.0061608255}
+    m_Extent: {x: 0.27169824, y: 0.27169818, z: 0.27169818}
+  _renderBounds:
+    m_Center: {x: 3.539958, y: -1.1692984, z: 0.20311093}
+    m_Extent: {x: 0.35560858, y: 0.3578019, z: 0.17808938}
+--- !u!1 &82597999
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 82598000}
+  - component: {fileID: 82598001}
+  m_Layer: 0
+  m_Name: r2550
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &82598000
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82597999}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &82598001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82597999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r2550
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 6533
+  _memberOffset: 183151
+  _partitionBounds:
+    m_Center: {x: 2.459423, y: -1.2225528, z: -0.0061608255}
+    m_Extent: {x: 0.27169812, y: 0.27169818, z: 0.27169818}
+  _renderBounds:
+    m_Center: {x: 2.4495838, y: -1.0089641, z: 0.13670981}
+    m_Extent: {x: 0.38257337, y: 0.17725009, z: 0.2464781}
 --- !u!1 &85216994
 GameObject:
   m_ObjectHideFlags: 0
@@ -1015,6 +1290,171 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &96429719
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 96429720}
+  - component: {fileID: 96429721}
+  m_Layer: 0
+  m_Name: r524
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &96429720
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96429719}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &96429721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96429719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r524
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 12785
+  _memberOffset: 525930
+  _partitionBounds:
+    m_Center: {x: 3.8179135, y: -3.1244397, z: 2.4391227}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 3.848782, y: -2.799428, z: 2.3688753}
+    m_Extent: {x: 0.19206274, y: 0.5610615, z: 0.8086783}
+--- !u!1 &97828341
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 97828342}
+  - component: {fileID: 97828343}
+  m_Layer: 0
+  m_Name: r2553
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &97828342
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97828341}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &97828343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97828341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r2553
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 3603
+  _memberOffset: 197493
+  _partitionBounds:
+    m_Center: {x: 3.002819, y: -0.6791564, z: -0.0061608255}
+    m_Extent: {x: 0.27169812, y: 0.27169815, z: 0.27169818}
+  _renderBounds:
+    m_Center: {x: 3.0390184, y: -0.6510771, z: 0.18798646}
+    m_Extent: {x: 0.35560775, y: 0.3832143, z: 0.20251489}
+--- !u!1 &103249406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 103249407}
+  - component: {fileID: 103249408}
+  m_Layer: 0
+  m_Name: r7442
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &103249407
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103249406}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &103249408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103249406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r7442
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 3974
+  _memberOffset: 943130
+  _partitionBounds:
+    m_Center: {x: 3.5462155, y: -0.6791564, z: 4.3410096}
+    m_Extent: {x: 0.27169824, y: 0.27169815, z: 0.271698}
+  _renderBounds:
+    m_Center: {x: 3.4850955, y: -0.73898566, z: 4.3132744}
+    m_Extent: {x: 0.28456342, y: 0.31234372, z: 0.50015235}
 --- !u!1 &104223554
 GameObject:
   m_ObjectHideFlags: 0
@@ -1046,6 +1486,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1335895413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &105903677
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 105903678}
+  - component: {fileID: 105903679}
+  m_Layer: 0
+  m_Name: r651
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &105903678
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105903677}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &105903679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105903677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r651
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 2200
+  _memberOffset: 772750
+  _partitionBounds:
+    m_Center: {x: 2.731121, y: -0.95085454, z: 3.5259151}
+    m_Extent: {x: 0.54339623, y: 0.54339635, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 2.8136692, y: -0.6331256, z: 3.4304414}
+    m_Extent: {x: 0.80975103, y: 0.36485392, z: 0.7702404}
 --- !u!1 &109328081
 GameObject:
   m_ObjectHideFlags: 0
@@ -1739,6 +2234,171 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1606083557}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &144891198
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 144891199}
+  - component: {fileID: 144891200}
+  m_Layer: 0
+  m_Name: r653
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &144891199
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144891198}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &144891200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144891198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r653
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 7243
+  _memberOffset: 802814
+  _partitionBounds:
+    m_Center: {x: 2.731121, y: 0.13593811, z: 3.5259151}
+    m_Extent: {x: 0.54339623, y: 0.54339635, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 2.6917048, y: -0.13213888, z: 3.5634072}
+    m_Extent: {x: 0.7285806, y: 0.41950604, z: 0.684819}
+--- !u!1 &145920289
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 145920290}
+  - component: {fileID: 145920291}
+  m_Layer: 0
+  m_Name: r742
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &145920290
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145920289}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &145920291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145920289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r742
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 6398
+  _memberOffset: 929888
+  _partitionBounds:
+    m_Center: {x: 3.8179135, y: 0.13593811, z: 3.5259151}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 3.53656, y: -0.08250803, z: 3.518369}
+    m_Extent: {x: 0.41825747, y: 0.45727533, z: 0.71597266}
+--- !u!1 &148106892
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 148106893}
+  - component: {fileID: 148106894}
+  m_Layer: 0
+  m_Name: r162
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &148106893
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 148106892}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &148106894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 148106892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r162
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 7810
+  _memberOffset: 74060
+  _partitionBounds:
+    m_Center: {x: 3.8179135, y: -2.0376472, z: -0.8212553}
+    m_Extent: {x: 0.54339635, y: 0.5433963, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 3.5868354, y: -1.9058177, z: -0.6422027}
+    m_Extent: {x: 0.46729028, y: 0.48569155, z: 0.57402104}
 --- !u!1 &149106689
 GameObject:
   m_ObjectHideFlags: 0
@@ -1834,6 +2494,116 @@ Transform:
   - {fileID: 1475787366}
   m_Father: {fileID: 208087104}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &154739860
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 154739861}
+  - component: {fileID: 154739862}
+  m_Layer: 0
+  m_Name: r700
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &154739861
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154739860}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &154739862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154739860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r700
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 12562
+  _memberOffset: 876452
+  _partitionBounds:
+    m_Center: {x: 3.8179135, y: -0.95085454, z: 1.35233}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 3.625826, y: -0.9482422, z: 1.3451631}
+    m_Extent: {x: 0.50885487, y: 0.7467518, z: 0.69119984}
+--- !u!1 &164615124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 164615125}
+  - component: {fileID: 164615126}
+  m_Layer: 0
+  m_Name: r164
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &164615125
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164615124}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &164615126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164615124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r164
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 10153
+  _memberOffset: 81870
+  _partitionBounds:
+    m_Center: {x: 3.8179135, y: -3.1244397, z: 0.2655373}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 3.834488, y: -2.8549118, z: 0.44161528}
+    m_Extent: {x: 0.95156515, y: 0.7193248, z: 0.7757254}
 --- !u!1 &173342505
 GameObject:
   m_ObjectHideFlags: 0
@@ -2002,6 +2772,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1773240345}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &190655002
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 190655003}
+  - component: {fileID: 190655004}
+  m_Layer: 0
+  m_Name: r2554
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &190655003
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190655002}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &190655004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190655002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r2554
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 11007
+  _memberOffset: 201096
+  _partitionBounds:
+    m_Center: {x: 2.459423, y: -1.2225528, z: 0.5372355}
+    m_Extent: {x: 0.27169812, y: 0.27169818, z: 0.27169815}
+  _renderBounds:
+    m_Center: {x: 2.4199264, y: -1.2457185, z: 0.6103455}
+    m_Extent: {x: 0.42312533, y: 0.44368094, z: 0.43493116}
 --- !u!1 &197303942
 GameObject:
   m_ObjectHideFlags: 0
@@ -2251,6 +3076,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1335895413}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &244564397
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 244564398}
+  - component: {fileID: 244564399}
+  m_Layer: 0
+  m_Name: r3443
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &244564398
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244564397}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &244564399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244564397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r3443
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 5928
+  _memberOffset: 328041
+  _partitionBounds:
+    m_Center: {x: 4.089612, y: -0.6791564, z: -0.0061608255}
+    m_Extent: {x: 0.27169812, y: 0.27169815, z: 0.27169818}
+  _renderBounds:
+    m_Center: {x: 3.9309344, y: -0.62857866, z: -0.025904268}
+    m_Extent: {x: 0.1930232, y: 0.53625906, z: 0.45152217}
 --- !u!1 &244997558
 GameObject:
   m_ObjectHideFlags: 0
@@ -2412,6 +3292,61 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.009499997, y: 0.01770607, z: -0.0011095628}
     m_Extent: {x: 0.04527676, y: 0.05372102, z: 0.06648618}
   m_DirtyAABB: 0
+--- !u!1 &253856917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 253856918}
+  - component: {fileID: 253856919}
+  m_Layer: 0
+  m_Name: r476
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &253856918
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253856917}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &253856919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253856917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r476
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 17571
+  _memberOffset: 474018
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: -2.0376472, z: 4.612708}
+    m_Extent: {x: 0.54339635, y: 0.5433963, z: 0.54339623}
+  _renderBounds:
+    m_Center: {x: 1.7562914, y: -2.1493127, z: 4.5218306}
+    m_Extent: {x: 0.71527165, y: 0.8538529, z: 0.81034327}
 --- !u!1 &258826211
 GameObject:
   m_ObjectHideFlags: 0
@@ -2536,6 +3471,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1875125533}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &292865663
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 292865664}
+  - component: {fileID: 292865665}
+  m_Layer: 0
+  m_Name: r340
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &292865664
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292865663}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &292865665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292865663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r340
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 17749
+  _memberOffset: 281111
+  _partitionBounds:
+    m_Center: {x: 3.8179135, y: -0.95085454, z: -0.8212553}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 3.8858, y: -0.90267026, z: -0.64559215}
+    m_Extent: {x: 0.09703779, y: 0.75289357, z: 0.5838813}
 --- !u!1 &300156692
 GameObject:
   m_ObjectHideFlags: 0
@@ -2685,6 +3675,116 @@ Transform:
   m_Children: []
   m_Father: {fileID: 89604295}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &343541203
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 343541204}
+  - component: {fileID: 343541205}
+  m_Layer: 0
+  m_Name: r343
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &343541204
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343541203}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &343541205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343541203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r343
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 5107
+  _memberOffset: 305930
+  _partitionBounds:
+    m_Center: {x: 4.904706, y: 0.13593811, z: -0.8212553}
+    m_Extent: {x: 0.54339623, y: 0.54339635, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 4.7917366, y: 0.068415046, z: -0.8092222}
+    m_Extent: {x: 0.6569345, y: 0.33601904, z: 0.9525256}
+--- !u!1 &357987488
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 357987489}
+  - component: {fileID: 357987490}
+  m_Layer: 0
+  m_Name: r7444
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &357987489
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357987488}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &357987490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357987488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r7444
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 3832
+  _memberOffset: 951520
+  _partitionBounds:
+    m_Center: {x: 3.5462155, y: -1.2225528, z: 4.884406}
+    m_Extent: {x: 0.27169824, y: 0.27169818, z: 0.27169824}
+  _renderBounds:
+    m_Center: {x: 3.5368185, y: -1.1831679, z: 4.845113}
+    m_Extent: {x: 0.1721543, y: 0.4351239, z: 0.16551185}
 --- !u!1 &364098699
 GameObject:
   m_ObjectHideFlags: 0
@@ -2829,6 +3929,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 175846759}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &378938020
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 378938021}
+  - component: {fileID: 378938022}
+  m_Layer: 0
+  m_Name: r706
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &378938021
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378938020}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &378938022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378938020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r706
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 6998
+  _memberOffset: 913709
+  _partitionBounds:
+    m_Center: {x: 3.8179135, y: 0.13593811, z: 2.4391227}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 3.5662107, y: -0.021536797, z: 2.459434}
+    m_Extent: {x: 0.46039248, y: 0.47878262, z: 0.7490935}
 --- !u!1 &399894515
 GameObject:
   m_ObjectHideFlags: 0
@@ -2860,6 +4015,116 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1606083557}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &401356537
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 401356538}
+  - component: {fileID: 401356539}
+  m_Layer: 0
+  m_Name: r3446
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &401356538
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401356537}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &401356539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401356537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r3446
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 1620
+  _memberOffset: 346587
+  _partitionBounds:
+    m_Center: {x: 3.5462155, y: -0.6791564, z: 0.5372355}
+    m_Extent: {x: 0.27169824, y: 0.27169815, z: 0.27169815}
+  _renderBounds:
+    m_Center: {x: 3.5268974, y: -0.5670541, z: 0.43008643}
+    m_Extent: {x: 0.41801417, y: 0.45846266, z: 0.4776362}
+--- !u!1 &403911120
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 403911121}
+  - component: {fileID: 403911122}
+  m_Layer: 0
+  m_Name: r252
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &403911121
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403911120}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &403911122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403911120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r252
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 7503
+  _memberOffset: 135950
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: 0.13593811, z: -0.8212553}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 1.8885248, y: -0.20400411, z: -0.76674193}
+    m_Extent: {x: 0.39411646, y: 0.525997, z: 0.6729978}
 --- !u!1 &406738812
 GameObject:
   m_ObjectHideFlags: 0
@@ -3205,7 +4470,7 @@ GameObject:
   - component: {fileID: 450335366}
   - component: {fileID: 450335367}
   m_Layer: 0
-  m_Name: Scott Vickers - Full Source (Uncalibrated)
+  m_Name: Accepted LOD0 - 988866
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3223,7 +4488,8 @@ Transform:
   m_LocalPosition: {x: -2.9338257, y: 0.155, z: 0.448}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2097552087}
   m_Father: {fileID: 1084792940}
   m_LocalEulerAnglesHint: {x: 180.993, y: -4.799988, z: 0}
 --- !u!114 &450335367
@@ -3238,7 +4504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce0eaa90dbf24670a230447dc3ec09f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Gsplat::Gsplat.GsplatRenderer
-  GsplatAsset: {fileID: 4599839170941234424, guid: f26c73b9806ba5444a6a3c6c4bb68a1d, type: 3}
+  GsplatAsset: {fileID: 4599839170941234424, guid: e76c4139f15795142a58297c6b624281, type: 3}
   SHDegree: 0
   RenderOrder: 0
   Brightness: 1
@@ -3250,7 +4516,7 @@ MonoBehaviour:
   SortMode: 0
   SortRefreshRate: 1
   CutoutsRefreshRate: 1
-  m_assetGuid: f26c73b9806ba5444a6a3c6c4bb68a1d
+  m_assetGuid: e76c4139f15795142a58297c6b624281
 --- !u!1 &452937402
 GameObject:
   m_ObjectHideFlags: 0
@@ -3457,6 +4723,116 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 461032814}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &467062393
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 467062394}
+  - component: {fileID: 467062395}
+  m_Layer: 0
+  m_Name: r076
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &467062394
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467062393}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &467062395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467062393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r076
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 20976
+  _memberOffset: 22339
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: -2.0376472, z: 0.2655373}
+    m_Extent: {x: 0.54339635, y: 0.5433963, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 1.9861666, y: -2.1158288, z: 0.28076106}
+    m_Extent: {x: 0.53434455, y: 0.8487615, z: 0.8236922}
+--- !u!1 &475604915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 475604916}
+  - component: {fileID: 475604917}
+  m_Layer: 0
+  m_Name: r703
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &475604916
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475604915}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &475604917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475604915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r703
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 1362
+  _memberOffset: 902872
+  _partitionBounds:
+    m_Center: {x: 4.904706, y: 0.13593811, z: 1.35233}
+    m_Extent: {x: 0.54339623, y: 0.54339635, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 4.403796, y: 0.15625535, z: 0.9544282}
+    m_Extent: {x: 0.31523013, y: 0.161637, z: 0.34524092}
 --- !u!1 &481254603
 GameObject:
   m_ObjectHideFlags: 0
@@ -4070,6 +5446,61 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8155651564969174895, guid: 688f11fe7230eab47a55fd15e7e8979d, type: 3}
   m_PrefabInstance: {fileID: 513562290}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &515201678
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 515201679}
+  - component: {fileID: 515201680}
+  m_Layer: 0
+  m_Name: r7446
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &515201679
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515201678}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &515201680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515201678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r7446
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 7370
+  _memberOffset: 960239
+  _partitionBounds:
+    m_Center: {x: 3.5462155, y: -0.6791564, z: 4.884406}
+    m_Extent: {x: 0.27169824, y: 0.27169815, z: 0.27169824}
+  _renderBounds:
+    m_Center: {x: 3.3575869, y: -0.67968035, z: 4.7616644}
+    m_Extent: {x: 0.36702907, y: 0.46553862, z: 0.29375672}
 --- !u!1 &517759360
 GameObject:
   m_ObjectHideFlags: 0
@@ -4140,6 +5571,61 @@ Transform:
   - {fileID: 1458056455}
   m_Father: {fileID: 457172081}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &526690177
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 526690178}
+  - component: {fileID: 526690179}
+  m_Layer: 0
+  m_Name: r342
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &526690178
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526690177}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &526690179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526690177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r342
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 7070
+  _memberOffset: 298860
+  _partitionBounds:
+    m_Center: {x: 3.8179135, y: 0.13593811, z: -0.8212553}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 4.0787854, y: -0.1907385, z: -0.6403341}
+    m_Extent: {x: 0.47641516, y: 0.60560155, z: 0.62518585}
 --- !u!1 &536309634
 GameObject:
   m_ObjectHideFlags: 0
@@ -4516,6 +6002,116 @@ Transform:
   - {fileID: 843535381}
   m_Father: {fileID: 1991307197}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &620193298
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 620193299}
+  - component: {fileID: 620193300}
+  m_Layer: 0
+  m_Name: r2547
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &620193299
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620193298}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &620193300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620193298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r2547
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 5976
+  _memberOffset: 177175
+  _partitionBounds:
+    m_Center: {x: 1.9160266, y: -0.6791564, z: 0.5372355}
+    m_Extent: {x: 0.27169818, y: 0.27169815, z: 0.27169815}
+  _renderBounds:
+    m_Center: {x: 1.9601452, y: -0.68258095, z: 0.5453231}
+    m_Extent: {x: 0.4590302, y: 0.53077996, z: 0.48513573}
+--- !u!1 &622365425
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 622365426}
+  - component: {fileID: 622365427}
+  m_Layer: 0
+  m_Name: r2543
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &622365426
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622365425}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &622365427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622365425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r2543
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 8367
+  _memberOffset: 154228
+  _partitionBounds:
+    m_Center: {x: 1.9160266, y: -0.6791564, z: -0.0061608255}
+    m_Extent: {x: 0.27169818, y: 0.27169815, z: 0.27169818}
+  _renderBounds:
+    m_Center: {x: 1.9365985, y: -0.64174956, z: 0.005028546}
+    m_Extent: {x: 0.3499725, y: 0.49235898, z: 0.40361893}
 --- !u!1 &632641360
 GameObject:
   m_ObjectHideFlags: 0
@@ -4726,6 +6322,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1948227416}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &673845805
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 673845806}
+  - component: {fileID: 673845807}
+  m_Layer: 0
+  m_Name: r656
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &673845806
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673845805}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &673845807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673845805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r656
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 24204
+  _memberOffset: 842547
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: 0.13593811, z: 4.612708}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.54339623}
+  _renderBounds:
+    m_Center: {x: 1.6872178, y: -0.053602457, z: 4.5100517}
+    m_Extent: {x: 0.7402209, y: 0.53276324, z: 0.745661}
 --- !u!1 &678454237
 GameObject:
   m_ObjectHideFlags: 0
@@ -5022,6 +6673,61 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 691226747}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &702359631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 702359632}
+  - component: {fileID: 702359633}
+  m_Layer: 0
+  m_Name: r522
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &702359632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702359631}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &702359633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702359631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r522
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 16139
+  _memberOffset: 509791
+  _partitionBounds:
+    m_Center: {x: 3.8179135, y: -2.0376472, z: 1.35233}
+    m_Extent: {x: 0.54339635, y: 0.5433963, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 3.5463572, y: -2.0973282, z: 1.3492519}
+    m_Extent: {x: 0.58532, y: 0.78047115, z: 0.79420364}
 --- !u!1 &706858631
 GameObject:
   m_ObjectHideFlags: 0
@@ -5184,6 +6890,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1158271507}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &724443407
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 724443408}
+  - component: {fileID: 724443409}
+  m_Layer: 0
+  m_Name: r654
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &724443408
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724443407}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &724443409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724443407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r654
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 25178
+  _memberOffset: 810057
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: -0.95085454, z: 4.612708}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.54339623}
+  _renderBounds:
+    m_Center: {x: 1.870695, y: -0.9678876, z: 4.372103}
+    m_Extent: {x: 0.526291, y: 0.7303155, z: 0.53305185}
 --- !u!1 &731667445
 GameObject:
   m_ObjectHideFlags: 0
@@ -5215,6 +6976,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1024607202}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &732113579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 732113580}
+  - component: {fileID: 732113581}
+  m_Layer: 0
+  m_Name: r740
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &732113580
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732113579}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &732113581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732113579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r740
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 9181
+  _memberOffset: 920707
+  _partitionBounds:
+    m_Center: {x: 3.8179135, y: -0.95085454, z: 3.5259151}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 3.5104587, y: -0.9700744, z: 3.5428545}
+    m_Extent: {x: 0.39665675, y: 0.69453967, z: 0.7539308}
 --- !u!1 &746022999
 GameObject:
   m_ObjectHideFlags: 0
@@ -5368,7 +7184,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 776952057}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -5425,6 +7241,116 @@ Transform:
   m_Children: []
   m_Father: {fileID: 121970266}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &782086369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 782086370}
+  - component: {fileID: 782086371}
+  m_Layer: 0
+  m_Name: r702
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &782086370
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782086369}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &782086371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782086369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r702
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 13858
+  _memberOffset: 889014
+  _partitionBounds:
+    m_Center: {x: 3.8179135, y: 0.13593811, z: 1.35233}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 3.837149, y: -0.13407034, z: 1.358819}
+    m_Extent: {x: 0.7816756, y: 0.5986545, z: 0.78057367}
+--- !u!1 &786891561
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 786891562}
+  - component: {fileID: 786891563}
+  m_Layer: 0
+  m_Name: r7441
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &786891562
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786891561}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &786891563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786891561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r7441
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 6844
+  _memberOffset: 936286
+  _partitionBounds:
+    m_Center: {x: 4.089612, y: -1.2225528, z: 4.3410096}
+    m_Extent: {x: 0.27169812, y: 0.27169818, z: 0.271698}
+  _renderBounds:
+    m_Center: {x: 4.0057497, y: -1.244272, z: 4.4434843}
+    m_Extent: {x: 0.1092999, y: 0.35134405, z: 0.32628584}
 --- !u!1 &787972527
 GameObject:
   m_ObjectHideFlags: 0
@@ -5640,6 +7566,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1429289494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &820367385
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 820367386}
+  - component: {fileID: 820367387}
+  m_Layer: 0
+  m_Name: r612
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &820367386
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820367385}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &820367387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820367385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r612
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 24445
+  _memberOffset: 657933
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: 0.13593811, z: 1.35233}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 1.8905537, y: -0.055173814, z: 1.4084532}
+    m_Extent: {x: 0.5138738, y: 0.52651936, z: 0.7906004}
 --- !u!1 &820982217
 GameObject:
   m_ObjectHideFlags: 0
@@ -5739,6 +7720,61 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.009499997, y: 0.01770607, z: -0.0011095628}
     m_Extent: {x: 0.04527676, y: 0.05372102, z: 0.06648618}
   m_DirtyAABB: 0
+--- !u!1 &831195405
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 831195406}
+  - component: {fileID: 831195407}
+  m_Layer: 0
+  m_Name: r520
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &831195406
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831195405}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &831195407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 831195405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r520
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 11747
+  _memberOffset: 497923
+  _partitionBounds:
+    m_Center: {x: 3.8179135, y: -3.1244397, z: 1.35233}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 4.0540013, y: -2.8062797, z: 1.3538249}
+    m_Extent: {x: 0.55739486, y: 0.64224064, z: 0.94550055}
 --- !u!1 &843535380
 GameObject:
   m_ObjectHideFlags: 0
@@ -5770,6 +7806,116 @@ Transform:
   m_Children: []
   m_Father: {fileID: 616192838}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &846342164
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 846342165}
+  - component: {fileID: 846342166}
+  m_Layer: 0
+  m_Name: r7443
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &846342165
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846342164}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &846342166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846342164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r7443
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 4416
+  _memberOffset: 947104
+  _partitionBounds:
+    m_Center: {x: 4.089612, y: -0.6791564, z: 4.3410096}
+    m_Extent: {x: 0.27169812, y: 0.27169815, z: 0.271698}
+  _renderBounds:
+    m_Center: {x: 4.118455, y: -0.66869503, z: 4.4033313}
+    m_Extent: {x: 0.12303221, y: 0.32450932, z: 0.3124318}
+--- !u!1 &870316733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 870316734}
+  - component: {fileID: 870316735}
+  m_Layer: 0
+  m_Name: r346
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &870316734
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870316733}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &870316735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870316733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r346
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 16599
+  _memberOffset: 349459
+  _partitionBounds:
+    m_Center: {x: 3.8179135, y: 0.13593811, z: 0.2655373}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 3.7790408, y: -0.036986053, z: 0.23825842}
+    m_Extent: {x: 0.7929863, y: 0.64659476, z: 0.81035143}
 --- !u!1 &873049378
 GameObject:
   m_ObjectHideFlags: 0
@@ -5801,6 +7947,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1429289494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &876075250
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 876075251}
+  - component: {fileID: 876075252}
+  m_Layer: 0
+  m_Name: r31
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &876075251
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876075250}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &876075252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876075250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r31
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 3355
+  _memberOffset: 277756
+  _partitionBounds:
+    m_Center: {x: 6.534895, y: -0.4074582, z: -2.4514441}
+    m_Extent: {x: 1.0867927, y: 1.0867927, z: 1.0867926}
+  _renderBounds:
+    m_Center: {x: 5.791015, y: -0.22714281, z: -2.7400975}
+    m_Extent: {x: 1.0800977, y: 1.083364, z: 1.193137}
 --- !u!1001 &881521139
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5992,6 +8193,61 @@ SkinnedMeshRenderer:
     m_Center: {x: -3.5085695, y: 0.08475034, z: -0.17565808}
     m_Extent: {x: 0.10651159, y: 0.18774159, z: 0.45612463}
   m_DirtyAABB: 0
+--- !u!1 &889496820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 889496821}
+  - component: {fileID: 889496822}
+  m_Layer: 0
+  m_Name: r475
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &889496821
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889496820}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &889496822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889496820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r475
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 14915
+  _memberOffset: 459103
+  _partitionBounds:
+    m_Center: {x: 2.731121, y: -3.1244397, z: 4.612708}
+    m_Extent: {x: 0.54339623, y: 0.54339635, z: 0.54339623}
+  _renderBounds:
+    m_Center: {x: 2.6942332, y: -2.851908, z: 4.879874}
+    m_Extent: {x: 0.7090916, y: 0.3302338, z: 0.11968303}
 --- !u!1 &889984687
 GameObject:
   m_ObjectHideFlags: 0
@@ -6122,6 +8378,61 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.6778891, y: -3.0013652, z: -1.9480774}
     m_Extent: {x: 3.368389, y: 4.3300548, z: 5.2953033}
   m_DirtyAABB: 0
+--- !u!1 &897675038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 897675039}
+  - component: {fileID: 897675040}
+  m_Layer: 0
+  m_Name: r3445
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &897675039
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 897675038}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &897675040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 897675038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r3445
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 3777
+  _memberOffset: 342810
+  _partitionBounds:
+    m_Center: {x: 4.089612, y: -1.2225528, z: 0.5372355}
+    m_Extent: {x: 0.27169812, y: 0.27169818, z: 0.27169815}
+  _renderBounds:
+    m_Center: {x: 3.9456053, y: -1.2392845, z: 0.54093826}
+    m_Extent: {x: 0.20251715, y: 0.4251346, z: 0.39967924}
 --- !u!1 &902501953
 GameObject:
   m_ObjectHideFlags: 0
@@ -6216,6 +8527,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 151106569}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &919467956
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 919467957}
+  - component: {fileID: 919467958}
+  m_Layer: 0
+  m_Name: r166
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &919467957
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919467956}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &919467958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919467956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r166
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 22842
+  _memberOffset: 92023
+  _partitionBounds:
+    m_Center: {x: 3.8179135, y: -2.0376472, z: 0.2655373}
+    m_Extent: {x: 0.54339635, y: 0.5433963, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 3.5747132, y: -2.1210916, z: 0.31390584}
+    m_Extent: {x: 0.6443744, y: 0.7584908, z: 0.8770282}
 --- !u!1 &924594132
 GameObject:
   m_ObjectHideFlags: 0
@@ -6586,6 +8952,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2118862488}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &951273542
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 951273543}
+  - component: {fileID: 951273544}
+  m_Layer: 0
+  m_Name: r2546
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &951273543
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951273542}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &951273544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951273542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r2546
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 5899
+  _memberOffset: 171276
+  _partitionBounds:
+    m_Center: {x: 1.3726304, y: -0.6791564, z: 0.5372355}
+    m_Extent: {x: 0.27169818, y: 0.27169815, z: 0.27169815}
+  _renderBounds:
+    m_Center: {x: 1.6337061, y: -0.66962785, z: 0.44389415}
+    m_Extent: {x: 0.12559521, y: 0.29806948, z: 0.20768273}
 --- !u!1 &953558395
 GameObject:
   m_ObjectHideFlags: 0
@@ -6648,6 +9069,116 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1733018471}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &974394355
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 974394356}
+  - component: {fileID: 974394357}
+  m_Layer: 0
+  m_Name: r617
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &974394356
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974394355}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &974394357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974394355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r617
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 8897
+  _memberOffset: 748471
+  _partitionBounds:
+    m_Center: {x: 2.731121, y: 0.13593811, z: 2.4391227}
+    m_Extent: {x: 0.54339623, y: 0.54339635, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 2.7140727, y: -0.1072399, z: 2.435721}
+    m_Extent: {x: 0.74891925, y: 0.46235102, z: 0.67066187}
+--- !u!1 &985710518
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 985710519}
+  - component: {fileID: 985710520}
+  m_Layer: 0
+  m_Name: r2541
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &985710519
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985710518}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &985710520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 985710518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r2541
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 10775
+  _memberOffset: 143453
+  _partitionBounds:
+    m_Center: {x: 1.9160266, y: -1.2225528, z: -0.0061608255}
+    m_Extent: {x: 0.27169818, y: 0.27169818, z: 0.27169818}
+  _renderBounds:
+    m_Center: {x: 2.043252, y: -1.2145914, z: 0.018927485}
+    m_Extent: {x: 0.32493174, y: 0.45788506, z: 0.3773923}
 --- !u!1 &986948353
 GameObject:
   m_ObjectHideFlags: 0
@@ -6679,6 +9210,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1463764532}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &988583705
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 988583706}
+  - component: {fileID: 988583707}
+  m_Layer: 0
+  m_Name: r746
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &988583706
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 988583705}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &988583707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 988583705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r746
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 18335
+  _memberOffset: 970531
+  _partitionBounds:
+    m_Center: {x: 3.8179135, y: 0.13593811, z: 4.612708}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.54339623}
+  _renderBounds:
+    m_Center: {x: 3.7372112, y: -0.04948175, z: 4.523849}
+    m_Extent: {x: 0.7335595, y: 0.5409757, z: 0.6105776}
 --- !u!1 &1012009731
 GameObject:
   m_ObjectHideFlags: 0
@@ -6992,6 +9578,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 89604295}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1058663937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1058663938}
+  - component: {fileID: 1058663939}
+  m_Layer: 0
+  m_Name: r2556
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1058663938
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058663937}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1058663939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058663937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r2556
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 1899
+  _memberOffset: 226394
+  _partitionBounds:
+    m_Center: {x: 2.459423, y: -0.6791564, z: 0.5372355}
+    m_Extent: {x: 0.27169812, y: 0.27169815, z: 0.27169815}
+  _renderBounds:
+    m_Center: {x: 2.4926882, y: -0.6488714, z: 0.6378367}
+    m_Extent: {x: 0.4311521, y: 0.41638207, z: 0.28430724}
 --- !u!1 &1061820226
 GameObject:
   m_ObjectHideFlags: 0
@@ -7056,6 +9697,61 @@ Transform:
   - {fileID: 1800966435}
   m_Father: {fileID: 1699895682}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1075890725
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1075890726}
+  - component: {fileID: 1075890727}
+  m_Layer: 0
+  m_Name: r560
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1075890726
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1075890725}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1075890727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1075890725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r560
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 17011
+  _memberOffset: 551354
+  _partitionBounds:
+    m_Center: {x: 3.8179135, y: -3.1244397, z: 3.5259151}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 3.7157032, y: -2.835988, z: 3.4687343}
+    m_Extent: {x: 0.17030239, y: 0.49609077, z: 0.7168356}
 --- !u!1 &1076091703
 GameObject:
   m_ObjectHideFlags: 0
@@ -7610,6 +10306,281 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1606083557}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1115677141
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1115677142}
+  - component: {fileID: 1115677143}
+  m_Layer: 0
+  m_Name: r077
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1115677142
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115677141}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1115677143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115677141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r077
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 30745
+  _memberOffset: 43315
+  _partitionBounds:
+    m_Center: {x: 2.731121, y: -2.0376472, z: 0.2655373}
+    m_Extent: {x: 0.54339623, y: 0.5433963, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 2.7918358, y: -2.0350487, z: 0.3205939}
+    m_Extent: {x: 0.97715247, y: 0.74242353, z: 0.8522599}
+--- !u!1 &1122427959
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1122427960}
+  - component: {fileID: 1122427961}
+  m_Layer: 0
+  m_Name: r64
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1122427960
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122427959}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1122427961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122427959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r64
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 1340
+  _memberOffset: 757368
+  _partitionBounds:
+    m_Center: {x: 0.014139533, y: -0.4074582, z: 4.0693116}
+    m_Extent: {x: 1.0867926, y: 1.0867927, z: 1.0867926}
+  _renderBounds:
+    m_Center: {x: 0.7785184, y: 0.19972205, z: 4.484073}
+    m_Extent: {x: 0.523299, y: 0.22631164, z: 0.84324515}
+--- !u!1 &1133769874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1133769875}
+  - component: {fileID: 1133769876}
+  m_Layer: 0
+  m_Name: r616
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1133769875
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133769874}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1133769876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133769874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r616
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 22546
+  _memberOffset: 725925
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: 0.13593811, z: 2.4391227}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 1.8040951, y: -0.075087726, z: 2.4336424}
+    m_Extent: {x: 0.60506666, y: 0.49261236, z: 0.83597934}
+--- !u!1 &1137810884
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1137810885}
+  - component: {fileID: 1137810886}
+  m_Layer: 0
+  m_Name: r2545
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1137810885
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137810884}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1137810886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137810884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r2545
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 8681
+  _memberOffset: 162595
+  _partitionBounds:
+    m_Center: {x: 1.9160266, y: -1.2225528, z: 0.5372355}
+    m_Extent: {x: 0.27169818, y: 0.27169818, z: 0.27169815}
+  _renderBounds:
+    m_Center: {x: 2.0094852, y: -1.2179508, z: 0.5347355}
+    m_Extent: {x: 0.3604647, y: 0.46361855, z: 0.44124356}
+--- !u!1 &1143200331
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1143200332}
+  - component: {fileID: 1143200333}
+  m_Layer: 0
+  m_Name: r430
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1143200332
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143200331}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1143200333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143200331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r430
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 6084
+  _memberOffset: 369405
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: -3.1244397, z: 1.35233}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 1.7441068, y: -2.9190848, z: 1.3233278}
+    m_Extent: {x: 0.45403713, y: 0.7680328, z: 1.0252892}
 --- !u!1 &1148991169
 GameObject:
   m_ObjectHideFlags: 0
@@ -7823,6 +10794,116 @@ Transform:
   m_Children: []
   m_Father: {fileID: 109328082}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1182342398
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1182342399}
+  - component: {fileID: 1182342400}
+  m_Layer: 0
+  m_Name: r3441
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1182342399
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182342398}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1182342400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182342398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r3441
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 8208
+  _memberOffset: 314447
+  _partitionBounds:
+    m_Center: {x: 4.089612, y: -1.2225528, z: -0.0061608255}
+    m_Extent: {x: 0.27169812, y: 0.27169818, z: 0.27169818}
+  _renderBounds:
+    m_Center: {x: 3.9293566, y: -1.1765149, z: 0.040148407}
+    m_Extent: {x: 0.19514501, y: 0.47156185, z: 0.43416095}
+--- !u!1 &1183644892
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1183644893}
+  - component: {fileID: 1183644894}
+  m_Layer: 0
+  m_Name: r073
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1183644893
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1183644892}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1183644894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1183644892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r073
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 9360
+  _memberOffset: 3930
+  _partitionBounds:
+    m_Center: {x: 2.731121, y: -2.0376472, z: -0.8212553}
+    m_Extent: {x: 0.54339623, y: 0.5433963, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 2.7148318, y: -2.027871, z: -0.7116827}
+    m_Extent: {x: 0.72755075, y: 0.23921204, z: 0.6934036}
 --- !u!1 &1188807861
 GameObject:
   m_ObjectHideFlags: 0
@@ -8304,6 +11385,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1441232576}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1233863986
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1233863987}
+  - component: {fileID: 1233863988}
+  m_Layer: 0
+  m_Name: r566
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1233863987
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233863986}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1233863988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233863986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r566
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 26760
+  _memberOffset: 597740
+  _partitionBounds:
+    m_Center: {x: 3.8179135, y: -2.0376472, z: 4.612708}
+    m_Extent: {x: 0.54339635, y: 0.5433963, z: 0.54339623}
+  _renderBounds:
+    m_Center: {x: 3.5572248, y: -2.0222456, z: 4.4771385}
+    m_Extent: {x: 0.43335867, y: 0.6921728, z: 0.5704309}
 --- !u!1 &1234661380
 GameObject:
   m_ObjectHideFlags: 0
@@ -8335,6 +11471,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 481792868}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1236125123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1236125124}
+  - component: {fileID: 1236125125}
+  m_Layer: 0
+  m_Name: r7447
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1236125124
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236125123}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1236125125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236125123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r7447
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 2922
+  _memberOffset: 967609
+  _partitionBounds:
+    m_Center: {x: 4.089612, y: -0.6791564, z: 4.884406}
+    m_Extent: {x: 0.27169812, y: 0.27169815, z: 0.27169824}
+  _renderBounds:
+    m_Center: {x: 4.093151, y: -0.668603, z: 4.7041664}
+    m_Extent: {x: 0.10100722, y: 0.37258857, z: 0.2000835}
 --- !u!1 &1244403080
 GameObject:
   m_ObjectHideFlags: 0
@@ -8366,6 +11557,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 130450353}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1254485520
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1254485521}
+  - component: {fileID: 1254485522}
+  m_Layer: 0
+  m_Name: r257
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1254485521
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254485520}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1254485522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254485520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r257
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 21576
+  _memberOffset: 247724
+  _partitionBounds:
+    m_Center: {x: 2.731121, y: 0.13593811, z: 0.2655373}
+    m_Extent: {x: 0.54339623, y: 0.54339635, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 2.7820144, y: -0.0688948, z: 0.2291792}
+    m_Extent: {x: 0.76726055, y: 0.5300963, z: 0.70619}
 --- !u!1 &1256975308
 GameObject:
   m_ObjectHideFlags: 0
@@ -8490,6 +11736,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 151106569}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1272735389
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1272735390}
+  - component: {fileID: 1272735391}
+  m_Layer: 0
+  m_Name: r7445
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1272735390
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272735389}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1272735391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272735389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r7445
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 4887
+  _memberOffset: 955352
+  _partitionBounds:
+    m_Center: {x: 4.089612, y: -1.2225528, z: 4.884406}
+    m_Extent: {x: 0.27169812, y: 0.27169818, z: 0.27169824}
+  _renderBounds:
+    m_Center: {x: 3.9595149, y: -1.24954, z: 4.6947327}
+    m_Extent: {x: 0.117082834, y: 0.3759874, z: 0.21750045}
 --- !u!1 &1281982410
 GameObject:
   m_ObjectHideFlags: 0
@@ -9055,6 +12356,116 @@ Transform:
   m_Children: []
   m_Father: {fileID: 130450353}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1304720197
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1304720198}
+  - component: {fileID: 1304720199}
+  m_Layer: 0
+  m_Name: r433
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1304720198
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304720197}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1304720199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304720197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r433
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 2023
+  _memberOffset: 388362
+  _partitionBounds:
+    m_Center: {x: 2.731121, y: -2.0376472, z: 1.35233}
+    m_Extent: {x: 0.54339623, y: 0.5433963, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 2.7386966, y: -1.8146045, z: 0.9695004}
+    m_Extent: {x: 0.8845457, y: 0.5351853, z: 0.62545866}
+--- !u!1 &1304906888
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1304906889}
+  - component: {fileID: 1304906890}
+  m_Layer: 0
+  m_Name: r3447
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1304906889
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304906888}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1304906890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304906888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r3447
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 1252
+  _memberOffset: 348207
+  _partitionBounds:
+    m_Center: {x: 4.089612, y: -0.6791564, z: 0.5372355}
+    m_Extent: {x: 0.27169812, y: 0.27169815, z: 0.27169815}
+  _renderBounds:
+    m_Center: {x: 3.9077983, y: -0.65755534, z: 0.539363}
+    m_Extent: {x: 0.20211351, y: 0.42672515, z: 0.4282869}
 --- !u!1 &1307185707
 GameObject:
   m_ObjectHideFlags: 0
@@ -9449,6 +12860,61 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1340229849}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1342065269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1342065270}
+  - component: {fileID: 1342065271}
+  m_Layer: 0
+  m_Name: r477
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1342065270
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342065269}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1342065271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342065269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r477
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 6334
+  _memberOffset: 491589
+  _partitionBounds:
+    m_Center: {x: 2.731121, y: -2.0376472, z: 4.612708}
+    m_Extent: {x: 0.54339623, y: 0.5433963, z: 0.54339623}
+  _renderBounds:
+    m_Center: {x: 2.700823, y: -2.3250215, z: 4.7876453}
+    m_Extent: {x: 0.7380797, y: 0.4125548, z: 0.2486403}
 --- !u!1 &1359201844
 GameObject:
   m_ObjectHideFlags: 0
@@ -9611,6 +13077,61 @@ Transform:
   - {fileID: 638438439}
   m_Father: {fileID: 1025866651}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1374575759
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1374575760}
+  - component: {fileID: 1374575761}
+  m_Layer: 0
+  m_Name: r610
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1374575760
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374575759}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1374575761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374575759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r610
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 28198
+  _memberOffset: 624500
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: -0.95085454, z: 1.35233}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 1.922809, y: -0.946422, z: 1.356574}
+    m_Extent: {x: 0.45217788, y: 0.7717521, z: 0.71236277}
 --- !u!1 &1376857451
 GameObject:
   m_ObjectHideFlags: 0
@@ -9933,6 +13454,61 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.008180305, y: -0.0053694975, z: -0.020344593}
     m_Extent: {x: 0.046097815, y: 0.067293465, z: 0.0557265}
   m_DirtyAABB: 0
+--- !u!1 &1393665478
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1393665479}
+  - component: {fileID: 1393665480}
+  m_Layer: 0
+  m_Name: r526
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1393665479
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393665478}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1393665480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393665478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r526
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 12639
+  _memberOffset: 538715
+  _partitionBounds:
+    m_Center: {x: 3.8179135, y: -2.0376472, z: 2.4391227}
+    m_Extent: {x: 0.54339635, y: 0.5433963, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 3.719962, y: -2.1722953, z: 2.4540765}
+    m_Extent: {x: 0.2467401, y: 0.7828533, z: 0.80602384}
 --- !u!1 &1397211133
 GameObject:
   m_ObjectHideFlags: 0
@@ -10233,6 +13809,116 @@ Transform:
   - {fileID: 986948354}
   m_Father: {fileID: 804344360}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1466151083
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1466151084}
+  - component: {fileID: 1466151085}
+  m_Layer: 0
+  m_Name: r250
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1466151084
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466151083}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1466151085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466151083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r250
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 21085
+  _memberOffset: 114865
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: -0.95085454, z: -0.8212553}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 1.9454399, y: -0.8123695, z: -0.7177547}
+    m_Extent: {x: 0.2349559, y: 0.8517155, z: 0.5852803}
+--- !u!1 &1475354882
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1475354883}
+  - component: {fileID: 1475354884}
+  m_Layer: 0
+  m_Name: r564
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1475354883
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475354882}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1475354884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1475354882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r564
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 15684
+  _memberOffset: 582056
+  _partitionBounds:
+    m_Center: {x: 3.8179135, y: -3.1244397, z: 4.612708}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.54339623}
+  _renderBounds:
+    m_Center: {x: 3.4592705, y: -2.8211508, z: 4.485559}
+    m_Extent: {x: 0.31643546, y: 0.38223577, z: 0.5312114}
 --- !u!1 &1475787365
 GameObject:
   m_ObjectHideFlags: 0
@@ -10658,6 +14344,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1429289494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1523135132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1523135133}
+  - component: {fileID: 1523135134}
+  m_Layer: 0
+  m_Name: r2555
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1523135133
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523135132}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1523135134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523135132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r2555
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 14291
+  _memberOffset: 212103
+  _partitionBounds:
+    m_Center: {x: 3.002819, y: -1.2225528, z: 0.5372355}
+    m_Extent: {x: 0.27169812, y: 0.27169818, z: 0.27169815}
+  _renderBounds:
+    m_Center: {x: 2.9929051, y: -1.1865107, z: 0.5522046}
+    m_Extent: {x: 0.41504192, y: 0.41201591, z: 0.35613513}
 --- !u!1 &1538050877
 GameObject:
   m_ObjectHideFlags: 0
@@ -10689,6 +14430,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 517759361}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1543366173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1543366174}
+  - component: {fileID: 1543366175}
+  m_Layer: 0
+  m_Name: r611
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1543366174
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543366173}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1543366175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543366173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r611
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 5235
+  _memberOffset: 652698
+  _partitionBounds:
+    m_Center: {x: 2.731121, y: -0.95085454, z: 1.35233}
+    m_Extent: {x: 0.54339623, y: 0.54339635, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 2.7507129, y: -1.0069542, z: 1.298902}
+    m_Extent: {x: 0.7293855, y: 0.7143131, z: 0.7280233}
 --- !u!1 &1544776837
 GameObject:
   m_ObjectHideFlags: 0
@@ -10782,6 +14578,116 @@ SkinnedMeshRenderer:
     m_Center: {x: 3.5085697, y: 0.084750324, z: -0.17565808}
     m_Extent: {x: 0.10651207, y: 0.1877416, z: 0.45612457}
   m_DirtyAABB: 0
+--- !u!1 &1546518584
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1546518585}
+  - component: {fileID: 1546518586}
+  m_Layer: 0
+  m_Name: r474
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1546518585
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546518584}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1546518586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546518584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r474
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 11268
+  _memberOffset: 447835
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: -3.1244397, z: 4.612708}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.54339623}
+  _renderBounds:
+    m_Center: {x: 1.6869576, y: -2.8376603, z: 4.62055}
+    m_Extent: {x: 0.6861727, y: 0.5923878, z: 0.8347434}
+--- !u!1 &1546881442
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1546881443}
+  - component: {fileID: 1546881444}
+  m_Layer: 0
+  m_Name: r650
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1546881443
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546881442}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1546881444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546881442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r650
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 14042
+  _memberOffset: 758708
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: -0.95085454, z: 3.5259151}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 1.9213039, y: -1.0184169, z: 3.5024786}
+    m_Extent: {x: 0.4876281, y: 0.7355084, z: 0.76441526}
 --- !u!1 &1549874563
 GameObject:
   m_ObjectHideFlags: 0
@@ -11045,6 +14951,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1024607202}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1576006686
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1576006687}
+  - component: {fileID: 1576006688}
+  m_Layer: 0
+  m_Name: r347
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1576006687
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576006686}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1576006688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576006686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r347
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 3347
+  _memberOffset: 366058
+  _partitionBounds:
+    m_Center: {x: 4.904706, y: 0.13593811, z: 0.2655373}
+    m_Extent: {x: 0.54339623, y: 0.54339635, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 4.636845, y: 0.09689818, z: 0.24299031}
+    m_Extent: {x: 0.49380016, y: 0.26254123, z: 0.7989002}
 --- !u!1 &1577754101
 GameObject:
   m_ObjectHideFlags: 0
@@ -11171,6 +15132,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1767690024}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1590227890
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1590227891}
+  - component: {fileID: 1590227892}
+  m_Layer: 0
+  m_Name: r434
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1590227891
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590227890}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1590227892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590227890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r434
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 6620
+  _memberOffset: 390385
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: -3.1244397, z: 2.4391227}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 1.6558824, y: -2.8531556, z: 2.3478806}
+    m_Extent: {x: 0.46209782, y: 0.57438755, z: 0.95159274}
 --- !u!1 &1592141022
 GameObject:
   m_ObjectHideFlags: 0
@@ -11572,6 +15588,61 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.034548517, y: 0.00051147584, z: 0.000073043164}
     m_Extent: {x: 0.0009967126, y: 0.0020704698, z: 0.0044533596}
   m_DirtyAABB: 0
+--- !u!1 &1631474730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1631474731}
+  - component: {fileID: 1631474732}
+  m_Layer: 0
+  m_Name: r472
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1631474731
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631474730}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1631474732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631474730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r472
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 14057
+  _memberOffset: 433778
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: -2.0376472, z: 3.5259151}
+    m_Extent: {x: 0.54339635, y: 0.5433963, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 1.6139281, y: -2.079836, z: 3.529653}
+    m_Extent: {x: 0.33476168, y: 0.7443698, z: 0.8199767}
 --- !u!1 &1646427403
 GameObject:
   m_ObjectHideFlags: 0
@@ -11616,7 +15687,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1646427403}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a248df2039074028a5390e75e49bfc87, type: 3}
   m_Name: 
@@ -11631,7 +15702,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1646427403}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2c7b6fcdd52648c384d252e014d3b87f, type: 3}
   m_Name: 
@@ -11646,7 +15717,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1646427403}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f4568595fc44b28b30f40cfe55b7a20, type: 3}
   m_Name: 
@@ -11662,7 +15733,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1646427403}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d8887628aea43caa0d939bbc3d1263d, type: 3}
   m_Name: 
@@ -11698,7 +15769,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1646427403}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d917975dd2f419aa2ea3cdf67f2f0e4, type: 3}
   m_Name: 
@@ -11712,6 +15783,61 @@ MonoBehaviour:
   _editModeUseExactCount: 1
   _editModeExactCount: 988866
   _editModeExactRankId: customized-7351c469-aaaacab8-08bfa69f5251
+--- !u!1 &1652046268
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1652046269}
+  - component: {fileID: 1652046270}
+  m_Layer: 0
+  m_Name: r470
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1652046269
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652046268}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1652046270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652046268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r470
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 7802
+  _memberOffset: 425976
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: -3.1244397, z: 3.5259151}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 1.663814, y: -2.8521304, z: 3.4938848}
+    m_Extent: {x: 0.40355885, y: 0.56274045, z: 0.84239936}
 --- !u!1 &1657678755
 GameObject:
   m_ObjectHideFlags: 0
@@ -11812,6 +15938,61 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.016699273, y: -0.03636414, z: -0.018954389}
     m_Extent: {x: 0.05463389, y: 0.050220694, z: 0.051451057}
   m_DirtyAABB: 0
+--- !u!1 &1661597935
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1661597936}
+  - component: {fileID: 1661597937}
+  m_Layer: 0
+  m_Name: r562
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1661597936
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661597935}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1661597937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661597935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r562
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 13691
+  _memberOffset: 568365
+  _partitionBounds:
+    m_Center: {x: 3.8179135, y: -2.0376472, z: 3.5259151}
+    m_Extent: {x: 0.54339635, y: 0.5433963, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 3.6051328, y: -2.0750182, z: 3.5249743}
+    m_Extent: {x: 0.25924826, y: 0.7603236, z: 0.7011341}
 --- !u!1 &1669985150
 GameObject:
   m_ObjectHideFlags: 0
@@ -11962,6 +16143,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1307185708}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1711514447
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1711514448}
+  - component: {fileID: 1711514449}
+  m_Layer: 0
+  m_Name: r2551
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1711514448
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711514447}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1711514449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1711514447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r2551
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 852
+  _memberOffset: 189684
+  _partitionBounds:
+    m_Center: {x: 3.002819, y: -1.2225528, z: -0.0061608255}
+    m_Extent: {x: 0.27169812, y: 0.27169818, z: 0.27169818}
+  _renderBounds:
+    m_Center: {x: 3.0182216, y: -0.9727117, z: 0.20348766}
+    m_Extent: {x: 0.31999087, y: 0.12721416, z: 0.14365421}
 --- !u!1 &1730561183
 GameObject:
   m_ObjectHideFlags: 0
@@ -12532,6 +16768,61 @@ Transform:
   - {fileID: 2120213131}
   m_Father: {fileID: 406738813}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1795446642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1795446643}
+  - component: {fileID: 1795446644}
+  m_Layer: 0
+  m_Name: r072
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1795446643
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795446642}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1795446644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795446642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r072
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 3905
+  _memberOffset: 25
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: -2.0376472, z: -0.8212553}
+    m_Extent: {x: 0.54339635, y: 0.5433963, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 2.1018255, y: -1.8076196, z: -0.6700067}
+    m_Extent: {x: 0.25221133, y: 0.3767311, z: 0.60491306}
 --- !u!1 &1796280303
 GameObject:
   m_ObjectHideFlags: 0
@@ -12718,6 +17009,116 @@ Transform:
   m_Children: []
   m_Father: {fileID: 517759361}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1802745201
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1802745202}
+  - component: {fileID: 1802745203}
+  m_Layer: 0
+  m_Name: r655
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1802745202
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802745201}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1802745203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802745201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r655
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 7312
+  _memberOffset: 835235
+  _partitionBounds:
+    m_Center: {x: 2.731121, y: -0.95085454, z: 4.612708}
+    m_Extent: {x: 0.54339623, y: 0.54339635, z: 0.54339623}
+  _renderBounds:
+    m_Center: {x: 2.709871, y: -0.60356915, z: 4.4959545}
+    m_Extent: {x: 0.81341094, y: 0.49106824, z: 0.5629449}
+--- !u!1 &1812897390
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1812897391}
+  - component: {fileID: 1812897392}
+  m_Layer: 0
+  m_Name: r613
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1812897391
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812897390}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1812897392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812897390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r613
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 11298
+  _memberOffset: 682378
+  _partitionBounds:
+    m_Center: {x: 2.731121, y: 0.13593811, z: 1.35233}
+    m_Extent: {x: 0.54339623, y: 0.54339635, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 2.7553792, y: -0.0690009, z: 1.3345602}
+    m_Extent: {x: 0.78967875, y: 0.4471994, z: 0.71333754}
 --- !u!1 &1813595022
 GameObject:
   m_ObjectHideFlags: 0
@@ -12749,6 +17150,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 130450353}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1819344804
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1819344805}
+  - component: {fileID: 1819344806}
+  m_Layer: 0
+  m_Name: r075
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1819344805
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819344804}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1819344806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819344804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r075
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 3664
+  _memberOffset: 18675
+  _partitionBounds:
+    m_Center: {x: 2.731121, y: -3.1244397, z: 0.2655373}
+    m_Extent: {x: 0.54339623, y: 0.54339635, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 2.7452445, y: -2.923366, z: 0.27731723}
+    m_Extent: {x: 0.98128617, y: 0.59544706, z: 0.8555534}
 --- !u!1 &1835393873
 GameObject:
   m_ObjectHideFlags: 0
@@ -12875,6 +17331,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1158271507}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1859262104
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1859262105}
+  - component: {fileID: 1859262106}
+  m_Layer: 0
+  m_Name: r432
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1859262105
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859262104}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1859262106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859262104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r432
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 12873
+  _memberOffset: 375489
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: -2.0376472, z: 1.35233}
+    m_Extent: {x: 0.54339635, y: 0.5433963, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 1.997954, y: -2.094487, z: 1.3573203}
+    m_Extent: {x: 0.5037817, y: 0.78055364, z: 0.84237725}
 --- !u!1 &1866957016
 GameObject:
   m_ObjectHideFlags: 0
@@ -12907,6 +17418,61 @@ Transform:
   - {fileID: 2044134976}
   m_Father: {fileID: 481254604}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1869262515
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1869262516}
+  - component: {fileID: 1869262517}
+  m_Layer: 0
+  m_Name: r521
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1869262516
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869262515}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1869262517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869262515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r521
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 121
+  _memberOffset: 509670
+  _partitionBounds:
+    m_Center: {x: 4.904706, y: -3.1244397, z: 1.35233}
+    m_Extent: {x: 0.54339623, y: 0.54339635, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 4.365472, y: -2.9254012, z: 1.1664102}
+    m_Extent: {x: 0.25869465, y: 0.25057065, z: 0.19808167}
 --- !u!1 &1869411848
 GameObject:
   m_ObjectHideFlags: 0
@@ -12970,6 +17536,61 @@ Transform:
   - {fileID: 291922787}
   m_Father: {fileID: 616192838}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1881605946
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1881605947}
+  - component: {fileID: 1881605948}
+  m_Layer: 0
+  m_Name: r30
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1881605947
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881605946}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1881605948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881605946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r30
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 8456
+  _memberOffset: 269300
+  _partitionBounds:
+    m_Center: {x: 4.36131, y: -0.4074582, z: -2.4514441}
+    m_Extent: {x: 1.0867926, y: 1.0867927, z: 1.0867926}
+  _renderBounds:
+    m_Center: {x: 5.251604, y: -0.36348057, z: -2.6235142}
+    m_Extent: {x: 0.6555579, y: 1.1302873, z: 1.6524912}
 --- !u!1 &1883724457
 GameObject:
   m_ObjectHideFlags: 0
@@ -13005,6 +17626,61 @@ Transform:
   - {fileID: 461032815}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1885408637
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1885408638}
+  - component: {fileID: 1885408639}
+  m_Layer: 0
+  m_Name: r652
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1885408638
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885408637}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1885408639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885408637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r652
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 27864
+  _memberOffset: 774950
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: 0.13593811, z: 3.5259151}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 1.693618, y: -0.047785223, z: 3.4940796}
+    m_Extent: {x: 0.7062075, y: 0.47504997, z: 0.76376593}
 --- !u!1 &1912529058
 GameObject:
   m_ObjectHideFlags: 0
@@ -13149,6 +17825,61 @@ Transform:
   m_Children: []
   m_Father: {fileID: 481792868}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1917522435
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1917522436}
+  - component: {fileID: 1917522437}
+  m_Layer: 0
+  m_Name: r436
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1917522436
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917522435}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1917522437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917522435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r436
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 28971
+  _memberOffset: 397005
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: -2.0376472, z: 2.4391227}
+    m_Extent: {x: 0.54339635, y: 0.5433963, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 1.6741698, y: -2.040299, z: 2.452564}
+    m_Extent: {x: 0.34768087, y: 0.92007047, z: 0.81596714}
 --- !u!1 &1925652439
 GameObject:
   m_ObjectHideFlags: 0
@@ -13840,6 +18571,61 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!1 &1967989416
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1967989417}
+  - component: {fileID: 1967989418}
+  m_Layer: 0
+  m_Name: r2552
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1967989417
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967989416}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1967989418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967989416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r2552
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 6957
+  _memberOffset: 190536
+  _partitionBounds:
+    m_Center: {x: 2.459423, y: -0.6791564, z: -0.0061608255}
+    m_Extent: {x: 0.27169812, y: 0.27169815, z: 0.27169818}
+  _renderBounds:
+    m_Center: {x: 2.432541, y: -0.6062963, z: 0.12014264}
+    m_Extent: {x: 0.3660208, y: 0.43345895, z: 0.32336423}
 --- !u!1 &1968812459
 GameObject:
   m_ObjectHideFlags: 0
@@ -14128,6 +18914,61 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1980808705}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1981780181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1981780182}
+  - component: {fileID: 1981780183}
+  m_Layer: 0
+  m_Name: r614
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1981780182
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981780181}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1981780183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981780181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r614
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 29809
+  _memberOffset: 693676
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: -0.95085454, z: 2.4391227}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.54339635}
+  _renderBounds:
+    m_Center: {x: 1.8907858, y: -1.0380472, z: 2.4425836}
+    m_Extent: {x: 0.48472893, y: 0.77993715, z: 0.788015}
 --- !u!1001 &1988505009
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14510,6 +19351,116 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1024607202}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2010069269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2010069270}
+  - component: {fileID: 2010069271}
+  m_Layer: 0
+  m_Name: r2557
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2010069270
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010069269}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2010069271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010069269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r2557
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 5441
+  _memberOffset: 228293
+  _partitionBounds:
+    m_Center: {x: 3.002819, y: -0.6791564, z: 0.5372355}
+    m_Extent: {x: 0.27169812, y: 0.27169815, z: 0.27169815}
+  _renderBounds:
+    m_Center: {x: 3.0277772, y: -0.6541965, z: 0.49854976}
+    m_Extent: {x: 0.40850377, y: 0.39572927, z: 0.3929819}
+--- !u!1 &2017355128
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2017355129}
+  - component: {fileID: 2017355130}
+  m_Layer: 0
+  m_Name: r3442
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2017355129
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017355128}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2017355130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017355128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r3442
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 5386
+  _memberOffset: 322655
+  _partitionBounds:
+    m_Center: {x: 3.5462155, y: -0.6791564, z: -0.0061608255}
+    m_Extent: {x: 0.27169824, y: 0.27169815, z: 0.27169818}
+  _renderBounds:
+    m_Center: {x: 3.5744116, y: -0.57539964, z: 0.07427156}
+    m_Extent: {x: 0.38915277, y: 0.46106908, z: 0.32433945}
 --- !u!1 &2024601516
 GameObject:
   m_ObjectHideFlags: 0
@@ -14604,6 +19555,61 @@ Transform:
   - {fileID: 85216995}
   m_Father: {fileID: 89604295}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2034721025
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2034721026}
+  - component: {fileID: 2034721027}
+  m_Layer: 0
+  m_Name: r3444
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2034721026
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034721025}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2034721027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034721025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r3444
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 8841
+  _memberOffset: 333969
+  _partitionBounds:
+    m_Center: {x: 3.5462155, y: -1.2225528, z: 0.5372355}
+    m_Extent: {x: 0.27169824, y: 0.27169818, z: 0.27169815}
+  _renderBounds:
+    m_Center: {x: 3.5125556, y: -1.1877253, z: 0.53087854}
+    m_Extent: {x: 0.39545906, y: 0.35819644, z: 0.35408464}
 --- !u!1 &2039611688
 GameObject:
   m_ObjectHideFlags: 0
@@ -14920,6 +19926,61 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.00616638, y: -0.029108923, z: -0.018820617}
     m_Extent: {x: 0.033926036, y: 0.042694185, z: 0.05639166}
   m_DirtyAABB: 0
+--- !u!1 &2067847976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2067847977}
+  - component: {fileID: 2067847978}
+  m_Layer: 0
+  m_Name: r074
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2067847977
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2067847976}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2067847978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2067847976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r074
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 5385
+  _memberOffset: 13290
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: -3.1244397, z: 0.2655373}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 1.9440084, y: -2.9196763, z: 0.36746192}
+    m_Extent: {x: 0.64076877, y: 0.6762624, z: 0.8985132}
 --- !u!1 &2069453042
 GameObject:
   m_ObjectHideFlags: 0
@@ -15239,6 +20300,265 @@ Transform:
   m_Children: []
   m_Father: {fileID: 616192838}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2097552086
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2097552087}
+  - component: {fileID: 2097552090}
+  - component: {fileID: 2097552089}
+  - component: {fileID: 2097552088}
+  m_Layer: 0
+  m_Name: Stage2 Generated
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2097552087
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097552086}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6424682}
+  - {fileID: 1795446643}
+  - {fileID: 1183644893}
+  - {fileID: 2067847977}
+  - {fileID: 1819344805}
+  - {fileID: 467062394}
+  - {fileID: 1115677142}
+  - {fileID: 148106893}
+  - {fileID: 164615125}
+  - {fileID: 919467957}
+  - {fileID: 1466151084}
+  - {fileID: 403911121}
+  - {fileID: 985710519}
+  - {fileID: 622365426}
+  - {fileID: 1137810885}
+  - {fileID: 951273543}
+  - {fileID: 620193299}
+  - {fileID: 82598000}
+  - {fileID: 1711514448}
+  - {fileID: 1967989417}
+  - {fileID: 97828342}
+  - {fileID: 190655003}
+  - {fileID: 1523135133}
+  - {fileID: 1058663938}
+  - {fileID: 2010069270}
+  - {fileID: 2100665866}
+  - {fileID: 1254485521}
+  - {fileID: 1881605947}
+  - {fileID: 876075251}
+  - {fileID: 292865664}
+  - {fileID: 526690178}
+  - {fileID: 343541204}
+  - {fileID: 74723930}
+  - {fileID: 1182342399}
+  - {fileID: 2017355129}
+  - {fileID: 244564398}
+  - {fileID: 2034721026}
+  - {fileID: 897675039}
+  - {fileID: 401356538}
+  - {fileID: 1304906889}
+  - {fileID: 870316734}
+  - {fileID: 1576006687}
+  - {fileID: 1143200332}
+  - {fileID: 1859262105}
+  - {fileID: 1304720198}
+  - {fileID: 1590227891}
+  - {fileID: 1917522436}
+  - {fileID: 1652046269}
+  - {fileID: 1631474731}
+  - {fileID: 1546518585}
+  - {fileID: 889496821}
+  - {fileID: 253856918}
+  - {fileID: 1342065270}
+  - {fileID: 831195406}
+  - {fileID: 1869262516}
+  - {fileID: 702359632}
+  - {fileID: 96429720}
+  - {fileID: 1393665479}
+  - {fileID: 1075890726}
+  - {fileID: 1661597936}
+  - {fileID: 1475354883}
+  - {fileID: 1233863987}
+  - {fileID: 1374575760}
+  - {fileID: 1543366174}
+  - {fileID: 820367386}
+  - {fileID: 1812897391}
+  - {fileID: 1981780182}
+  - {fileID: 53287900}
+  - {fileID: 1133769875}
+  - {fileID: 974394356}
+  - {fileID: 1122427960}
+  - {fileID: 1546881443}
+  - {fileID: 105903678}
+  - {fileID: 1885408638}
+  - {fileID: 144891199}
+  - {fileID: 724443408}
+  - {fileID: 1802745202}
+  - {fileID: 673845806}
+  - {fileID: 2098972291}
+  - {fileID: 154739861}
+  - {fileID: 782086370}
+  - {fileID: 475604916}
+  - {fileID: 16680213}
+  - {fileID: 378938021}
+  - {fileID: 732113580}
+  - {fileID: 145920290}
+  - {fileID: 786891562}
+  - {fileID: 103249407}
+  - {fileID: 846342165}
+  - {fileID: 357987489}
+  - {fileID: 1272735390}
+  - {fileID: 515201679}
+  - {fileID: 1236125124}
+  - {fileID: 988583706}
+  m_Father: {fileID: 450335366}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2097552088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097552086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62a99c0de6529b743837140ca6fa57bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2ReviewModel
+  _layoutJson: {fileID: 4900000, guid: 7d1d93f36efc249448b2e9b9fe633feb, type: 3}
+  _source: {fileID: 450335367}
+  _acceptedPlyHash: 2eb965c4cc5deea3e5f4385932f31f106111a2df2cfa38fdb3ab191f9a9c7892
+  _lineMaterial: {fileID: 2100000, guid: 899dcf3ff530d654e8383a01840610bd, type: 2}
+  _boxesVisible: 1
+  _pollRightA: 1
+  _showDesktopControls: 1
+--- !u!23 &2097552089
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097552086}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 899dcf3ff530d654e8383a01840610bd, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &2097552090
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097552086}
+  m_Mesh: {fileID: 0}
+--- !u!1 &2098972290
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2098972291}
+  - component: {fileID: 2098972292}
+  m_Layer: 0
+  m_Name: r657
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2098972291
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098972290}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2098972292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098972290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r657
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 9701
+  _memberOffset: 866751
+  _partitionBounds:
+    m_Center: {x: 2.731121, y: 0.13593811, z: 4.612708}
+    m_Extent: {x: 0.54339623, y: 0.54339635, z: 0.54339623}
+  _renderBounds:
+    m_Center: {x: 2.750073, y: -0.18109882, z: 4.4674306}
+    m_Extent: {x: 0.82126147, y: 0.5790524, z: 0.60462}
 --- !u!1 &2099631364
 GameObject:
   m_ObjectHideFlags: 0
@@ -15332,6 +20652,61 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.03454852, y: 0.0005114786, z: 0.00007304177}
     m_Extent: {x: 0.0009967163, y: 0.0020704702, z: 0.004453361}
   m_DirtyAABB: 0
+--- !u!1 &2100665865
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2100665866}
+  - component: {fileID: 2100665867}
+  m_Layer: 0
+  m_Name: r256
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2100665866
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100665865}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097552087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2100665867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100665865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c687de1c591724196f11961397d2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SplatLOD.Runtime::SplatLOD.Stage2Chunk
+  _chunkId: r256
+  _layoutId: octree-ed2d6a0870f8e567
+  _inputId: accepted-f530cd928a53119b
+  _count: 13990
+  _memberOffset: 233734
+  _partitionBounds:
+    m_Center: {x: 1.6443285, y: 0.13593811, z: 0.2655373}
+    m_Extent: {x: 0.54339635, y: 0.54339635, z: 0.5433963}
+  _renderBounds:
+    m_Center: {x: 1.9014548, y: -0.11919552, z: 0.20960218}
+    m_Extent: {x: 0.50077426, y: 0.5517241, z: 0.8328837}
 --- !u!1 &2104146313
 GameObject:
   m_ObjectHideFlags: 0

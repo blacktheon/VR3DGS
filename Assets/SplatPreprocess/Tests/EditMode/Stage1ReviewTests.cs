@@ -74,6 +74,47 @@ namespace SplatPreprocess.Tests
         }
 
         [Test]
+        public void PostDeletionExactCountSurvivesComparisonAndSameSliderBucket()
+        {
+            var state = Activator.CreateInstance(Contract("Stage1ReviewState"), 6011316, 4837536, SourceHash, SceneHash, "after-cube3");
+            Assert.That(state.GetType().GetMethod("SetCandidateCount"), Is.Not.Null, "Deletion survivors need an exact count independent of rounded slider display.");
+            Call(state, "SetCandidateCount", 988866);
+            Assert.That(Property(state, "CandidateCentiPercent"), Is.EqualTo(2044));
+            Assert.That(Property(state, "CandidateCount"), Is.EqualTo(988866));
+            Call(state, "SetCandidate", 2044);
+            Call(state, "ToggleOriginal");
+            Assert.That(Property(state, "DisplayedCount"), Is.EqualTo(4837536));
+            Call(state, "ToggleOriginal");
+            Assert.That(Property(state, "DisplayedCount"), Is.EqualTo(988866));
+            Call(state, "SetCandidate", 2000);
+            Assert.That(Property(state, "CandidateCount"), Is.EqualTo(967507));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Call(state, "SetCandidateCount", 4837537));
+        }
+
+        [Test]
+        public void ExactCandidateBookmarkRecordsTheCountAndRejectsInvalidBounds()
+        {
+            var directory = Path.Combine(Path.GetTempPath(), "stage1-exact-mark-" + Guid.NewGuid().ToString("N"));
+            object recorder = null;
+            try
+            {
+                var state = Activator.CreateInstance(Contract("Stage1ReviewState"), 6011316, 4837536, SourceHash, SceneHash, "after-cube3");
+                Assert.That(state.GetType().GetMethod("SetCandidateCount"), Is.Not.Null);
+                Call(state, "SetCandidateCount", 988866);
+                recorder = Activator.CreateInstance(Contract("Stage1SessionRecorder"), directory, state);
+                var mark = Call(state, "GetBookmark", Sample());
+                Call(recorder, "AppendMark", mark);
+                Set(mark, "candidate_count", 4837537);
+                Assert.Throws<InvalidDataException>(() => Call(recorder, "AppendMark", mark));
+                Call(recorder, "Stop");
+                var saved = Json("MarkRecord", File.ReadAllLines(Path.Combine(directory, "marks.jsonl"))[0]);
+                Assert.That(Field(saved, "candidate_count"), Is.EqualTo(988866));
+                Assert.That(Field(saved, "exact_candidate_count"), Is.EqualTo(true));
+            }
+            finally { (recorder as IDisposable)?.Dispose(); if (Directory.Exists(directory)) Directory.Delete(directory, true); }
+        }
+
+        [Test]
         public void OriginalBookmarkFreezesExactViewAndRememberedCandidate()
         {
             var state = NewState();

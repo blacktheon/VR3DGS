@@ -11,7 +11,9 @@ namespace SplatPreprocess
         public string FrozenRankId { get; }
         public int CandidateCentiPercent { get; private set; } = 10000;
         public bool IsOriginal { get; private set; }
-        public int CandidateCount => Stage1Counts.KeepCount(EligibleCount, CandidateCentiPercent);
+        int exactCandidateCount = -1;
+        public bool HasExactCandidateCount => exactCandidateCount >= 0;
+        public int CandidateCount => HasExactCandidateCount ? exactCandidateCount : Stage1Counts.KeepCount(EligibleCount, CandidateCentiPercent);
         public int DisplayedCount => IsOriginal ? EligibleCount : CandidateCount;
         public string DisplayMode => IsOriginal ? "original" : "candidate";
         public event Action Changed;
@@ -33,7 +35,18 @@ namespace SplatPreprocess
         {
             if (centiPercent < 0 || centiPercent > 10000) throw new ArgumentOutOfRangeException(nameof(centiPercent));
             if (CandidateCentiPercent == centiPercent) return;
+            exactCandidateCount = -1;
             CandidateCentiPercent = centiPercent;
+            Changed?.Invoke();
+        }
+
+        /// <summary>Retain an exact survivor prefix after a permanent cut, until the percentage changes.</summary>
+        public void SetCandidateCount(int count)
+        {
+            if (count < 0 || count > EligibleCount) throw new ArgumentOutOfRangeException(nameof(count));
+            exactCandidateCount = count;
+            CandidateCentiPercent = EligibleCount == 0 ? 0 :
+                (int)Math.Round(count * 10000.0 / EligibleCount, MidpointRounding.AwayFromZero);
             Changed?.Invoke();
         }
 
@@ -64,6 +77,7 @@ namespace SplatPreprocess
                 eligible_count = EligibleCount,
                 candidate_centi_percent = CandidateCentiPercent,
                 candidate_count = CandidateCount,
+                exact_candidate_count = HasExactCandidateCount,
                 displayed_count = DisplayedCount,
                 display_mode = DisplayMode,
                 priority = 3f,
@@ -78,6 +92,7 @@ namespace SplatPreprocess
         public int schema_version = 1;
         public string mark_id, source_hash, scene_hash, rank_id, display_mode;
         public int source_count, eligible_count, candidate_centi_percent, candidate_count, displayed_count;
+        public bool exact_candidate_count;
         public float priority;
         public ViewSample view;
     }

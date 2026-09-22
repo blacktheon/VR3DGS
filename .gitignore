@@ -63,6 +63,8 @@ Assets/StreamingAssets/data/RaceTrace/RaceTraceSaveData.txt.meta
 /SplatData/
 /Assets/SplatPreprocess/Generated/*
 !/Assets/SplatPreprocess/Generated/*.meta
+/Assets/SplatLOD/Generated/*
+!/Assets/SplatLOD/Generated/*.meta
 /Tools/SplatWorker/.bootstrap/
 /Tools/SplatWorker/.python/
 /Tools/SplatWorker/.venv/

@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using System.IO;
 using NUnit.Framework;
 using SplatPreprocess.Editor;
 using UnityEngine;
@@ -117,6 +118,53 @@ namespace SplatPreprocess.Tests
             var sheared = Matrix4x4.identity;
             sheared[0, 2] = .4f;
             Assert.Throws<InvalidOperationException>(() => Build(mesh, sheared, new Bounds(Vector3.zero, Vector3.one), Matrix4x4.identity));
+        }
+
+        static object InvokeBaker(string methodName, params object[] arguments)
+        {
+            var type = typeof(Stage1Round1Validation).Assembly.GetType("SplatPreprocess.Editor.Stage1SurfaceBaker");
+            var method = type.GetMethod(methodName, BindingFlags.Public | BindingFlags.Static);
+            Assert.That(method, Is.Not.Null, "The baker must support captures of selected authored surfaces.");
+            try { return method.Invoke(null, arguments); }
+            catch (TargetInvocationException error) when (error.InnerException != null) { throw error.InnerException; }
+        }
+
+        [Test]
+        public void SelectingTopPreservesTheOtherFiveSurfaceAssignments()
+        {
+            var root = new GameObject("Surfaces");
+            try
+            {
+                foreach (var name in new[] { "back", "right1_1", "right1_2", "right2_1", "right2_2", "top" })
+                {
+                    var surface = new GameObject(name);
+                    surface.transform.SetParent(root.transform);
+                    surface.AddComponent<MeshFilter>().sharedMesh = mesh;
+                    surface.AddComponent<MeshRenderer>();
+                }
+                var selected = (MeshFilter[])InvokeBaker("SelectSurfaces", root.transform, new[] { "Surfaces/top" });
+                Assert.That(selected.Length, Is.EqualTo(1));
+                Assert.That(selected[0].name, Is.EqualTo("top"));
+                Assert.That(root.transform.childCount, Is.EqualTo(6));
+                Assert.Throws<InvalidOperationException>(() => InvokeBaker("SelectSurfaces", root.transform, new[] { "Surfaces/missing" }));
+                Assert.Throws<ArgumentException>(() => InvokeBaker("SelectSurfaces", root.transform, new[] { "Surfaces/top", "Surfaces/top" }));
+                var all = (MeshFilter[])InvokeBaker("SelectSurfaces", root.transform, null);
+                Assert.That(all.Length, Is.EqualTo(6));
+            }
+            finally { UnityEngine.Object.DestroyImmediate(root); }
+        }
+
+        [Test]
+        public void SingleSurfaceReportRequiresACompleteUniqueCaptureSet()
+        {
+            var type = typeof(Stage1Round1Validation).Assembly.GetType("SplatPreprocess.Editor.Stage1SurfaceBaker+CaptureReport");
+            const string template = "{\"schema_version\":2,\"surface_count\":COUNT,\"status\":\"captured\",\"state_restored\":true,\"captures\":[{\"hierarchy_path\":\"Surfaces/top\"}]}";
+            var complete = JsonUtility.FromJson(template.Replace("COUNT", "1"), type);
+            Assert.DoesNotThrow(() => InvokeBaker("ValidateCaptureReport", complete));
+            var partial = JsonUtility.FromJson(template.Replace("COUNT", "2"), type);
+            Assert.Throws<InvalidDataException>(() => InvokeBaker("ValidateCaptureReport", partial));
+            var duplicate = JsonUtility.FromJson("{\"schema_version\":2,\"surface_count\":2,\"status\":\"captured\",\"state_restored\":true,\"captures\":[{\"hierarchy_path\":\"Surfaces/top\"},{\"hierarchy_path\":\"Surfaces/top\"}]}", type);
+            Assert.Throws<InvalidDataException>(() => InvokeBaker("ValidateCaptureReport", duplicate));
         }
     }
 }

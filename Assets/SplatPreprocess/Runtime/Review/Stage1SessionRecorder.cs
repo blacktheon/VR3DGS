@@ -70,7 +70,11 @@ namespace SplatPreprocess
                 throw new InvalidDataException("Bookmark identity does not match this frozen session");
             if (mark.candidate_centi_percent < 0 || mark.candidate_centi_percent > 10000 ||
                 (mark.display_mode != "original" && mark.display_mode != "candidate") ||
-                mark.candidate_count != Stage1Counts.KeepCount(state.EligibleCount, mark.candidate_centi_percent) ||
+                mark.candidate_count < 0 || mark.candidate_count > state.EligibleCount ||
+                (mark.exact_candidate_count
+                    ? mark.candidate_centi_percent != (state.EligibleCount == 0 ? 0 :
+                        (int)Math.Round(mark.candidate_count * 10000.0 / state.EligibleCount, MidpointRounding.AwayFromZero))
+                    : mark.candidate_count != Stage1Counts.KeepCount(state.EligibleCount, mark.candidate_centi_percent)) ||
                 mark.displayed_count != (mark.display_mode == "original" ? state.EligibleCount : mark.candidate_count) ||
                 float.IsNaN(mark.priority) || mark.priority < 1 || mark.priority > 3)
                 throw new InvalidDataException("Bookmark count, mode or bounded priority is invalid");

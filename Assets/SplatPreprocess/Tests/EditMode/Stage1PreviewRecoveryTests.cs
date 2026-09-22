@@ -129,6 +129,29 @@ namespace SplatPreprocess.Tests
         }
 
         [Test]
+        public void ExactSurvivorCountPersistsOnlyForItsConfiguredRank()
+        {
+            var order = new uint[] { 8, 2, 5, 1, 7, 6, 0 };
+            var manifest = Manifest(order);
+            controller.LoadRank(manifest, order);
+            var setCount = controller.State.GetType().GetMethod("SetCandidateCount");
+            var remember = typeof(Stage1SelectionController).GetMethod("RememberEditModeKeepCount");
+            Assert.That(setCount, Is.Not.Null);
+            Assert.That(remember, Is.Not.Null);
+            setCount.Invoke(controller.State, new object[] { 4 });
+            remember.Invoke(controller, new object[] { 4, false });
+            controller.Bind(renderer, "", SourceHash, SceneHash);
+            controller.LoadRank(manifest, order);
+            renderer.Update();
+            AssertGpuMembership(new uint[] { 1, 2, 5, 8 }, 7);
+            Assert.That(controller.State.CandidateCentiPercent, Is.EqualTo(5714));
+            manifest.rank_id = "another-rank";
+            controller.LoadRank(manifest, order);
+            renderer.Update();
+            Assert.That(renderer.RemainingCount, Is.EqualTo(3), "A saved exact count must not silently carry over to a different ranking.");
+        }
+
+        [Test]
         public void EditorPreviewCommitsTheLatestSelectionAtTheCameraBoundary()
         {
             var order = new uint[] { 8, 2, 5, 1 };
@@ -149,11 +172,11 @@ namespace SplatPreprocess.Tests
             AssertGpuMembership(new uint[] { 1, 2, 5, 8 });
         }
 
-        void AssertGpuMembership(uint[] expected)
+        void AssertGpuMembership(uint[] expected, int eligibleCount = 4)
         {
             Assert.That(renderer.RemainingCount, Is.EqualTo((uint)expected.Length), "The first resumed draw must not use all source rows.");
             Assert.That(renderer.HasStage1Selection, Is.True);
-            Assert.That(renderer.Stage1EligibleCount, Is.EqualTo(4));
+            Assert.That(renderer.Stage1EligibleCount, Is.EqualTo(eligibleCount));
             Assert.That(renderer.Stage1SelectedCount, Is.EqualTo(expected.Length));
             using var commands = new CommandBuffer();
             renderer.ComputeDepth(commands, Matrix4x4.identity);

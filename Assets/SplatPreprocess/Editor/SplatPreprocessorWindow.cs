@@ -205,7 +205,9 @@ namespace SplatPreprocess.Editor
             controller.State.SetCandidateNormalized(keepPercent / 100f);
             if (controller.State.IsOriginal != showOriginal) controller.State.ToggleOriginal();
             Undo.RecordObject(controller, "Set splat preview percentage");
-            controller.RememberEditModePreview(controller.State.CandidateCentiPercent, showOriginal);
+            if (controller.State.HasExactCandidateCount)
+                controller.RememberEditModeKeepCount(controller.State.CandidateCount, showOriginal);
+            else controller.RememberEditModePreview(controller.State.CandidateCentiPercent, showOriginal);
             EditorUtility.SetDirty(controller);
             controller.EnsurePreviewSelection();
             foreach (var panel in FindObjectsByType<Stage1PreviewPanel>(FindObjectsSortMode.None)) panel.Refresh();

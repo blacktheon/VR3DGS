@@ -23,7 +23,6 @@ namespace SplatPreprocess.Editor
     {
         const int IsolationLayer = 31;
         const int ExpectedSourceCount = 6011316;
-        static readonly string[] ExpectedSurfaces = { "back", "right1_1", "right1_2", "right2_1", "right2_2" };
 
         public sealed class SurfaceFrame
         {
@@ -50,7 +49,8 @@ namespace SplatPreprocess.Editor
         [Serializable]
         public sealed class CaptureReport
         {
-            public int schema_version = 1;
+            public int schema_version = 2;
+            public int surface_count;
             public string status = "capturing", error, created_utc, completed_utc, applied_utc;
             public string scene_path, output_asset_folder, report_path, source_asset_path, source_asset_guid, source_file_sha256;
             public string unity_version, graphics_api, color_space, render_target_format;
@@ -101,11 +101,22 @@ namespace SplatPreprocess.Editor
 
         public static bool IsRunning => running;
         public static string ReportPath => reportPath;
-        public static string Status => report == null ? "idle" : report.status + " " + report.captures.Count + "/5" +
+        public static string Status => report == null ? "idle" : report.status + " " + report.captures.Count + "/" + report.surface_count +
             (string.IsNullOrEmpty(report.error) ? string.Empty : " " + report.error);
 
         /// <summary>Use a new Assets/... folder. A 1024 probe uses the same path as the final 8192 bake.</summary>
         public static string Begin(string outputAssetFolder, int maxDimension = 8192)
+            => BeginInternal(outputAssetFolder, maxDimension, null);
+
+        /// <summary>Capture only the exact requested hierarchy paths, preserving other surface materials.</summary>
+        public static string BeginSelected(string outputAssetFolder, string[] hierarchyPaths, int maxDimension = 8192)
+        {
+            if (hierarchyPaths == null || hierarchyPaths.Length == 0)
+                throw new ArgumentException("Choose at least one authored surface path.", nameof(hierarchyPaths));
+            return BeginInternal(outputAssetFolder, maxDimension, hierarchyPaths);
+        }
+
+        static string BeginInternal(string outputAssetFolder, int maxDimension, string[] hierarchyPaths)
         {
             if (running) throw new InvalidOperationException("A surface bake is already active.");
             if (!EditorApplication.isPlaying || EditorApplication.isPaused)
@@ -129,7 +140,7 @@ namespace SplatPreprocess.Editor
                 throw new InvalidOperationException("The temporary source isolation layer 31 must be unused, and no other splat renderer may be active.");
             if (!Shader.Find("Universal Render Pipeline/Unlit")) throw new InvalidOperationException("The URP Unlit shader is unavailable.");
 
-            var selectedSurfaces = FindSurfaces(scene);
+            var selectedSurfaces = FindSurfaces(scene, hierarchyPaths);
             var selectedFrames = selectedSurfaces.Select(value => BuildFrame(value.sharedMesh, value.transform.localToWorldMatrix,
                 candidate.GsplatAsset.Bounds, candidate.transform.localToWorldMatrix, maxDimension)).ToArray();
             var assetFolder = NormalizeNewAssetFolder(outputAssetFolder);
@@ -189,7 +200,8 @@ namespace SplatPreprocess.Editor
                 created_utc = UtcNow(), scene_path = scene.path, output_asset_folder = assetFolder, report_path = reportPath,
                 source_asset_path = assetPath, source_asset_guid = AssetDatabase.AssetPathToGUID(assetPath), source_file_sha256 = sourceHash,
                 source_count = checked((int)sourceAsset.SplatCount), source_sh_degree = sourceAsset.SHBands,
-                max_dimension = maxDimension, unity_version = Application.unityVersion, graphics_api = SystemInfo.graphicsDeviceType.ToString(),
+                max_dimension = maxDimension, surface_count = surfaces.Length,
+                unity_version = Application.unityVersion, graphics_api = SystemInfo.graphicsDeviceType.ToString(),
                 color_space = QualitySettings.activeColorSpace.ToString(), render_target_format = "RGBA8 sRGB, 24-bit depth, no MSAA",
                 source_gamma_to_linear = QualitySettings.activeColorSpace == ColorSpace.Linear,
                 original_selected_count = originalKeep, original_rank_id = controller?.State?.FrozenRankId,
@@ -465,20 +477,19 @@ namespace SplatPreprocess.Editor
                 throw new InvalidOperationException("Apply captured surface materials in Edit Mode after the bake has completed.");
             string path = ProjectPath(captureReportPath);
             var saved = JsonUtility.FromJson<CaptureReport>(File.ReadAllText(path));
-            if (saved == null || saved.schema_version != 1 || saved.status != "captured" || !saved.state_restored || saved.captures?.Count != 5)
-                throw new InvalidDataException("Only a complete, restored five-surface bake can be applied.");
+            ValidateCaptureReport(saved);
             var scene = SceneManager.GetActiveScene();
             if (scene.path != saved.scene_path) throw new InvalidOperationException("Open the exact scene used for this capture before assigning its materials.");
-            var currentSurfaces = FindSurfaces(scene);
+            var currentSurfaces = FindSurfaces(scene, saved.captures.Select(value => value.hierarchy_path).ToArray());
             var currentSources = SceneComponents<GsplatRenderer>(scene);
             if (currentSources.Length != 1 || AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(currentSources[0].GsplatAsset)) != saved.source_asset_guid ||
                 !SameMatrix(currentSources[0].transform.localToWorldMatrix, saved.source_local_to_world))
                 throw new InvalidOperationException("The source asset or transform changed after this bake.");
             if (HashFile(ProjectPath(AssetDatabase.GetAssetPath(currentSources[0].GsplatAsset))) != saved.source_file_sha256)
                 throw new InvalidDataException("The current source file no longer matches the captured source SHA-256.");
-            var visuals = new MeshRenderer[5];
-            var materials = new Material[5];
-            var previous = new Material[5][];
+            var visuals = new MeshRenderer[currentSurfaces.Length];
+            var materials = new Material[currentSurfaces.Length];
+            var previous = new Material[currentSurfaces.Length][];
             for (int i = 0; i < currentSurfaces.Length; i++)
             {
                 var surface = currentSurfaces[i];
@@ -513,13 +524,23 @@ namespace SplatPreprocess.Editor
                 saved.materials_applied = true; saved.applied_utc = UtcNow();
                 WorkerJobStore.WriteAtomic(path, saved);
                 Undo.CollapseUndoOperations(undoGroup);
-                return "Assigned all five captured unlit materials; authored transforms are unchanged. Save the scene to persist the assignment.";
+                return "Assigned " + visuals.Length + " captured unlit material(s); authored transforms are unchanged. Save the scene to persist the assignment.";
             }
             catch
             {
                 for (int i = 0; i < visuals.Length; i++) if (visuals[i]) visuals[i].sharedMaterials = previous[i];
                 throw;
             }
+        }
+
+        public static void ValidateCaptureReport(CaptureReport saved)
+        {
+            if (saved == null || (saved.schema_version != 1 && saved.schema_version != 2) ||
+                saved.status != "captured" || !saved.state_restored || saved.captures == null || saved.captures.Count == 0 ||
+                saved.captures.Count != (saved.schema_version == 1 ? 5 : saved.surface_count) ||
+                saved.captures.Any(value => value == null || string.IsNullOrWhiteSpace(value.hierarchy_path)) ||
+                saved.captures.Select(value => value.hierarchy_path).Distinct(StringComparer.Ordinal).Count() != saved.captures.Count)
+                throw new InvalidDataException("Only a complete, restored capture set with unique authored surface paths can be applied.");
         }
 
         public static void Cancel()
@@ -661,13 +682,31 @@ namespace SplatPreprocess.Editor
             };
         }
 
-        static MeshFilter[] FindSurfaces(Scene scene)
+        static MeshFilter[] FindSurfaces(Scene scene, string[] hierarchyPaths)
         {
             var roots = scene.GetRootGameObjects().Where(value => value.name == "Surfaces").ToArray();
             if (roots.Length != 1) throw new InvalidOperationException("The authored scene must contain exactly one Surfaces root.");
-            var result = roots[0].GetComponentsInChildren<MeshFilter>(true).OrderBy(value => value.name, StringComparer.Ordinal).ToArray();
-            if (result.Length != 5 || !result.Select(value => value.name).SequenceEqual(ExpectedSurfaces))
-                throw new InvalidOperationException("Surfaces must contain exactly back, right1_1, right1_2, right2_1 and right2_2.");
+            return SelectSurfaces(roots[0].transform, hierarchyPaths);
+        }
+
+        public static MeshFilter[] SelectSurfaces(Transform root, string[] hierarchyPaths)
+        {
+            if (!root) throw new ArgumentNullException(nameof(root));
+            var result = root.GetComponentsInChildren<MeshFilter>(true)
+                .OrderBy(value => HierarchyPath(value.transform), StringComparer.Ordinal).ToArray();
+            if (hierarchyPaths != null)
+            {
+                if (hierarchyPaths.Length == 0 || hierarchyPaths.Any(string.IsNullOrWhiteSpace) ||
+                    hierarchyPaths.Distinct(StringComparer.Ordinal).Count() != hierarchyPaths.Length)
+                    throw new ArgumentException("Requested surface paths must be nonempty and unique.", nameof(hierarchyPaths));
+                foreach (var path in hierarchyPaths)
+                    if (result.Count(value => HierarchyPath(value.transform) == path) != 1)
+                        throw new InvalidOperationException("Requested surface is missing or ambiguous: " + path);
+                var requested = new HashSet<string>(hierarchyPaths, StringComparer.Ordinal);
+                result = result.Where(value => requested.Contains(HierarchyPath(value.transform))).ToArray();
+            }
+            if (result.Length == 0 || result.Select(value => HierarchyPath(value.transform)).Distinct(StringComparer.Ordinal).Count() != result.Length)
+                throw new InvalidOperationException("Choose authored surfaces with unique hierarchy paths.");
             foreach (var value in result)
                 if (!value.sharedMesh || value.sharedMesh.subMeshCount != 1 || !value.GetComponent<MeshRenderer>())
                     throw new InvalidOperationException(value.name + " requires one authored mesh submesh and a MeshRenderer.");

@@ -14,6 +14,9 @@ namespace SplatPreprocess
         [SerializeField] string _expectedSceneHash;
         [SerializeField, Range(0, 10000)] int _editModeCentiPercent = 10000;
         [SerializeField] bool _editModeShowOriginal;
+        [SerializeField] bool _editModeUseExactCount;
+        [SerializeField] int _editModeExactCount;
+        [SerializeField] string _editModeExactRankId;
 
         uint[] _frozenRank;
         GsplatAsset _loadedAsset;
@@ -34,6 +37,21 @@ namespace SplatPreprocess
             if (centiPercent < 0 || centiPercent > 10000) throw new ArgumentOutOfRangeException(nameof(centiPercent));
             _editModeCentiPercent = centiPercent;
             _editModeShowOriginal = showOriginal;
+            _editModeUseExactCount = false;
+            _editModeExactRankId = string.Empty;
+        }
+
+        public void RememberEditModeKeepCount(int count, bool showOriginal)
+        {
+            if (Application.isPlaying) throw new InvalidOperationException("Edit Mode defaults cannot change during playback");
+            if (State == null || count < 0 || count > State.EligibleCount)
+                throw new ArgumentOutOfRangeException(nameof(count), "Load the matching ranking and choose a valid survivor count");
+            _editModeCentiPercent = State.EligibleCount == 0 ? 0 :
+                (int)Math.Round(count * 10000.0 / State.EligibleCount, MidpointRounding.AwayFromZero);
+            _editModeShowOriginal = showOriginal;
+            _editModeUseExactCount = true;
+            _editModeExactCount = count;
+            _editModeExactRankId = State.FrozenRankId;
         }
 
         public void ReportPreviewLoadError(string message) => LastPreviewError = message ?? string.Empty;
@@ -91,7 +109,9 @@ namespace SplatPreprocess
             _selectionResource = _renderer.GsplatResource;
             State = new Stage1ReviewState(manifest.source_count, manifest.eligible_count, manifest.source_hash, manifest.scene_hash, manifest.rank_id);
             State.Changed += ApplySelection;
-            State.SetCandidate(_editModeCentiPercent);
+            if (_editModeUseExactCount && _editModeExactRankId == manifest.rank_id)
+                State.SetCandidateCount(_editModeExactCount);
+            else State.SetCandidate(_editModeCentiPercent);
             if (_editModeShowOriginal) State.ToggleOriginal();
             ApplySelection();
         }
