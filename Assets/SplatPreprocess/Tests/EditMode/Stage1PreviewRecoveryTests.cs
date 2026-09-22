@@ -89,6 +89,66 @@ namespace SplatPreprocess.Tests
 
         void EarlyUpdate() => controller.SendMessage("Update", SendMessageOptions.DontRequireReceiver);
 
+        [TestCase(false)]
+        [TestCase(true)]
+        public void ReloadUsesSerializedPreviewPercentageAndComparisonMode(bool original)
+        {
+            var remember = typeof(Stage1SelectionController).GetMethod("RememberEditModePreview");
+            Assert.That(remember, Is.Not.Null, "Edit Mode preview settings must survive rank reloads.");
+            remember.Invoke(controller, new object[] { 3000, original });
+            var serialized = JsonUtility.ToJson(controller);
+            Assert.That(serialized, Does.Contain("3000"));
+            controller.Bind(renderer, "", SourceHash, SceneHash);
+            var order = new uint[] { 8, 2, 5, 1 };
+            controller.LoadRank(Manifest(order), order);
+            renderer.Update();
+            Assert.That(controller.State.CandidateCentiPercent, Is.EqualTo(3000));
+            Assert.That(controller.State.IsOriginal, Is.EqualTo(original));
+            AssertGpuMembership(order.Take(original ? 4 : 1).OrderBy(id => id).ToArray());
+        }
+
+        [Test]
+        public void ConfiguredButUnvalidatedPreviewDoesNotFallThroughToTheFullSource()
+        {
+            controller.Bind(renderer, "awaiting-validation.json", SourceHash, SceneHash);
+            EarlyUpdate();
+            renderer.Update();
+            Assert.That(controller.State, Is.Null);
+            Assert.That(renderer.HasStage1Selection, Is.True);
+            Assert.That(renderer.RemainingCount, Is.Zero, "Do not show deleted rows while waiting for validation after a reload.");
+        }
+
+        [Test]
+        public void CameraPreparationHoldsUnvalidatedSelectionBeforeMonoBehaviourUpdate()
+        {
+            controller.LoadRank(Manifest(new uint[] { 8, 2, 5, 1 }), new uint[] { 8, 2, 5, 1 });
+            renderer.Update();
+            controller.Bind(renderer, "awaiting-validation.json", SourceHash, SceneHash);
+            Assert.That(EnsurePreview(controller), Is.False);
+            Assert.That(renderer.Stage1EligibleCount, Is.Zero, "Camera preparation cannot leave a previous or all-source rank drawable before validation.");
+        }
+
+        [Test]
+        public void EditorPreviewCommitsTheLatestSelectionAtTheCameraBoundary()
+        {
+            var order = new uint[] { 8, 2, 5, 1 };
+            controller.LoadRank(Manifest(order), order);
+            renderer.Update();
+            var window = AppDomain.CurrentDomain.GetAssemblies()
+                .Select(assembly => assembly.GetType("SplatPreprocess.Editor.SplatPreprocessorWindow"))
+                .First(type => type != null);
+            foreach (var percent in new[] { 100f, 0f, 30f })
+                window.GetMethod("SetEditModePreview").Invoke(null, new object[] { controller, percent, false });
+            Assert.That(renderer.RemainingCount, Is.EqualTo(4), "OnGUI must not alter an already submitted draw.");
+            var prepare = typeof(GsplatRenderer).GetMethod("PrepareEditorPreview");
+            Assert.That(prepare, Is.Not.Null, "Editor cameras must prepare the latest requested selection without submitting a global native draw.");
+            prepare.Invoke(renderer, null);
+            AssertGpuMembership(new uint[] { 8 });
+            window.GetMethod("SetEditModePreview").Invoke(null, new object[] { controller, 30f, true });
+            prepare.Invoke(renderer, null);
+            AssertGpuMembership(new uint[] { 1, 2, 5, 8 });
+        }
+
         void AssertGpuMembership(uint[] expected)
         {
             Assert.That(renderer.RemainingCount, Is.EqualTo((uint)expected.Length), "The first resumed draw must not use all source rows.");

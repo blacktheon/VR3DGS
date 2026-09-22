@@ -56,6 +56,22 @@ namespace SplatPreprocess.Tests
             Assert.That(exception.Message, Does.Contain("nav_vertices[0].p[0]"));
         }
 
+        [Test]
+        public void PreviewCameraMovementOrAspectChangeDoesNotInvalidateUnchangedGeometry()
+        {
+            var validate = typeof(Stage1Round1Service).GetMethod("ValidateReviewSnapshot");
+            Assert.That(validate, Is.Not.Null, "Review cameras must be free to move or resize without changing the frozen rank.");
+            var current = Snapshot();
+            current.head_position[1] = 1.8;
+            current.head_projection[0] = .9;
+            current.head_fov = 75;
+            Assert.DoesNotThrow(() => validate.Invoke(null, new object[] { current, JsonUtility.ToJson(Snapshot()) }));
+            Assert.That(current.head_position[1], Is.EqualTo(1.8), "Validation must not mutate the caller's snapshot.");
+            current.nav_vertices[0].p[0] = .25;
+            var error = Assert.Throws<TargetInvocationException>(() => validate.Invoke(null, new object[] { current, JsonUtility.ToJson(Snapshot()) }));
+            Assert.That(error.InnerException, Is.TypeOf<InvalidDataException>());
+        }
+
         static object Store(string directory, GsplatRenderer renderer)
         {
             var type = typeof(Editor.WorkerJobStore).Assembly.GetType("SplatPreprocess.Editor.Stage1PreviewLeaseStore");

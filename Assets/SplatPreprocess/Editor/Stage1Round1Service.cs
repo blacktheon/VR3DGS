@@ -25,6 +25,13 @@ namespace SplatPreprocess.Editor
     }
 
     [Serializable]
+    public sealed class Stage1SceneBox
+    {
+        public string name;
+        public double[] local_to_world, world_to_local, center, size;
+    }
+
+    [Serializable]
     public sealed class Stage1SceneSnapshot
     {
         public int schema_version = 1;
@@ -35,6 +42,8 @@ namespace SplatPreprocess.Editor
         public Stage1SceneVertex[] nav_vertices;
         public int[] nav_indices, nav_areas;
         public Stage1SceneWall[] walls;
+        public Stage1SceneBox[] deletion_boxes;
+        public Stage1SceneWall[] surfaces;
         public double[] head_position, head_projection;
         public double head_fov, head_near, head_far;
     }
@@ -208,6 +217,53 @@ namespace SplatPreprocess.Editor
                 CheckArray(field + ".normal", a.normal, b.normal); CheckArray(field + ".position", a.position, b.position);
                 CheckArray(field + ".bounds_min", a.bounds_min, b.bounds_min); CheckArray(field + ".bounds_max", a.bounds_max, b.bounds_max);
             }
+            ValidateCustomizationSnapshot(expected, actual);
+        }
+
+        public static void ValidateCustomizationSnapshot(Stage1SceneSnapshot expected, Stage1SceneSnapshot actual)
+        {
+            var aBoxes = actual.deletion_boxes ?? Array.Empty<Stage1SceneBox>();
+            var bBoxes = expected.deletion_boxes ?? Array.Empty<Stage1SceneBox>();
+            CheckValue("deletion_boxes.Length", aBoxes.Length, bBoxes.Length);
+            for (int i = 0; i < bBoxes.Length; i++)
+            {
+                var a = aBoxes[i]; var b = bBoxes[i]; var field = "deletion_boxes[" + i + "]";
+                if (a == null || b == null) throw new InvalidDataException("Missing " + field);
+                CheckValue(field + ".name", a.name, b.name);
+                CheckArray(field + ".local_to_world", a.local_to_world, b.local_to_world);
+                CheckArray(field + ".world_to_local", a.world_to_local, b.world_to_local);
+                CheckArray(field + ".center", a.center, b.center);
+                CheckArray(field + ".size", a.size, b.size);
+            }
+            var aSurfaces = actual.surfaces ?? Array.Empty<Stage1SceneWall>();
+            var bSurfaces = expected.surfaces ?? Array.Empty<Stage1SceneWall>();
+            CheckValue("surfaces.Length", aSurfaces.Length, bSurfaces.Length);
+            for (int i = 0; i < bSurfaces.Length; i++)
+            {
+                var a = aSurfaces[i]; var b = bSurfaces[i]; var field = "surfaces[" + i + "]";
+                if (a == null || b == null) throw new InvalidDataException("Missing " + field);
+                CheckValue(field + ".name", a.name, b.name);
+                CheckArray(field + ".local_to_world", a.local_to_world, b.local_to_world);
+                CheckArray(field + ".world_to_local", a.world_to_local, b.world_to_local);
+                CheckArray(field + ".position", a.position, b.position);
+                CheckArray(field + ".normal", a.normal, b.normal);
+                CheckArray(field + ".bounds_min", a.bounds_min, b.bounds_min);
+                CheckArray(field + ".bounds_max", a.bounds_max, b.bounds_max);
+            }
+        }
+
+        public static void ValidateReviewSnapshot(Stage1SceneSnapshot current, string savedJson)
+        {
+            var recorded = JsonUtility.FromJson<Stage1SceneSnapshot>(savedJson);
+            if (recorded == null) throw new InvalidDataException("The saved ranking has no scene snapshot");
+            // The frozen scoring cameras are stored separately. Navigating the review
+            // camera or resizing Game view does not alter the source or eligibility.
+            recorded.head_position = current.head_position;
+            recorded.head_projection = current.head_projection;
+            recorded.head_fov = current.head_fov;
+            recorded.head_near = current.head_near;
+            recorded.head_far = current.head_far;
+            ValidateSnapshotJson(current, JsonUtility.ToJson(recorded));
         }
 
         static void CheckValue<T>(string field, T actual, T expected)
@@ -302,6 +358,20 @@ namespace SplatPreprocess.Editor
         }
 
         public static void LoadReviewRank(string manifestPath, string sourcePath)
+            => LoadReviewRankInternal(manifestPath, sourcePath, null);
+
+        /// <summary>Restore saved preview state after a reload without rewriting or dirtying the scene.</summary>
+        public static void ReloadConfiguredReview(Stage1SelectionController controller)
+        {
+            if (!controller || string.IsNullOrEmpty(controller.RankManifestPath)) throw new InvalidOperationException("No saved preview ranking is configured");
+            var path = controller.RankManifestPath;
+            if (!System.IO.Path.IsPathRooted(path)) path = System.IO.Path.Combine(WorkerEnvironment.ProjectRoot, path);
+            var snapshot = WorkerJobStore.Read<Stage1SceneSnapshot>(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(path), "scene.json"));
+            if (snapshot == null) throw new InvalidDataException("The configured ranking has no source scene snapshot");
+            LoadReviewRankInternal(path, snapshot.source_path, controller);
+        }
+
+        static void LoadReviewRankInternal(string manifestPath, string sourcePath, Stage1SelectionController restoring)
         {
             RequireEditMode();
             var store = new WorkerJobStore(WorkerEnvironment.DataRoot);
@@ -310,10 +380,10 @@ namespace SplatPreprocess.Editor
             var snapshot = CaptureScene(sourcePath, out var renderer);
             var savedScenePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(System.IO.Path.GetFullPath(manifestPath)), "scene.json");
             if (!File.Exists(savedScenePath)) throw new InvalidDataException("The completed rank has no saved scene snapshot");
-            try { ValidateSnapshotJson(snapshot, File.ReadAllText(savedScenePath)); }
+            try { ValidateReviewSnapshot(snapshot, File.ReadAllText(savedScenePath)); }
             catch (InvalidDataException exception)
             {
-                throw new InvalidDataException("The saved rank scene differs from the current source, transforms, authored walls, NavMesh or camera; score the current scene before loading it. " + exception.Message, exception);
+                throw new InvalidDataException("The saved ranking differs from the current scene or customization. Update the customization or process the current scene before loading it. " + exception.Message, exception);
             }
             var manifest = WorkerJobStore.Read<RankManifest>(manifestPath);
             if (manifest == null) throw new FileNotFoundException("The completed rank manifest is missing", manifestPath);
@@ -325,10 +395,45 @@ namespace SplatPreprocess.Editor
             if (controllers.Length != 1) throw new InvalidOperationException("Bind exactly one Stage 1 selection controller in the review scene first");
             var rank = Stage1RankLoader.Load(manifestPath, snapshot.source_hash, manifest.scene_hash);
             var controller = controllers[0];
+            if (restoring)
+            {
+                if (restoring != controller || controller.Renderer != renderer) throw new InvalidDataException("Restore the configured source renderer binding before preview");
+                controller.LoadRank(rank.Manifest, rank.Order);
+                return;
+            }
             Undo.RecordObject(controller, "Load Stage 1 review ranking");
             controller.Bind(renderer, System.IO.Path.GetFullPath(manifestPath), snapshot.source_hash, manifest.scene_hash);
             controller.LoadRank(rank.Manifest, rank.Order);
             EditorUtility.SetDirty(controller);
+        }
+
+        public static Stage1SceneBox[] CaptureDeletionBoxes(Transform root)
+        {
+            if (!root) return Array.Empty<Stage1SceneBox>();
+            return root.GetComponentsInChildren<BoxCollider>(true).OrderBy(box => HierarchyPath(box.transform), StringComparer.Ordinal).Select(box =>
+            {
+                if (box.size.x <= 0 || box.size.y <= 0 || box.size.z <= 0 || Mathf.Abs(box.transform.localToWorldMatrix.determinant) < 1e-12f)
+                    throw new InvalidDataException("Deletion boxes require positive dimensions and an invertible transform: " + box.name);
+                return new Stage1SceneBox { name = HierarchyPath(box.transform), center = Vector(box.center), size = Vector(box.size),
+                    local_to_world = Matrix(box.transform.localToWorldMatrix), world_to_local = Matrix(box.transform.worldToLocalMatrix) };
+            }).ToArray();
+        }
+
+        public static Stage1SceneWall[] CaptureSurfaces(Transform root)
+        {
+            if (!root) return Array.Empty<Stage1SceneWall>();
+            return root.GetComponentsInChildren<MeshFilter>(true).Where(mesh => mesh.gameObject.activeInHierarchy)
+                .OrderBy(mesh => HierarchyPath(mesh.transform), StringComparer.Ordinal).Select(mesh =>
+                {
+                    if (!mesh.sharedMesh || !mesh.GetComponent<MeshRenderer>()) throw new InvalidDataException("Surface requires a mesh and renderer: " + mesh.name);
+                    var bounds = mesh.sharedMesh.bounds;
+                    if (bounds.size.x <= 0 || bounds.size.z <= 0 || Mathf.Abs(bounds.min.y) > 1e-5 || Mathf.Abs(bounds.max.y) > 1e-5 ||
+                        Mathf.Abs(mesh.transform.localToWorldMatrix.determinant) < 1e-12f)
+                        throw new InvalidDataException("Surface must be a finite local XZ plane: " + mesh.name);
+                    return new Stage1SceneWall { name = HierarchyPath(mesh.transform), floor = false,
+                        local_to_world = Matrix(mesh.transform.localToWorldMatrix), world_to_local = Matrix(mesh.transform.worldToLocalMatrix),
+                        position = Vector(mesh.transform.position), normal = Vector(mesh.transform.up), bounds_min = Vector(bounds.min), bounds_max = Vector(bounds.max) };
+                }).ToArray();
         }
 
         /// <summary>Check the fresh full-row audit against the inspected source and the exact scene renderer asset.</summary>
@@ -448,12 +553,19 @@ namespace SplatPreprocess.Editor
             var cameras = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<Camera>(true)).Where(camera => camera.name == "CenterEyeAnchor").ToArray();
             if (cameras.Length != 1) throw new InvalidOperationException("The active scene must contain one CenterEyeAnchor camera");
             var head = cameras[0];
+            Transform OptionalRoot(string name)
+            {
+                var roots = allTransforms.Where(value => value.name == name).ToArray();
+                if (roots.Length > 1) throw new InvalidDataException("Only one " + name + " group may define customization geometry");
+                return roots.Length == 0 ? null : roots[0];
+            }
             var snapshot = new Stage1SceneSnapshot
             {
                 scene_path = scene.path, source_path = System.IO.Path.GetFullPath(source.source_path), source_hash = source.sha256,
                 model_local_to_world = Matrix(renderer.transform.localToWorldMatrix),
                 nav_vertices = nav.vertices.Select(vertex => new Stage1SceneVertex { p = Vector(vertex) }).ToArray(),
                 nav_indices = nav.indices, nav_areas = nav.areas, walls = walls,
+                deletion_boxes = CaptureDeletionBoxes(OptionalRoot("Deletable")), surfaces = CaptureSurfaces(OptionalRoot("Surfaces")),
                 head_position = Vector(head.transform.position), head_projection = Matrix(head.projectionMatrix),
                 head_fov = Finite(head.fieldOfView), head_near = Finite(head.nearClipPlane), head_far = Finite(head.farClipPlane)
             };

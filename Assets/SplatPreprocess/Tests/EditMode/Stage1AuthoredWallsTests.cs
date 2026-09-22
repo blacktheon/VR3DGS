@@ -85,7 +85,7 @@ namespace SplatPreprocess.Tests
         void Tick() => binder.SendMessage("Update", SendMessageOptions.RequireReceiver);
 
         [Test]
-        public void OnlyExactFloorAndInactivePlanesAreExcludedButEveryAnalysisVisualIsHidden()
+        public void OnlyExactFloorAndInactivePlanesAreExcludedWithoutHidingTheirMeshes()
         {
             var floor = NewPlane("Floor");
             var wall = NewPlane("Wall");
@@ -96,7 +96,7 @@ namespace SplatPreprocess.Tests
             Assert.That(Read<int>(binder, "WallCount"), Is.EqualTo(2));
             foreach (var visual in new[] { floor, wall, lowerCaseFloor, inactive })
             {
-                Assert.That(visual.forceRenderingOff, Is.True);
+                Assert.That(visual.forceRenderingOff, Is.False, "Splat visibility must not hide the authored plane meshes.");
                 Assert.That(visual.enabled, Is.True);
                 Assert.That(visual.GetComponent<BoxCollider>().enabled, Is.True, "Gameplay collision must remain enabled.");
             }
@@ -128,10 +128,11 @@ namespace SplatPreprocess.Tests
         }
 
         [Test]
-        public void DisablingAndReenablingRestoresThenReacquiresExactVisibilityFlags()
+        public void DisablingAndReenablingNeverChangesAuthoredVisibilityFlags()
         {
             var normal = NewPlane("Wall");
             var alreadyHidden = NewPlane("Floor");
+            normal.enabled = false;
             alreadyHidden.forceRenderingOff = true;
             NewBinder();
             Bind();
@@ -140,16 +141,20 @@ namespace SplatPreprocess.Tests
             Assert.That(alreadyHidden.forceRenderingOff, Is.True);
             Assert.That(Read<int>(binder, "WallCount"), Is.Zero);
             binder.enabled = true;
-            Assert.That(normal.forceRenderingOff, Is.True);
+            Assert.That(normal.forceRenderingOff, Is.False);
+            Assert.That(normal.enabled, Is.False, "The binding must not enable an intentionally disabled mesh.");
             Assert.That(alreadyHidden.forceRenderingOff, Is.True);
             Assert.That(Read<int>(binder, "WallCount"), Is.EqualTo(1));
+            alreadyHidden.forceRenderingOff = false;
+            Tick();
+            Assert.That(alreadyHidden.forceRenderingOff, Is.False, "Visibility edits must remain under user control.");
             binder.enabled = false;
             Assert.That(normal.forceRenderingOff, Is.False);
-            Assert.That(alreadyHidden.forceRenderingOff, Is.True);
+            Assert.That(alreadyHidden.forceRenderingOff, Is.False);
         }
 
         [Test]
-        public void APlaneLeavingTheRootRecoversItsOwnedVisibilityFlag()
+        public void PlaneMembershipChangesLeaveMeshVisibilityUntouched()
         {
             var removed = NewPlane("Wall");
             var floor = NewPlane("Floor");
@@ -158,11 +163,11 @@ namespace SplatPreprocess.Tests
             removed.transform.SetParent(null, true);
             Tick();
             Assert.That(removed.forceRenderingOff, Is.False);
-            Assert.That(floor.forceRenderingOff, Is.True);
+            Assert.That(floor.forceRenderingOff, Is.False);
             Assert.That(Read<int>(binder, "WallCount"), Is.Zero);
             var added = NewPlane("Added wall");
             Tick();
-            Assert.That(added.forceRenderingOff, Is.True);
+            Assert.That(added.forceRenderingOff, Is.False);
             Assert.That(Read<int>(binder, "WallCount"), Is.EqualTo(1));
         }
 
@@ -192,7 +197,7 @@ namespace SplatPreprocess.Tests
             Assert.Throws<InvalidOperationException>(() => Call(binder, "ApplyNow"));
             Assert.That(Read<int>(binder, "WallCount"), Is.Zero);
             Assert.That(Read<string>(binder, "LastError"), Is.Not.Empty);
-            Assert.That(wall.forceRenderingOff, Is.True, "An invalid guide must not become an opaque occluder.");
+            Assert.That(wall.forceRenderingOff, Is.False, "Invalid splat geometry must not alter mesh visibility.");
             binder.enabled = false;
             Assert.That(wall.forceRenderingOff, Is.False);
         }
@@ -205,7 +210,7 @@ namespace SplatPreprocess.Tests
             Assert.Throws<InvalidOperationException>(Bind);
             Assert.That(Read<int>(binder, "WallCount"), Is.Zero);
             Assert.That(Read<string>(binder, "LastError"), Is.Not.Empty);
-            foreach (var visual in root.GetComponentsInChildren<MeshRenderer>()) Assert.That(visual.forceRenderingOff, Is.True);
+            foreach (var visual in root.GetComponentsInChildren<MeshRenderer>()) Assert.That(visual.forceRenderingOff, Is.False);
         }
     }
 }

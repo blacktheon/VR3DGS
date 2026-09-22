@@ -8,7 +8,7 @@ using UnityEditor;
 
 namespace SplatPreprocess
 {
-    /// <summary>Binds finite authored XZ planes to per-camera splat visibility, preserving gameplay collision.</summary>
+    /// <summary>Binds finite authored XZ planes to per-camera splat visibility without changing mesh rendering or collision.</summary>
     [ExecuteAlways, DisallowMultipleComponent, DefaultExecutionOrder(-1900)]
     public sealed class Stage1AuthoredWalls : MonoBehaviour
     {
@@ -17,9 +17,6 @@ namespace SplatPreprocess
         [SerializeField, Min(0)] float _rearDepth = 0.1f;
 
         readonly List<MeshFilter> _filters = new();
-        readonly List<MeshRenderer> _visuals = new();
-        readonly List<MeshRenderer> _removedVisuals = new();
-        readonly Dictionary<MeshRenderer, bool> _ownedVisibility = new();
         readonly List<Snapshot> _snapshots = new();
         readonly List<Stage1Wall> _wallScratch = new();
         Stage1Wall[] _walls = Array.Empty<Stage1Wall>();
@@ -91,7 +88,6 @@ namespace SplatPreprocess
             EditorApplication.hierarchyChanged -= InvalidateHierarchy;
             Undo.undoRedoPerformed -= InvalidateHierarchy;
 #endif
-            RestoreVisibility();
             ClearTarget(_boundRenderer);
             _walls = Array.Empty<Stage1Wall>();
             _snapshots.Clear();
@@ -109,7 +105,6 @@ namespace SplatPreprocess
             if (!isActiveAndEnabled) return;
             if (_boundRoot != _wallsRoot || _boundRenderer != _renderer)
             {
-                RestoreVisibility();
                 ClearTarget(_boundRenderer);
                 _boundRoot = _wallsRoot;
                 _boundRenderer = _renderer;
@@ -123,15 +118,11 @@ namespace SplatPreprocess
             }
             if (!_wallsRoot)
             {
-                RestoreVisibility();
                 if (!_renderer && !throwOnFailure) return; // An unconfigured new component is inert.
                 Fail("Assign the authored Walls root.", throwOnFailure);
                 return;
             }
 
-            _visuals.Clear();
-            _wallsRoot.GetComponentsInChildren(true, _visuals);
-            OwnVisibility();
             if (!_renderer)
             {
                 Fail("Assign the Stage 1 splat renderer.", throwOnFailure);
@@ -257,30 +248,6 @@ namespace SplatPreprocess
                 });
             }
             _walls = _wallScratch.Count == 0 ? Array.Empty<Stage1Wall>() : _wallScratch.ToArray();
-        }
-
-        void OwnVisibility()
-        {
-            _removedVisuals.Clear();
-            foreach (var entry in _ownedVisibility)
-                if (!entry.Key || !_visuals.Contains(entry.Key)) _removedVisuals.Add(entry.Key);
-            foreach (var visual in _removedVisuals)
-            {
-                if (visual) visual.forceRenderingOff = _ownedVisibility[visual];
-                _ownedVisibility.Remove(visual);
-            }
-            foreach (var visual in _visuals)
-            {
-                if (!_ownedVisibility.ContainsKey(visual)) _ownedVisibility.Add(visual, visual.forceRenderingOff);
-                if (!visual.forceRenderingOff) visual.forceRenderingOff = true;
-            }
-        }
-
-        void RestoreVisibility()
-        {
-            foreach (var entry in _ownedVisibility)
-                if (entry.Key) entry.Key.forceRenderingOff = entry.Value;
-            _ownedVisibility.Clear();
         }
 
         static void ClearTarget(GsplatRenderer renderer)

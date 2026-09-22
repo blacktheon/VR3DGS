@@ -143,6 +143,27 @@ namespace Gsplat
             return m_activeGsplats.Count != 0;
         }
 
+#if UNITY_EDITOR
+        internal void PrepareEditorPreviews(Camera camera)
+        {
+            if (!GsplatRenderer.UsesEditorUrpPreview || camera.cameraType == CameraType.Preview) return;
+            GlobalRenderEnabled = false;
+            // A preparation callback can disable/unregister a renderer after validation fails.
+            // Prepare before gathering: a freshly enabled source has no uploaded count yet.
+            foreach (var gs in m_gsplats.ToArray())
+                if (gs is GsplatRenderer renderer && renderer && renderer.isActiveAndEnabled &&
+                    (camera.cullingMask & (1 << renderer.gameObject.layer)) != 0)
+                    renderer.PrepareEditorPreview();
+        }
+
+        internal void DrawEditorPreviews(CommandBuffer commandBuffer, Camera camera)
+        {
+            if (!GsplatRenderer.UsesEditorUrpPreview) return;
+            foreach (var renderer in m_activeGsplats.OfType<GsplatRenderer>().OrderBy(value => value.RenderOrder))
+                if (renderer) renderer.DrawEditorPreview(commandBuffer, camera);
+        }
+#endif
+
         // Decides scene-wide whether the global merge can run this frame. 
         bool CanRenderGlobally()
         {
@@ -258,6 +279,13 @@ namespace Gsplat
         // Called by GsplatPlayerLoopHook once per frame, before Unity's PostLateUpdate phase
         public void Update()
         {
+#if UNITY_EDITOR
+            if (GsplatRenderer.UsesEditorUrpPreview)
+            {
+                GlobalRenderEnabled = false;
+                return;
+            }
+#endif
             GlobalRenderEnabled = m_globalRenderer.Valid && GsplatSettings.Instance.EnableGlobalSort &&
                                   m_activeGsplats.Count >= 2;
             if (!GlobalRenderEnabled) return;

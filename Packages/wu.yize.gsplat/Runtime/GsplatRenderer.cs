@@ -168,6 +168,46 @@ namespace Gsplat
             m_prevAsset = null;
         }
 
+#if UNITY_EDITOR
+        /// <summary>Lets an Editor owner restore or withhold a validated selection before a camera uses it.</summary>
+        public static event Action<GsplatRenderer> EditorPreviewPreparing;
+
+        internal static bool UsesEditorUrpPreview
+        {
+            get
+            {
+#if GSPLAT_ENABLE_URP
+                return !Application.isPlaying &&
+                       GraphicsSettings.currentRenderPipeline is UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset;
+#else
+                return false;
+#endif
+            }
+        }
+
+        /// <summary>Commit the latest Editor selection without submitting a native, frame-persistent draw.</summary>
+        public void PrepareEditorPreview()
+        {
+            if (Application.isPlaying || !isActiveAndEnabled) return;
+            EditorPreviewPreparing?.Invoke(this);
+            if (!this || !isActiveAndEnabled) return;
+            EnsureAssetBound();
+            if (!Valid || !GsplatSettings.Instance.Valid || !GsplatSorter.Instance.Valid) return;
+            // Scene and Game cameras can repaint independently without advancing Time.frameCount.
+            // Each camera therefore needs a fresh sort rather than a player-frame refresh interval.
+            m_renderer.EvaluateRefreshRequired(GsplatSortMode.Always, 0, 0);
+            m_renderer.DispatchInitOrder(Cutouts, transform.localToWorldMatrix, CutoutsUpdateBounds);
+        }
+
+        internal void DrawEditorPreview(CommandBuffer commandBuffer, Camera camera)
+        {
+            if (Application.isPlaying || !isActiveAndEnabled || !Valid ||
+                (camera.cullingMask & (1 << gameObject.layer)) == 0) return;
+            m_renderer.RenderEditorPreview(commandBuffer, transform, GammaToLinear, SHDegree, Brightness,
+                1.0f - SplatDownscaleFactor, RenderOrder);
+        }
+#endif
+
         void EnsureAssetBound()
         {
             if (!GsplatAsset)
@@ -195,6 +235,13 @@ namespace Gsplat
 
         public void Update()
         {
+#if UNITY_EDITOR
+            if (UsesEditorUrpPreview)
+            {
+                PrepareEditorPreview();
+                return;
+            }
+#endif
             EnsureAssetBound();
             if (Valid && GsplatSettings.Instance.Valid && GsplatSorter.Instance.Valid)
             {

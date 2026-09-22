@@ -1,23 +1,27 @@
 # Stage 1 — first round with the authored scene
 
+Latest scene update: five authored `Surfaces` planes have full-source 8K screenshot materials, and the three `Deletable` boxes exclude 709,730 unique splats. The customized ranking preserves the existing importance scores and is configured at 30% (1,567,386 of 5,224,622 survivors). See [surface customization](stage1-surface-customization.md) for the current assets, controls and validation. The scoring measurements below describe the completed original round, before this customization.
+
 The first scoring and automated verification round uses the saved `Assets/Scenes/Stage1.unity`, its floor and machine-top NavMesh, the original 6,011,316-row source, and the planes under `Walls`. The user's next step is the original workflow step 7: inspect the candidates while walking and climbing in the existing scene, and save useful views with A.
 
-Open the saved scene and enter Play Mode for Editor/PCVR review. The rank is configured, the physical slider is centered at 50%, and pose recording starts automatically. This first version uses local rank files; standalone APK data packaging and Android performance validation remain later work.
+Open the saved scene and enter Play Mode for Editor/PCVR review. The customized rank is configured, the physical slider starts at 30%, and pose recording starts automatically. This version uses local rank files; standalone APK data packaging and Android performance validation remain later work.
+
+To preview a percentage without pressing Play, open **Tools → Splats → Stage 1 Preprocessor → Review**. Drag or type **Keep splats (%)** under **Edit Mode preview**. Leave **Show original (100%)** unchecked to see the candidate; checking it compares against the eligible original while remembering your percentage. Save the scene to persist that choice. The configured rank reloads after scripts recompile or the saved scene opens, with source and geometry validation. The Edit Mode value does not move the physical slider; Play Mode uses its authored handle position.
 
 ## Scene rules and controls
 
 - Viewpoint feet lie on the authored NavMesh. Eye heights are 0.3, 0.8, 1.3 and 1.8 units **above each surface**, including the machine top. Scale follows the authored Unity scene; no independent physical measurement was supplied.
 - `Walls/Floor` excludes splat centers below its world plane. The original PLY and original row IDs remain unchanged.
-- The seven other planes use local +Y as their front. From that side, a center is suppressed only within the 0.1-unit rear band and only when its camera ray crosses the finite plane rectangle. Front-side and deeper centers remain visible. This is a center-based Gaussian rule, not clipping every Gaussian's entire footprint.
-- The analysis planes' mesh rendering is suppressed during review; their colliders and the authored NavMesh remain intact.
-- `Slider No Snapping/Grabbable` keeps its authored X limits of −0.06 to +0.06. Its position maps to **Keep splats (%)**, from 0 to 100. The current center position corresponds to 50%.
+- The seven old directional wall planes are currently inactive. Their supported rule uses local +Y as the front: from that side, a center is suppressed only within the 0.1-unit rear band and when its camera ray crosses the finite plane rectangle. Front-side and deeper centers remain visible. This is a center-based Gaussian rule, not clipping every Gaussian's entire footprint.
+- Plane meshes use their normal Mesh Renderer settings in both Edit and Play Mode. The splat wall binding does not hide or enable them; its finite directional filtering is independent of mesh visibility. Their colliders and the authored NavMesh remain intact. Any visible opaque plane also renders normally with its material's depth behavior; the offline report measures the splat subset alone.
+- `Slider No Snapping/Grabbable` keeps its authored X limits of −0.06 to +0.06. Its position maps to **Keep splats (%)**, from 0 to 100. The current X of −0.024 corresponds to 30%.
 - **Right A:** save the current view, displayed mode and remembered candidate percentage as a priority bookmark.
 - **Right B:** toggle the eligible original and the candidate. It preserves the candidate percentage. Original also obeys the floor and directional-wall rules.
 - The sample right-A Jump action is disabled to honor the no-jump requirement. Other locomotion, crouch and climbing settings are preserved.
 - Added the splat render feature to `Mobile_Renderer.asset`, which this scene actually uses in Play Mode. Reconnected the climbing event handler and its movement-disable/enable events to the existing `PlayerController` locomotor; all three references were missing. The rig and movement configuration remain user authored.
 - Review status appears beside the slider and in the desktop Game view. Pose recording starts with review; desktop controls can stop/start it. Ordinary poses and bookmarks are stored separately under `SplatData/sessions/<session>/`.
 
-## Completed processing
+## Original completed processing
 
 Full job: `20260921-162435-1314a11cfcc740fd9515a42b7012aa37`.
 
@@ -60,9 +64,10 @@ Use **Splat Preprocessor → Process** to capture and process a newly saved auth
 
 Large generated data and the local Python environment remain under ignored project folders. Preserve them with the local project if you want to retain this exact round. Final PLY export, compressed reimport, history merging and a second scoring round are later workflow steps.
 
-## Validation status
+## Original round validation
 
 - **90/90 Unity EditMode tests and 55/55 Python tests passed.** Unity evidence: `SplatData/validation/m1/round1-final-green.xml`.
+- The plane-visibility follow-up passed **90/90 Unity tests** after five visibility regressions reproduced the previous forced-hiding behavior. Evidence: `SplatData/validation/m1/plane-visibility-red.xml` and `plane-visibility-green.xml`. Mesh visibility remains independent of the directional splat geometry through updates, disable/enable, hierarchy changes and invalid geometry.
 - **10 live Play Mode captures passed**, covering both NavMesh levels at 0/25/50/75/100%. Actual GPU sort/draw membership matched the frozen original-row rank exactly, with unchanged resident source buffers. Both zero endpoints had zero selected splats and zero source pixels. Evidence and images: `SplatData/validation/round1-runtime-final/validation.json`.
 - Physical slider endpoints and intermediate values, B toggling without losing the candidate, and A bookmarks in both display modes passed a Play Mode smoke check. Ordinary pose records omit candidate percentage; the two bookmarks retain it. Evidence: `SplatData/validation/round1-play/control_smoke.txt`. Test sessions are isolated under this validation directory.
 - An injected report-write failure restored the original source layer and 50% selection, removed the temporary camera, and released capture callbacks. Evidence: `SplatData/validation/round1-capture-write-failure/recovery.txt`.

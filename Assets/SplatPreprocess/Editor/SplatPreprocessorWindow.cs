@@ -13,6 +13,7 @@ namespace SplatPreprocess.Editor
         [SerializeField] string sourcePath = "";
         [SerializeField] string rankManifestPath = "";
         [SerializeField] string lastSceneSnapshot = "";
+        [SerializeField] float editModeKeepPercent = 50f;
         [SerializeField] int tab;
         Vector2 scroll;
         WorkerJobStore store;
@@ -134,7 +135,12 @@ namespace SplatPreprocess.Editor
             }
             EditorGUILayout.Space();
             var latest = DrawRoundResult();
-            if (latest != null && string.IsNullOrEmpty(rankManifestPath)) rankManifestPath = Path.Combine(latest.result_dir, "rank_manifest.json");
+            if (string.IsNullOrEmpty(rankManifestPath))
+            {
+                var configured = FindObjectsByType<Stage1SelectionController>(FindObjectsSortMode.None).FirstOrDefault(c => !string.IsNullOrEmpty(c.RankManifestPath));
+                if (configured) rankManifestPath = configured.RankManifestPath;
+                else if (latest != null) rankManifestPath = Path.Combine(latest.result_dir, "rank_manifest.json");
+            }
             EditorGUILayout.LabelField("Frozen ranking for review", EditorStyles.boldLabel);
             using (new EditorGUILayout.HorizontalScope())
             {
@@ -151,18 +157,62 @@ namespace SplatPreprocess.Editor
                 if (GUILayout.Button("Load selected ranking into review")) Attempt(() =>
                 {
                     Stage1Round1Service.LoadReviewRank(rankManifestPath, sourcePath);
-                    foreach (var panel in FindObjectsByType<Stage1PreviewPanel>(FindObjectsSortMode.None)) panel.Refresh();
+                    foreach (var controller in FindObjectsByType<Stage1SelectionController>(FindObjectsSortMode.None))
+                        if (controller.State != null) SetEditModePreview(controller, controller.EditModeCentiPercent / 100f, controller.EditModeShowOriginal);
                 });
+            bool hasLoadedRank = false;
             foreach (var controller in FindObjectsByType<Stage1SelectionController>(FindObjectsSortMode.None))
             {
-                if (controller.State == null) continue;
+                if (controller.State == null)
+                {
+                    if (!string.IsNullOrEmpty(controller.LastPreviewError)) EditorGUILayout.HelpBox(controller.LastPreviewError, MessageType.Warning);
+                    continue;
+                }
+                hasLoadedRank = true;
                 var state = controller.State;
                 EditorGUILayout.LabelField("Loaded rank: " + state.FrozenRankId, EditorStyles.wordWrappedLabel);
                 EditorGUILayout.LabelField($"Candidate: {state.CandidateCentiPercent / 100.0:F2}% · Showing {state.DisplayMode} · {state.DisplayedCount:N0} / {state.EligibleCount:N0}");
                 EditorGUILayout.LabelField($"Original source provenance: {state.SourceCount:N0} rows", EditorStyles.miniLabel);
+                using (new EditorGUI.DisabledScope(Busy || EditorApplication.isPlayingOrWillChangePlaymode || controller.IsSessionActive || !controller.Renderer || !controller.Renderer.isActiveAndEnabled))
+                {
+                    EditorGUILayout.Space();
+                    EditorGUILayout.LabelField("Edit Mode preview", EditorStyles.boldLabel);
+                    EditorGUI.BeginChangeCheck();
+                    float percent = EditorGUILayout.Slider("Keep splats (%)", state.CandidateCentiPercent / 100f, 0f, 100f);
+                    bool original = EditorGUILayout.Toggle("Show original (100%)", state.IsOriginal);
+                    if (EditorGUI.EndChangeCheck()) Attempt(() =>
+                    {
+                        SetEditModePreview(controller, percent, original);
+                        editModeKeepPercent = controller.State.CandidateCentiPercent / 100f;
+                    });
+                }
             }
+            if (!hasLoadedRank) EditorGUILayout.HelpBox("The configured preview reloads after scripts recompile or a saved scene opens. Save pending edits first. A changed wall, deletion box or surface layout requires an updated ranking.", MessageType.Info);
+            EditorGUILayout.HelpBox("Edit Mode preview updates the Game and Scene views without entering Play Mode or recording a session. Keep Show original unchecked to see the selected percentage. In Play Mode, the physical slider's position controls the percentage.", MessageType.None);
             EditorGUILayout.HelpBox("In Play Mode, the existing physical slider controls Keep splats (%). Right A saves the exact view and remembered candidate; right B compares the eligible original with that candidate. Rank changes are available only between review sessions.", MessageType.Info);
             EditorGUILayout.HelpBox("Ordinary pose recording and exact bookmarks are saved separately under SplatData/sessions. Use the scene review controls to start or stop pose recording. The source and scene must match the selected rank.", MessageType.None);
+        }
+
+        public static void SetEditModePreview(Stage1SelectionController controller, float keepPercent, bool showOriginal)
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode || !controller || controller.IsSessionActive)
+                throw new InvalidOperationException("Edit Mode preview is available only outside a running review session");
+            if (controller.State == null) throw new InvalidOperationException("Load the selected ranking before adjusting its preview");
+            if (!controller.Renderer || !controller.Renderer.isActiveAndEnabled || File.Exists(Stage1Round1Service.LeasePath))
+                throw new InvalidOperationException("Wait until the source preview is enabled and processing has finished");
+            if (float.IsNaN(keepPercent) || float.IsInfinity(keepPercent) || keepPercent < 0 || keepPercent > 100)
+                throw new ArgumentOutOfRangeException(nameof(keepPercent));
+            controller.State.SetCandidateNormalized(keepPercent / 100f);
+            if (controller.State.IsOriginal != showOriginal) controller.State.ToggleOriginal();
+            Undo.RecordObject(controller, "Set splat preview percentage");
+            controller.RememberEditModePreview(controller.State.CandidateCentiPercent, showOriginal);
+            EditorUtility.SetDirty(controller);
+            controller.EnsurePreviewSelection();
+            foreach (var panel in FindObjectsByType<Stage1PreviewPanel>(FindObjectsSortMode.None)) panel.Refresh();
+            EditorApplication.QueuePlayerLoopUpdate();
+            SceneView.RepaintAll();
+            foreach (var window in Resources.FindObjectsOfTypeAll<EditorWindow>())
+                if (window.GetType().Name == "GameView" || window is SplatPreprocessorWindow) window.Repaint();
         }
 
         void DrawProcess()

@@ -12,6 +12,8 @@ namespace SplatPreprocess
         [SerializeField] string _rankManifestPath;
         [SerializeField] string _expectedSourceHash;
         [SerializeField] string _expectedSceneHash;
+        [SerializeField, Range(0, 10000)] int _editModeCentiPercent = 10000;
+        [SerializeField] bool _editModeShowOriginal;
 
         uint[] _frozenRank;
         GsplatAsset _loadedAsset;
@@ -23,6 +25,18 @@ namespace SplatPreprocess
         public GsplatRenderer Renderer => _renderer;
         public string RankManifestPath => _rankManifestPath;
         public string LastPreviewError { get; private set; } = string.Empty;
+        public int EditModeCentiPercent => _editModeCentiPercent;
+        public bool EditModeShowOriginal => _editModeShowOriginal;
+
+        public void RememberEditModePreview(int centiPercent, bool showOriginal)
+        {
+            if (Application.isPlaying) throw new InvalidOperationException("Edit Mode defaults cannot change during playback");
+            if (centiPercent < 0 || centiPercent > 10000) throw new ArgumentOutOfRangeException(nameof(centiPercent));
+            _editModeCentiPercent = centiPercent;
+            _editModeShowOriginal = showOriginal;
+        }
+
+        public void ReportPreviewLoadError(string message) => LastPreviewError = message ?? string.Empty;
 
         public void Bind(GsplatRenderer renderer, string manifestPath, string sourceHash, string sceneHash)
         {
@@ -77,6 +91,8 @@ namespace SplatPreprocess
             _selectionResource = _renderer.GsplatResource;
             State = new Stage1ReviewState(manifest.source_count, manifest.eligible_count, manifest.source_hash, manifest.scene_hash, manifest.rank_id);
             State.Changed += ApplySelection;
+            State.SetCandidate(_editModeCentiPercent);
+            if (_editModeShowOriginal) State.ToggleOriginal();
             ApplySelection();
         }
 
@@ -103,9 +119,18 @@ namespace SplatPreprocess
         /// </summary>
         public bool EnsurePreviewSelection()
         {
-            if (State == null) return false;
             try
             {
+                if (State == null)
+                {
+                    // Camera preparation may precede MonoBehaviour.Update after a reload.
+                    // Hold an unvalidated configured preview empty at either entry point.
+                    if (!Application.isPlaying && !string.IsNullOrEmpty(_rankManifestPath) &&
+                        _renderer && _renderer.isActiveAndEnabled && _renderer.GsplatAsset &&
+                        (!_renderer.HasStage1Selection || _renderer.Stage1EligibleCount != 0))
+                        _renderer.SetStage1Rank(Array.Empty<uint>());
+                    return false;
+                }
                 if (!_renderer || !_loadedAsset || _renderer.GsplatAsset != _loadedAsset ||
                     _loadedAsset.SplatCount != State.SourceCount)
                     throw new InvalidDataException("The preview source asset changed; restore the loaded source or end the session before loading another rank");
@@ -134,7 +159,10 @@ namespace SplatPreprocess
 
         void Update()
         {
-            try { EnsurePreviewSelection(); }
+            try
+            {
+                EnsurePreviewSelection();
+            }
             catch (Exception error)
             {
                 if (_reportedPreviewError == error.Message) return;

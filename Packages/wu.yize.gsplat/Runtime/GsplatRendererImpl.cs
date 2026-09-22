@@ -15,6 +15,9 @@ namespace Gsplat
 
         MaterialPropertyBlock m_propertyBlock;
         GsplatAsset m_gsplatAsset;
+#if UNITY_EDITOR
+        readonly Dictionary<Material, Material> m_editorMaterials = new();
+#endif
         public uint m_remainingCount = 0;
         public Bounds m_bounds;
         ulong m_gsplatAssetID;
@@ -276,6 +279,11 @@ namespace Gsplat
         {
             // Resource teardown cannot leave pending buffers alive for a later Update.
             ReleaseStage1Selection();
+#if UNITY_EDITOR
+            foreach (var material in m_editorMaterials.Values)
+                if (material) UnityEngine.Object.DestroyImmediate(material);
+            m_editorMaterials.Clear();
+#endif
             GsplatResourceManager.Release(m_gsplatAssetID);
             GsplatResource = null;
             m_gsplatAsset = null;
@@ -401,13 +409,7 @@ namespace Gsplat
             if (m_remainingCount <= 0)
                 return;
 
-            m_propertyBlock.SetInteger(k_splatCount, (int)m_remainingCount);
-            m_propertyBlock.SetInteger(k_gammaToLinear, gammaToLinear ? 1 : 0);
-            m_propertyBlock.SetInteger(k_splatInstanceSize, (int)GsplatSettings.Instance.SplatInstanceSize);
-            m_propertyBlock.SetInteger(k_shDegree, Math.Min(m_gsplatAsset.SHBands, shDegree));
-            m_propertyBlock.SetFloat(k_brightness, brightness);
-            m_propertyBlock.SetFloat(k_scaleFactor, scaleFactor);
-            m_propertyBlock.SetMatrix(k_matrixM, transform.localToWorldMatrix);
+            SetRenderProperties(transform, gammaToLinear, shDegree, brightness, scaleFactor);
 
             uint order = Math.Clamp(renderOrder, 0, GsplatSettings.Instance.MaxRenderOrder - 1);
             var rp = new RenderParams(m_gsplatAsset.Materials[order])
@@ -420,5 +422,41 @@ namespace Gsplat
             Graphics.RenderMeshPrimitives(rp, GsplatSettings.Instance.Mesh, 0,
                 Mathf.CeilToInt(m_remainingCount / (float)GsplatSettings.Instance.SplatInstanceSize));
         }
+
+        void SetRenderProperties(Transform transform, bool gammaToLinear, int shDegree, float brightness, float scaleFactor)
+        {
+            m_propertyBlock.SetInteger(k_splatCount, (int)m_remainingCount);
+            m_propertyBlock.SetInteger(k_gammaToLinear, gammaToLinear ? 1 : 0);
+            m_propertyBlock.SetInteger(k_splatInstanceSize, (int)GsplatSettings.Instance.SplatInstanceSize);
+            m_propertyBlock.SetInteger(k_shDegree, Math.Min(m_gsplatAsset.SHBands, shDegree));
+            m_propertyBlock.SetFloat(k_brightness, brightness);
+            m_propertyBlock.SetFloat(k_scaleFactor, scaleFactor);
+            m_propertyBlock.SetMatrix(k_matrixM, transform.localToWorldMatrix);
+        }
+
+#if UNITY_EDITOR
+        /// <summary>Record one camera-local draw after that camera's depth sort, using its existing targets.</summary>
+        public void RenderEditorPreview(CommandBuffer commandBuffer, Transform transform, bool gammaToLinear,
+            int shDegree, float brightness, float scaleFactor, uint renderOrder)
+        {
+            if (commandBuffer == null) throw new ArgumentNullException(nameof(commandBuffer));
+            if (m_remainingCount == 0) return;
+            SetRenderProperties(transform, gammaToLinear, shDegree, brightness, scaleFactor);
+            uint order = Math.Clamp(renderOrder, 0, GsplatSettings.Instance.MaxRenderOrder - 1);
+            var sourceMaterial = m_gsplatAsset.Materials[order];
+            if (!m_editorMaterials.TryGetValue(sourceMaterial, out var material) || !material)
+            {
+                material = new Material(sourceMaterial)
+                {
+                    name = sourceMaterial.name + " (Editor preview)",
+                    hideFlags = HideFlags.HideAndDontSave,
+                    enableInstancing = true
+                };
+                m_editorMaterials[sourceMaterial] = material;
+            }
+            commandBuffer.DrawMeshInstancedProcedural(GsplatSettings.Instance.Mesh, 0, material, 0,
+                Mathf.CeilToInt(m_remainingCount / (float)GsplatSettings.Instance.SplatInstanceSize), m_propertyBlock);
+        }
+#endif
     }
 }
