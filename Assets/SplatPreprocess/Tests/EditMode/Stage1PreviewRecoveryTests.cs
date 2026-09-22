@@ -7,6 +7,8 @@ using Gsplat;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEditor;
+using Oculus.Interaction.Input;
 
 namespace SplatPreprocess.Tests
 {
@@ -88,6 +90,63 @@ namespace SplatPreprocess.Tests
         }
 
         void EarlyUpdate() => controller.SendMessage("Update", SendMessageOptions.DontRequireReceiver);
+
+        [Test]
+        public void MetaRightButtonsSaveOnceAndCompareEvenWhenViewCaptureIsUnavailable()
+        {
+            controller.LoadRank(Manifest(new uint[] { 8, 2, 5, 1 }), new uint[] { 8, 2, 5, 1 });
+            controller.State.SetCandidate(5000);
+            var camera = controls.AddComponent<Camera>();
+            var views = controls.AddComponent<Stage1SceneBindings>();
+            views.Bind(camera, target.transform, controls.transform);
+            var actions = controls.AddComponent<Stage1ReviewActions>();
+            actions.Bind(controller, views);
+            void Tick() => typeof(Stage1ReviewActions).GetMethod("LateUpdate", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(actions, null);
+            var directory = Path.Combine(Path.GetTempPath(), "stage1-input-" + Guid.NewGuid().ToString("N"));
+            var source = new Stage1TestControllerSource();
+            var right = controls.AddComponent<Controller>();
+            right.InjectAllController(DataSource<ControllerDataAsset>.UpdateModeFlags.Manual, null, source, false);
+            var serialized = new SerializedObject(actions);
+            var input = serialized.FindProperty("_rightController");
+            Assert.That(input, Is.Not.Null, "Review input must use the same Meta controller as the interaction rig.");
+            input.objectReferenceValue = right;
+            serialized.FindProperty("_sessionRoot").stringValue = directory;
+            serialized.FindProperty("_pollRightControllerButtons").boolValue = true;
+            serialized.FindProperty("_recordOrdinaryPoses").boolValue = false;
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+            try
+            {
+                actions.StartSession();
+                source.Data.Input.SetButton(ControllerButtonUsage.PrimaryButton, true);
+                source.Data.Input.SetButton(ControllerButtonUsage.SecondaryButton, true);
+                Tick();
+                Tick();
+                Assert.That(actions.BookmarkCount, Is.EqualTo(1), "A held button must save only once.");
+                Assert.That(controller.State.IsOriginal, Is.True);
+                renderer.Update();
+                AssertGpuMembership(new uint[] { 1, 2, 5, 8 });
+                source.Data.Input.Clear();
+                Tick();
+                views.Bind(null, target.transform, controls.transform);
+                source.Data.Input.SetButton(ControllerButtonUsage.PrimaryButton, true);
+                source.Data.Input.SetButton(ControllerButtonUsage.SecondaryButton, true);
+                Tick();
+                Assert.That(actions.IsSessionOpen, Is.True, "Waiting for an XR view must not shut down review input.");
+                Assert.That(actions.BookmarkCount, Is.EqualTo(1));
+                Assert.That(controller.State.IsOriginal, Is.False, "B must still work when A cannot capture a view.");
+                renderer.Update();
+                AssertGpuMembership(new uint[] { 2, 8 });
+                var session = actions.SessionDirectory;
+                actions.EndSession();
+                var mark = JsonUtility.FromJson<MarkRecord>(File.ReadAllLines(Path.Combine(session, "marks.jsonl"))[0]);
+                Assert.That(mark.display_mode, Is.EqualTo("candidate"), "Simultaneous A/B saves the view before comparison changes.");
+            }
+            finally
+            {
+                actions.EndSession();
+                if (Directory.Exists(directory)) Directory.Delete(directory, true);
+            }
+        }
 
         [TestCase(false)]
         [TestCase(true)]

@@ -4,6 +4,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR;
+using Oculus.Interaction.Input;
 
 namespace SplatPreprocess
 {
@@ -14,6 +15,8 @@ namespace SplatPreprocess
         [SerializeField] Stage1SelectionController _selection;
         [SerializeField] Stage1SceneBindings _viewBindings;
         [SerializeField] bool _pollRightControllerButtons;
+        [SerializeField, Tooltip("Use the same Meta right-controller data source as locomotion when assigned.")]
+        Controller _rightController;
         [SerializeField] bool _recordOrdinaryPoses = true;
         [SerializeField] string _sessionRoot = "SplatData/sessions";
         [SerializeField, Range(1, 3)] float _bookmarkPriority = 3;
@@ -93,7 +96,11 @@ namespace SplatPreprocess
         public void BookmarkCurrentView()
         {
             StartSession();
-            if (!_viewBindings.TryCaptureViews(out var view)) throw new InvalidOperationException("The assigned head camera cannot capture a review view");
+            if (!_viewBindings.TryCaptureViews(out var view))
+            {
+                SetStatus("View not saved: waiting for the headset camera. Press A again when tracking resumes.");
+                return;
+            }
             var mark = State.GetBookmark(view);
             mark.priority = Mathf.Clamp(_bookmarkPriority, 1, 3);
             recorder.AppendMark(mark);
@@ -130,9 +137,19 @@ namespace SplatPreprocess
             {
                 if (_pollRightControllerButtons)
                 {
-                    var right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
-                    right.TryGetFeatureValue(CommonUsages.primaryButton, out var a);
-                    right.TryGetFeatureValue(CommonUsages.secondaryButton, out var b);
+                    bool a, b;
+                    if (_rightController)
+                    {
+                        var connected = _rightController.IsConnected && _rightController.Handedness == Handedness.Right;
+                        a = connected && _rightController.IsButtonUsageAnyActive(ControllerButtonUsage.PrimaryButton);
+                        b = connected && _rightController.IsButtonUsageAnyActive(ControllerButtonUsage.SecondaryButton);
+                    }
+                    else
+                    {
+                        var right = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+                        right.TryGetFeatureValue(CommonUsages.primaryButton, out a);
+                        right.TryGetFeatureValue(CommonUsages.secondaryButton, out b);
+                    }
                     var press = edges.Sample(a, b);
                     // Simultaneous A/B captures the mode that was visible when both buttons were sampled.
                     if ((press & Stage1ButtonPress.Bookmark) != 0) BookmarkCurrentView();
@@ -164,7 +181,7 @@ namespace SplatPreprocess
             return "Keep splats (%)\nCandidate: " + percent + "%  |  Showing: " + mode +
                 "\nSelected: " + state.DisplayedCount.ToString("N0", CultureInfo.InvariantCulture) + " / " + state.EligibleCount.ToString("N0", CultureInfo.InvariantCulture) +
                 "\nRank: " + state.FrozenRankId + "  Source: " + state.SourceHash.Substring(0, Math.Min(8, state.SourceHash.Length)) +
-                "\nA: Save view   B: Original / candidate\n" + lastStatus;
+                "\nA: Save view   B: Original / candidate   Saved: " + BookmarkCount + "\n" + lastStatus;
         }
 
         void OnStateChanged() => StatusChanged?.Invoke();

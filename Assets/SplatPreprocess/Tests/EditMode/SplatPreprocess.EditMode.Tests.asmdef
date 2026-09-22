@@ -1,6 +1,6 @@
 {
   "name": "SplatPreprocess.EditMode.Tests",
-  "references": ["SplatPreprocess.Runtime", "SplatPreprocess.Editor", "Gsplat"],
+  "references": ["SplatPreprocess.Runtime", "SplatPreprocess.Editor", "Gsplat", "Oculus.Interaction"],
   "includePlatforms": ["Editor"],
   "optionalUnityReferences": ["TestAssemblies"]
 }

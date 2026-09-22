@@ -130,6 +130,23 @@ namespace SplatPreprocess.Tests
         }
 
         [Test]
+        public void VerifiedSourceBakeAcceptsAnotherCompleteSourceButRejectsWrongIdentityOrPruning()
+        {
+            var asset = ScriptableObject.CreateInstance<Gsplat.GsplatAssetUncompressed>();
+            try
+            {
+                asset.SplatCount = 6577198;
+                string hash = new string('a', 64);
+                Assert.DoesNotThrow(() => InvokeBaker("ValidateSourceIdentity", asset, 6577198, hash, hash));
+                Assert.Throws<InvalidOperationException>(() => InvokeBaker("ValidateSourceIdentity", asset, 6011316, hash, hash));
+                Assert.Throws<InvalidOperationException>(() => InvokeBaker("ValidateSourceIdentity", asset, 6577198, hash, new string('b', 64)));
+                asset.PrunedSplatCount = 1;
+                Assert.Throws<InvalidOperationException>(() => InvokeBaker("ValidateSourceIdentity", asset, 6577198, hash, hash));
+            }
+            finally { UnityEngine.Object.DestroyImmediate(asset); }
+        }
+
+        [Test]
         public void SelectingTopPreservesTheOtherFiveSurfaceAssignments()
         {
             var root = new GameObject("Surfaces");

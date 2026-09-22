@@ -1,5 +1,5 @@
 {
   "name": "SplatPreprocess.Runtime",
   "rootNamespace": "SplatPreprocess",
-  "references": ["Gsplat"]
+  "references": ["Gsplat", "Oculus.Interaction"]
 }

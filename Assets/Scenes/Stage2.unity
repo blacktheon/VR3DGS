@@ -4994,7 +4994,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 800b428f9fc4a7a428fdef0b92ef6edf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15741,6 +15741,7 @@ MonoBehaviour:
   _selection: {fileID: 1646427410}
   _viewBindings: {fileID: 1646427409}
   _pollRightControllerButtons: 1
+  _rightController: {fileID: 0}
   _recordOrdinaryPoses: 1
   _sessionRoot: SplatData/sessions
   _bookmarkPriority: 3

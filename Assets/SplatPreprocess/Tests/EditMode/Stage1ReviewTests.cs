@@ -289,5 +289,25 @@ namespace SplatPreprocess.Tests
                 UnityEngine.Object.DestroyImmediate(sourceObject);
             }
         }
+
+        [Test]
+        public void CameraBindingWaitsForAUsableProjectionAndRecovers()
+        {
+            var go = new GameObject("Stage1 projection readiness");
+            try
+            {
+                var camera = go.AddComponent<Camera>();
+                var bindings = go.AddComponent<Stage1SceneBindings>();
+                bindings.Bind(camera, go.transform, go.transform);
+                camera.projectionMatrix = Matrix4x4.zero;
+                Assert.That(bindings.TryCaptureViews(out var invalid), Is.False,
+                    "Uninitialized XR projection must not be recorded as a valid view.");
+                Assert.That(invalid, Is.Null);
+                camera.ResetProjectionMatrix();
+                Assert.That(bindings.TryCaptureViews(out var recovered), Is.True);
+                Assert.That(recovered.views, Has.Length.EqualTo(1));
+            }
+            finally { UnityEngine.Object.DestroyImmediate(go); }
+        }
     }
 }

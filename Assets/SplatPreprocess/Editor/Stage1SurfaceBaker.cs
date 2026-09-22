@@ -58,6 +58,8 @@ namespace SplatPreprocess.Editor
             public string profile = "All original source rows; no rank, deletion, cutout or wall masks; source-only orthographic camera on each plane's local +Y side; no XR, lighting, shadows or post-processing. RGBA8 sRGB screenshot over transparent black, saved with opaque alpha for URP Unlit. Black means no contributing source color. Mesh UV handedness is corrected in the image pixels.";
             public int source_count, max_dimension, source_sh_degree, original_selected_count;
             public bool source_gamma_to_linear, state_restored, materials_applied;
+            public Color background_color;
+            public bool coverage_includes_background;
             public string original_rank_id, original_display_mode;
             public string[] restoration_errors;
             public float[] source_local_to_world, source_bounds_min, source_bounds_max;
@@ -106,32 +108,52 @@ namespace SplatPreprocess.Editor
 
         /// <summary>Use a new Assets/... folder. A 1024 probe uses the same path as the final 8192 bake.</summary>
         public static string Begin(string outputAssetFolder, int maxDimension = 8192)
-            => BeginInternal(outputAssetFolder, maxDimension, null);
+            => BeginInternal(outputAssetFolder, maxDimension, null, ExpectedSourceCount, null, Color.clear);
 
         /// <summary>Capture only the exact requested hierarchy paths, preserving other surface materials.</summary>
         public static string BeginSelected(string outputAssetFolder, string[] hierarchyPaths, int maxDimension = 8192)
         {
             if (hierarchyPaths == null || hierarchyPaths.Length == 0)
                 throw new ArgumentException("Choose at least one authored surface path.", nameof(hierarchyPaths));
-            return BeginInternal(outputAssetFolder, maxDimension, hierarchyPaths);
+            return BeginInternal(outputAssetFolder, maxDimension, hierarchyPaths, ExpectedSourceCount, null, Color.clear);
         }
 
-        static string BeginInternal(string outputAssetFolder, int maxDimension, string[] hierarchyPaths)
+        /// <summary>Capture a separately inspected source, bound to its exact file hash and unpruned row count.</summary>
+        public static string BeginVerifiedSource(string outputAssetFolder, string[] hierarchyPaths,
+            int expectedSourceCount, string expectedSourceHash, int maxDimension = 8192, Color backgroundColor = default)
+        {
+            if (hierarchyPaths == null || hierarchyPaths.Length == 0 || expectedSourceCount <= 0 ||
+                expectedSourceHash == null || expectedSourceHash.Length != 64 ||
+                expectedSourceHash.Any(c => !(c >= '0' && c <= '9') && !(c >= 'a' && c <= 'f')))
+                throw new ArgumentException("Choose surfaces and provide the inspected source count and lowercase SHA-256.");
+            return BeginInternal(outputAssetFolder, maxDimension, hierarchyPaths, expectedSourceCount, expectedSourceHash, backgroundColor);
+        }
+
+        public static void ValidateSourceIdentity(GsplatAsset asset, int expectedCount, string actualHash, string expectedHash)
+        {
+            if (!(asset is GsplatAssetUncompressed) || expectedCount <= 0 || asset.SplatCount != expectedCount ||
+                asset.PrunedSplatCount != 0 || asset.SHBands != 0 || (expectedHash != null && actualHash != expectedHash))
+                throw new InvalidOperationException("Surface baking requires the verified, uncompressed, unpruned SH0 source with its complete row count and matching identity.");
+        }
+
+        static string BeginInternal(string outputAssetFolder, int maxDimension, string[] hierarchyPaths,
+            int expectedSourceCount, string expectedSourceHash, Color backgroundColor)
         {
             if (running) throw new InvalidOperationException("A surface bake is already active.");
             if (!EditorApplication.isPlaying || EditorApplication.isPaused)
                 throw new InvalidOperationException("Surface capture requires unpaused Play Mode so native draw submissions clear between runtime frames.");
             if (maxDimension < 16 || maxDimension > SystemInfo.maxTextureSize)
                 throw new ArgumentOutOfRangeException(nameof(maxDimension), "The requested dimension must fit the graphics device.");
+            for (int channel = 0; channel < 4; channel++)
+                if (!float.IsFinite(backgroundColor[channel]) || backgroundColor[channel] < 0 || backgroundColor[channel] > 1)
+                    throw new ArgumentException("The capture background must be a finite color in the 0–1 range.");
             var scene = SceneManager.GetActiveScene();
             if (string.IsNullOrEmpty(scene.path)) throw new InvalidOperationException("Save the authored scene before starting a surface bake.");
             var candidates = SceneComponents<GsplatRenderer>(scene);
             if (candidates.Length != 1 || !candidates[0].gameObject.activeInHierarchy)
                 throw new InvalidOperationException("The active scene must have one source renderer on an active GameObject.");
             var candidate = candidates[0];
-            if (!(candidate.GsplatAsset is GsplatAssetUncompressed) || candidate.GsplatAsset.SplatCount != ExpectedSourceCount ||
-                candidate.GsplatAsset.PrunedSplatCount != 0 || candidate.GsplatAsset.SHBands != 0)
-                throw new InvalidOperationException("Surface baking requires the unchanged, unpruned SH0 source with all 6,011,316 original rows.");
+            ValidateSourceIdentity(candidate.GsplatAsset, expectedSourceCount, null, null);
             if (candidate.Cutouts.Length != 0) throw new InvalidOperationException("Disable package cutouts before capturing the complete original source.");
             if (UnityEngine.Object.FindObjectsByType<Renderer>(FindObjectsInactive.Include, FindObjectsSortMode.None)
                 .Any(value => value.gameObject.layer == IsolationLayer) ||
@@ -149,6 +171,7 @@ namespace SplatPreprocess.Editor
             if (!importer || importer.Compression != CompressionMode.Uncompressed || importer.SourceCoordinates != SourceCoordinates.RUB || importer.OpacityPruneThreshold != 0)
                 throw new InvalidOperationException("The source importer must retain the audited Uncompressed/RUB/SH0/zero-pruning profile.");
             string sourceHash = HashFile(ProjectPath(assetPath));
+            ValidateSourceIdentity(candidate.GsplatAsset, expectedSourceCount, sourceHash, expectedSourceHash);
             var controllers = SceneComponents<Stage1SelectionController>(scene).Where(value => value.Renderer == candidate).ToArray();
             var wallBinders = SceneComponents<Stage1AuthoredWalls>(scene).Where(value => value.Renderer == candidate).ToArray();
             if (controllers.Length > 1 || wallBinders.Length > 1)
@@ -200,6 +223,7 @@ namespace SplatPreprocess.Editor
                 created_utc = UtcNow(), scene_path = scene.path, output_asset_folder = assetFolder, report_path = reportPath,
                 source_asset_path = assetPath, source_asset_guid = AssetDatabase.AssetPathToGUID(assetPath), source_file_sha256 = sourceHash,
                 source_count = checked((int)sourceAsset.SplatCount), source_sh_degree = sourceAsset.SHBands,
+                background_color = backgroundColor, coverage_includes_background = backgroundColor.a > 0,
                 max_dimension = maxDimension, surface_count = surfaces.Length,
                 unity_version = Application.unityVersion, graphics_api = SystemInfo.graphicsDeviceType.ToString(),
                 color_space = QualitySettings.activeColorSpace.ToString(), render_target_format = "RGBA8 sRGB, 24-bit depth, no MSAA",
@@ -209,6 +233,9 @@ namespace SplatPreprocess.Editor
                 source_local_to_world = Matrix(source.transform.localToWorldMatrix),
                 source_bounds_min = Vector(sourceAsset.Bounds.min), source_bounds_max = Vector(sourceAsset.Bounds.max)
             };
+            if (report.coverage_includes_background)
+                report.profile = report.profile.Replace("transparent black", "the recorded background color")
+                    .Replace("Black means no contributing source color.", "Uncovered areas retain the background; alpha coverage statistics include that background.");
             running = true; index = 0; prepared = false; lastCapturedFrame = -1;
             try
             {
@@ -227,7 +254,7 @@ namespace SplatPreprocess.Editor
                 captureCamera.enabled = false;
                 captureCamera.orthographic = true;
                 captureCamera.clearFlags = CameraClearFlags.SolidColor;
-                captureCamera.backgroundColor = Color.clear;
+                captureCamera.backgroundColor = backgroundColor;
                 captureCamera.cullingMask = 1 << IsolationLayer;
                 captureCamera.allowHDR = false; captureCamera.allowMSAA = false; captureCamera.allowDynamicResolution = false;
                 var data = captureCamera.GetUniversalAdditionalCameraData();
