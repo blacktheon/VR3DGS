@@ -40,10 +40,10 @@ namespace SplatPreprocess
             GUILayout.BeginArea(new Rect(12, 12, 420, 225), GUI.skin.box);
             GUILayout.Label(_reviewActions.GetStatusText());
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Save view (A)")) _reviewActions.BookmarkCurrentView();
+            if (Stage1ReviewActions.CaptureEnabled && GUILayout.Button("Save view (A)")) _reviewActions.BookmarkCurrentView();
             if (GUILayout.Button("Compare (B)")) _reviewActions.ToggleOriginal();
             GUILayout.EndHorizontal();
-            if (GUILayout.Button(_reviewActions.IsRecording ? "Stop pose recording" : "Record poses"))
+            if (Stage1ReviewActions.CaptureEnabled && GUILayout.Button(_reviewActions.IsRecording ? "Stop pose recording" : "Record poses"))
             {
                 if (_reviewActions.IsRecording) _reviewActions.StopRecording();
                 else _reviewActions.StartRecording();

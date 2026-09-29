@@ -79,6 +79,40 @@ namespace SplatPreprocess.Tests
             return Activator.CreateInstance(type, directory, new Func<string, GsplatRenderer>(id => id == "renderer-one" ? renderer : null));
         }
 
+        [Test]
+        public void FrozenPreviewAllowsChangedViewpointNavMeshWithARescoreNotice()
+        {
+            var method = typeof(Stage1Round1Service).GetMethod("ValidateFrozenPreviewSnapshot");
+            Assert.That(method, Is.Not.Null, "A frozen visual preview must survive changes to viewpoint sampling geometry.");
+            var saved = JsonUtility.ToJson(Snapshot());
+            var current = Snapshot();
+            Assert.That(method.Invoke(null, new object[] { current, saved }), Is.EqualTo(string.Empty));
+            current.nav_vertices[0].p[1] = 2.4166667f;
+            var notice = (string)method.Invoke(null, new object[] { current, saved });
+            Assert.That(notice, Does.Contain("NavMesh").And.Contain("not been rescored"));
+            Assert.That(current.nav_vertices[0].p[1], Is.EqualTo((double)2.4166667f));
+            Assert.Throws<InvalidDataException>(() => Stage1Round1Service.ValidateReviewSnapshot(current, saved),
+                "Scoring validation must remain strict even when a historical preview is allowed.");
+        }
+
+        [TestCase("source")]
+        [TestCase("model")]
+        [TestCase("floor")]
+        [TestCase("deletion")]
+        public void FrozenPreviewStillRejectsEligibilityChangesAfterNavMeshChanges(string change)
+        {
+            var method = typeof(Stage1Round1Service).GetMethod("ValidateFrozenPreviewSnapshot");
+            Assert.That(method, Is.Not.Null);
+            var current = Snapshot();
+            current.nav_vertices[0].p[1] = 2.4166667f;
+            if (change == "source") current.source_hash = "another source";
+            if (change == "model") current.model_local_to_world[3] = 1;
+            if (change == "floor") current.walls[0].position[1] = .25;
+            if (change == "deletion") current.deletion_boxes = new[] { new Stage1SceneBox { name = "new exclusion" } };
+            var failure = Assert.Throws<TargetInvocationException>(() => method.Invoke(null, new object[] { current, JsonUtility.ToJson(Snapshot()) }));
+            Assert.That(failure.InnerException, Is.TypeOf<InvalidDataException>());
+        }
+
         static object Call(object value, string method, params object[] arguments)
         {
             try { return value.GetType().GetMethod(method).Invoke(value, arguments); }

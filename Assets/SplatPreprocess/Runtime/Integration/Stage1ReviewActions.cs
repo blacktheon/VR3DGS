@@ -1,3 +1,7 @@
+// Headset movement recording and A-button view capture are temporarily paused.
+// Uncomment this one define to restore both, including their UI controls.
+// #define STAGE1_REVIEW_CAPTURE
+
 using System;
 using System.Globalization;
 using System.IO;
@@ -28,10 +32,23 @@ namespace SplatPreprocess
         double nextFlush;
         string lastStatus = "Review is ready to start";
         bool startFailed;
+        bool sessionOpen;
+
+        public static bool CaptureEnabled
+        {
+            get
+            {
+#if STAGE1_REVIEW_CAPTURE
+                return true;
+#else
+                return false;
+#endif
+            }
+        }
 
         public Stage1ReviewState State => _selection ? _selection.State : null;
-        public bool IsRecording => recorder != null && _recordOrdinaryPoses;
-        public bool IsSessionOpen => recorder != null;
+        public bool IsRecording => CaptureEnabled && recorder != null && _recordOrdinaryPoses;
+        public bool IsSessionOpen => sessionOpen;
         public int BookmarkCount { get; private set; }
         public string SessionDirectory => recorder?.DirectoryPath;
         public string LastStatus => lastStatus;
@@ -53,30 +70,36 @@ namespace SplatPreprocess
 
         public void StartSession()
         {
-            if (recorder != null) return;
-            if (!_selection || !_viewBindings || !_viewBindings.HeadCamera || !_viewBindings.SourceRoot)
+            if (sessionOpen) return;
+            if (!_selection) throw new InvalidOperationException("Assign the Stage 1 selection controller before review");
+            if (CaptureEnabled && (!_viewBindings || !_viewBindings.HeadCamera || !_viewBindings.SourceRoot))
                 throw new InvalidOperationException("Assign the review renderer, head camera, model and tracking origin bindings");
             if (_selection.State == null) _selection.LoadConfiguredRank();
-            var root = _sessionRoot;
-            if (string.IsNullOrWhiteSpace(root)) root = "SplatData/sessions";
-            if (!Path.IsPathRooted(root))
+            // Review input remains usable without creating a recorder or querying the headset.
+            if (CaptureEnabled)
             {
+                var root = _sessionRoot;
+                if (string.IsNullOrWhiteSpace(root)) root = "SplatData/sessions";
+                if (!Path.IsPathRooted(root))
+                {
 #if UNITY_EDITOR
-                root = Path.Combine(Application.dataPath, "..", root);
+                    root = Path.Combine(Application.dataPath, "..", root);
 #else
-                root = Path.Combine(Application.persistentDataPath, root);
+                    root = Path.Combine(Application.persistentDataPath, root);
 #endif
+                }
+                var directory = Path.Combine(root, DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fff", CultureInfo.InvariantCulture) + "-" + Guid.NewGuid().ToString("N").Substring(0, 8));
+                recorder = new Stage1SessionRecorder(directory, State);
+                poseFilter = new Stage1PoseFilter();
+                nextFlush = Time.realtimeSinceStartupAsDouble + 1;
             }
-            var directory = Path.Combine(root, DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fff", CultureInfo.InvariantCulture) + "-" + Guid.NewGuid().ToString("N").Substring(0, 8));
-            recorder = new Stage1SessionRecorder(directory, State);
             _selection.BeginSession();
             State.Changed += OnStateChanged;
-            poseFilter = new Stage1PoseFilter();
+            sessionOpen = true;
             edges = new Stage1ButtonEdges();
             BookmarkCount = 0;
-            nextFlush = Time.realtimeSinceStartupAsDouble + 1;
             startFailed = false;
-            SetStatus(_recordOrdinaryPoses ? "Pose recording on" : "Pose recording stopped");
+            SetStatus(CaptureEnabled ? (_recordOrdinaryPoses ? "Pose recording on" : "Pose recording stopped") : "Review ready");
         }
 
         public void EndSession()
@@ -84,6 +107,7 @@ namespace SplatPreprocess
             if (State != null) State.Changed -= OnStateChanged;
             recorder?.Stop();
             recorder = null;
+            sessionOpen = false;
             _selection?.EndSession();
         }
 
@@ -95,6 +119,7 @@ namespace SplatPreprocess
 
         public void BookmarkCurrentView()
         {
+            if (!CaptureEnabled) return; // Keep serialized UnityEvents safe while capture is paused.
             StartSession();
             if (!_viewBindings.TryCaptureViews(out var view))
             {
@@ -117,6 +142,7 @@ namespace SplatPreprocess
 
         public void StartRecording()
         {
+            if (!CaptureEnabled) return;
             StartSession();
             _recordOrdinaryPoses = true;
             poseFilter = new Stage1PoseFilter();
@@ -125,6 +151,7 @@ namespace SplatPreprocess
 
         public void StopRecording()
         {
+            if (!CaptureEnabled) return;
             _recordOrdinaryPoses = false;
             recorder?.Flush();
             SetStatus("Pose recording stopped");
@@ -132,7 +159,7 @@ namespace SplatPreprocess
 
         void LateUpdate()
         {
-            if (startFailed || recorder == null) return;
+            if (startFailed || !sessionOpen) return;
             try
             {
                 if (_pollRightControllerButtons)
@@ -152,15 +179,18 @@ namespace SplatPreprocess
                     }
                     var press = edges.Sample(a, b);
                     // Simultaneous A/B captures the mode that was visible when both buttons were sampled.
-                    if ((press & Stage1ButtonPress.Bookmark) != 0) BookmarkCurrentView();
+                    if (CaptureEnabled && (press & Stage1ButtonPress.Bookmark) != 0) BookmarkCurrentView();
                     if ((press & Stage1ButtonPress.ToggleOriginal) != 0) ToggleOriginal();
                 }
-                if (_recordOrdinaryPoses && _viewBindings.TryCaptureViews(out var view) && poseFilter.ShouldRecord(view))
-                    recorder.AppendPose(view);
-                if (Time.realtimeSinceStartupAsDouble >= nextFlush)
+                if (CaptureEnabled && recorder != null)
                 {
-                    recorder.Flush();
-                    nextFlush = Time.realtimeSinceStartupAsDouble + 1;
+                    if (_recordOrdinaryPoses && _viewBindings.TryCaptureViews(out var view) && poseFilter.ShouldRecord(view))
+                        recorder.AppendPose(view);
+                    if (Time.realtimeSinceStartupAsDouble >= nextFlush)
+                    {
+                        recorder.Flush();
+                        nextFlush = Time.realtimeSinceStartupAsDouble + 1;
+                    }
                 }
             }
             catch (Exception exception)
@@ -181,7 +211,7 @@ namespace SplatPreprocess
             return "Keep splats (%)\nCandidate: " + percent + "%  |  Showing: " + mode +
                 "\nSelected: " + state.DisplayedCount.ToString("N0", CultureInfo.InvariantCulture) + " / " + state.EligibleCount.ToString("N0", CultureInfo.InvariantCulture) +
                 "\nRank: " + state.FrozenRankId + "  Source: " + state.SourceHash.Substring(0, Math.Min(8, state.SourceHash.Length)) +
-                "\nA: Save view   B: Original / candidate   Saved: " + BookmarkCount + "\n" + lastStatus;
+                (CaptureEnabled ? "\nA: Save view   B: Original / candidate   Saved: " + BookmarkCount : "\nB: Original / candidate") + "\n" + lastStatus;
         }
 
         void OnStateChanged() => StatusChanged?.Invoke();

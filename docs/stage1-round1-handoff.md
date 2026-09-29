@@ -1,10 +1,12 @@
 # Stage 1 — first round with the authored scene
 
+Control update (2026-09-22): headset movement recording and runtime A-button Save view capture are temporarily disabled at the user's request. Review creates no session files, and the recording/Save view controls are hidden. The percentage slider and B comparison remain active. To restore capture, uncomment `#define STAGE1_REVIEW_CAPTURE` at the top of `Assets/SplatPreprocess/Runtime/Integration/Stage1ReviewActions.cs`; this also restores the related UI. Existing recordings, camera bindings, recorder code and editor surface/floor screenshot baking are preserved. Save view currently records camera metadata and a priority bookmark, not a PNG image.
+
 Latest scene update: five authored `Surfaces` planes have full-source 8K screenshot materials, and the three `Deletable` boxes exclude 709,730 unique splats. The customized ranking preserves the existing importance scores and is configured at 30% (1,567,386 of 5,224,622 survivors). See [surface customization](stage1-surface-customization.md) for the current assets, controls and validation. The scoring measurements below describe the completed original round, before this customization.
 
-The first scoring and automated verification round uses the saved `Assets/Scenes/Stage1.unity`, its floor and machine-top NavMesh, the original 6,011,316-row source, and the planes under `Walls`. The user's next step is the original workflow step 7: inspect the candidates while walking and climbing in the existing scene, and save useful views with A.
+The first scoring and automated verification round uses the saved `Assets/Scenes/Stage1.unity`, its floor and machine-top NavMesh, the original 6,011,316-row source, and the planes under `Walls`. The user's next step is the original workflow step 7: inspect the candidates while walking and climbing in the existing scene. Saving views with A is currently paused.
 
-Open the saved scene and enter Play Mode for Editor/PCVR review. The customized rank is configured, the physical slider starts at 30%, and pose recording starts automatically. This version uses local rank files; standalone APK data packaging and Android performance validation remain later work.
+Open the saved scene and enter Play Mode for Editor/PCVR review. The customized rank is configured; Play Mode uses the authored physical slider position. Pose recording is currently disabled. This version uses local rank files; standalone APK data packaging and Android performance validation remain later work.
 
 To preview a percentage without pressing Play, open **Tools → Splats → Stage 1 Preprocessor → Review**. Drag or type **Keep splats (%)** under **Edit Mode preview**. Leave **Show original (100%)** unchecked to see the candidate; checking it compares against the eligible original while remembering your percentage. Save the scene to persist that choice. The configured rank reloads after scripts recompile or the saved scene opens, with source and geometry validation. The Edit Mode value does not move the physical slider; Play Mode uses its authored handle position.
 
@@ -15,11 +17,11 @@ To preview a percentage without pressing Play, open **Tools → Splats → Stage
 - The seven old directional wall planes are currently inactive. Their supported rule uses local +Y as the front: from that side, a center is suppressed only within the 0.1-unit rear band and when its camera ray crosses the finite plane rectangle. Front-side and deeper centers remain visible. This is a center-based Gaussian rule, not clipping every Gaussian's entire footprint.
 - Plane meshes use their normal Mesh Renderer settings in both Edit and Play Mode. The splat wall binding does not hide or enable them; its finite directional filtering is independent of mesh visibility. Their colliders and the authored NavMesh remain intact. Any visible opaque plane also renders normally with its material's depth behavior; the offline report measures the splat subset alone.
 - `Slider No Snapping/Grabbable` keeps its authored X limits of −0.06 to +0.06. Its position maps to **Keep splats (%)**, from 0 to 100. The current X of −0.024 corresponds to 30%.
-- **Right A:** save the current view, displayed mode and remembered candidate percentage as a priority bookmark.
+- **Right A:** temporarily inactive. Its saved-view bookmark implementation is preserved for later restoration.
 - **Right B:** toggle the eligible original and the candidate. It preserves the candidate percentage. Original also obeys the floor and directional-wall rules.
 - The sample right-A Jump action is disabled to honor the no-jump requirement. Other locomotion, crouch and climbing settings are preserved.
 - Added the splat render feature to `Mobile_Renderer.asset`, which this scene actually uses in Play Mode. Reconnected the climbing event handler and its movement-disable/enable events to the existing `PlayerController` locomotor; all three references were missing. The rig and movement configuration remain user authored.
-- Review status appears beside the slider and in the desktop Game view. Pose recording starts with review; desktop controls can stop/start it. Ordinary poses and bookmarks are stored separately under `SplatData/sessions/<session>/`.
+- Review status appears beside the slider and in the desktop Game view. Pose recording and Save view controls are hidden while capture is disabled. Existing ordinary poses and bookmarks remain under `SplatData/sessions/<session>/`; no new recording files are created by review.
 
 ## Original completed processing
 

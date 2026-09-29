@@ -92,8 +92,9 @@ namespace SplatPreprocess.Tests
         void EarlyUpdate() => controller.SendMessage("Update", SendMessageOptions.DontRequireReceiver);
 
         [Test]
-        public void MetaRightButtonsSaveOnceAndCompareEvenWhenViewCaptureIsUnavailable()
+        public void MetaRightButtonsRespectCapturePauseAndKeepComparisonWorking()
         {
+            bool captureEnabled = (bool?)typeof(Stage1ReviewActions).GetProperty("CaptureEnabled")?.GetValue(null) ?? false;
             controller.LoadRank(Manifest(new uint[] { 8, 2, 5, 1 }), new uint[] { 8, 2, 5, 1 });
             controller.State.SetCandidate(5000);
             var camera = controls.AddComponent<Camera>();
@@ -121,7 +122,7 @@ namespace SplatPreprocess.Tests
                 source.Data.Input.SetButton(ControllerButtonUsage.SecondaryButton, true);
                 Tick();
                 Tick();
-                Assert.That(actions.BookmarkCount, Is.EqualTo(1), "A held button must save only once.");
+                Assert.That(actions.BookmarkCount, Is.EqualTo(captureEnabled ? 1 : 0), "A must stay inactive while capture is paused, and save only once when enabled.");
                 Assert.That(controller.State.IsOriginal, Is.True);
                 renderer.Update();
                 AssertGpuMembership(new uint[] { 1, 2, 5, 8 });
@@ -132,14 +133,60 @@ namespace SplatPreprocess.Tests
                 source.Data.Input.SetButton(ControllerButtonUsage.SecondaryButton, true);
                 Tick();
                 Assert.That(actions.IsSessionOpen, Is.True, "Waiting for an XR view must not shut down review input.");
-                Assert.That(actions.BookmarkCount, Is.EqualTo(1));
+                Assert.That(actions.BookmarkCount, Is.EqualTo(captureEnabled ? 1 : 0));
                 Assert.That(controller.State.IsOriginal, Is.False, "B must still work when A cannot capture a view.");
                 renderer.Update();
                 AssertGpuMembership(new uint[] { 2, 8 });
                 var session = actions.SessionDirectory;
                 actions.EndSession();
-                var mark = JsonUtility.FromJson<MarkRecord>(File.ReadAllLines(Path.Combine(session, "marks.jsonl"))[0]);
-                Assert.That(mark.display_mode, Is.EqualTo("candidate"), "Simultaneous A/B saves the view before comparison changes.");
+                if (captureEnabled)
+                {
+                    var mark = JsonUtility.FromJson<MarkRecord>(File.ReadAllLines(Path.Combine(session, "marks.jsonl"))[0]);
+                    Assert.That(mark.display_mode, Is.EqualTo("candidate"), "Simultaneous A/B saves the view before comparison changes.");
+                }
+                else
+                {
+                    Assert.That(session, Is.Null);
+                    Assert.That(Directory.Exists(directory), Is.False, "Review must not create capture files while recording is paused.");
+                }
+            }
+            finally
+            {
+                actions.EndSession();
+                if (Directory.Exists(directory)) Directory.Delete(directory, true);
+            }
+        }
+
+        [Test]
+        public void PausedCaptureAllowsSliderReviewWithoutCameraBindingsOrDiskWrites()
+        {
+            if ((bool?)typeof(Stage1ReviewActions).GetProperty("CaptureEnabled")?.GetValue(null) == true)
+                Assert.Ignore("This regression covers review while headset capture is temporarily disabled.");
+            var order = new uint[] { 8, 2, 5, 1 };
+            controller.LoadRank(Manifest(order), order);
+            var actions = controls.AddComponent<Stage1ReviewActions>();
+            actions.Bind(controller, null);
+            var directory = Path.Combine(Path.GetTempPath(), "stage1-paused-capture-" + Guid.NewGuid().ToString("N"));
+            var serialized = new SerializedObject(actions);
+            serialized.FindProperty("_sessionRoot").stringValue = directory;
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+            try
+            {
+                Assert.DoesNotThrow(actions.StartSession, "Percentage review must not require a headset camera when capture is disabled.");
+                actions.StartRecording();
+                actions.BookmarkCurrentView();
+                actions.StopRecording();
+                var slider = controls.AddComponent<Stage1PhysicalSliderBinding>();
+                slider.Bind(actions, controls.transform, -.06f, .06f);
+                slider.RefreshValue(); // X=0 is the midpoint of the existing physical slider's range.
+                Assert.That(controller.State.CandidateCentiPercent, Is.EqualTo(5000));
+                renderer.Update();
+                AssertGpuMembership(new uint[] { 2, 8 });
+                Assert.That(actions.IsRecording, Is.False);
+                Assert.That(actions.BookmarkCount, Is.Zero);
+                Assert.That(actions.SessionDirectory, Is.Null);
+                Assert.That(Directory.Exists(directory), Is.False);
+                Assert.That(actions.GetStatusText(), Does.Not.Contain("A: Save view"));
             }
             finally
             {

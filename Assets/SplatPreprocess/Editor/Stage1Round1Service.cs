@@ -266,6 +266,33 @@ namespace SplatPreprocess.Editor
             ValidateSnapshotJson(current, JsonUtility.ToJson(recorded));
         }
 
+        /// <summary>Validate a historical preview while allowing the viewpoint sampling surface to change.</summary>
+        public static string ValidateFrozenPreviewSnapshot(Stage1SceneSnapshot current, string savedJson)
+        {
+            if (current == null) throw new ArgumentNullException(nameof(current));
+            var recorded = JsonUtility.FromJson<Stage1SceneSnapshot>(savedJson);
+            ValidateSnapshotJson(recorded, savedJson);
+            bool navMeshChanged = false;
+            try
+            {
+                CheckArray("nav_indices", recorded.nav_indices, current.nav_indices);
+                CheckArray("nav_areas", recorded.nav_areas, current.nav_areas);
+                CheckValue("nav_vertices.Length", recorded.nav_vertices.Length, current.nav_vertices?.Length ?? -1);
+                for (int i = 0; i < recorded.nav_vertices.Length; i++)
+                    CheckArray("nav_vertices[" + i + "].p", recorded.nav_vertices[i].p, current.nav_vertices[i]?.p);
+            }
+            catch (InvalidDataException) { navMeshChanged = true; }
+            // Viewpoints affect scoring, not which original splat rows are eligible.
+            // Normalize only this in-memory copy; preserve the immutable scoring snapshot.
+            recorded.nav_vertices = current.nav_vertices;
+            recorded.nav_indices = current.nav_indices;
+            recorded.nav_areas = current.nav_areas;
+            ValidateReviewSnapshot(current, JsonUtility.ToJson(recorded));
+            return navMeshChanged
+                ? "NavMesh has changed. Showing the saved frozen ranking; the new viewpoints have not been rescored. Run a new scoring round to update importance."
+                : string.Empty;
+        }
+
         static void CheckValue<T>(string field, T actual, T expected)
         {
             // Every numeric double in this snapshot originated in a Unity float32 field.
@@ -380,7 +407,8 @@ namespace SplatPreprocess.Editor
             var snapshot = CaptureScene(sourcePath, out var renderer);
             var savedScenePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(System.IO.Path.GetFullPath(manifestPath)), "scene.json");
             if (!File.Exists(savedScenePath)) throw new InvalidDataException("The completed rank has no saved scene snapshot");
-            try { ValidateReviewSnapshot(snapshot, File.ReadAllText(savedScenePath)); }
+            string previewWarning;
+            try { previewWarning = ValidateFrozenPreviewSnapshot(snapshot, File.ReadAllText(savedScenePath)); }
             catch (InvalidDataException exception)
             {
                 throw new InvalidDataException("The saved ranking differs from the current scene or customization. Update the customization or process the current scene before loading it. " + exception.Message, exception);
@@ -399,11 +427,13 @@ namespace SplatPreprocess.Editor
             {
                 if (restoring != controller || controller.Renderer != renderer) throw new InvalidDataException("Restore the configured source renderer binding before preview");
                 controller.LoadRank(rank.Manifest, rank.Order);
+                controller.ReportPreviewWarning(previewWarning);
                 return;
             }
             Undo.RecordObject(controller, "Load Stage 1 review ranking");
             controller.Bind(renderer, System.IO.Path.GetFullPath(manifestPath), snapshot.source_hash, manifest.scene_hash);
             controller.LoadRank(rank.Manifest, rank.Order);
+            controller.ReportPreviewWarning(previewWarning);
             EditorUtility.SetDirty(controller);
         }
 

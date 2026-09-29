@@ -51,7 +51,24 @@ namespace SplatPreprocess.Editor
         void Attempt(Action action)
         {
             try { error=""; action(); RefreshStatus(); }
+            catch (ExitGUIException) { throw; }
             catch (Exception e) { error=e.Message; }
+        }
+        public static string ResolveBrowseDirectory(string path, string fallback)
+        {
+            if (!string.IsNullOrWhiteSpace(path))
+            {
+                try
+                {
+                    if (Directory.Exists(path)) return path;
+                    var directory = Path.GetDirectoryName(path);
+                    if (Directory.Exists(directory)) return directory;
+                }
+                catch (ArgumentException) { }
+                catch (NotSupportedException) { }
+                catch (PathTooLongException) { }
+            }
+            return Directory.Exists(fallback) ? fallback : WorkerEnvironment.ProjectRoot;
         }
         public string StartOperation(string operation)
         {
@@ -64,14 +81,16 @@ namespace SplatPreprocess.Editor
             EditorGUILayout.LabelField("Stage 1 · Splat preprocessing", EditorStyles.boldLabel);
             EditorGUILayout.LabelField("gsplat-unity · Uncompressed SH0 reference · user-authored Unity units", EditorStyles.miniLabel);
             tab = GUILayout.Toolbar(tab, new[] { "Setup", "Process", "Review", "Export" });
-            scroll = EditorGUILayout.BeginScrollView(scroll);
-            if (!string.IsNullOrEmpty(error)) EditorGUILayout.HelpBox(error, MessageType.Error);
-            if (tab == 0) DrawSetup();
-            else if (tab == 1) DrawProcess();
-            else if (tab == 2) DrawReview();
-            else EditorGUILayout.HelpBox("Export becomes available after a verified ranking and subset review. The original PLY is never modified.", MessageType.Info);
-            DrawJobs();
-            EditorGUILayout.EndScrollView();
+            using (var view = new EditorGUILayout.ScrollViewScope(scroll))
+            {
+                scroll = view.scrollPosition;
+                if (!string.IsNullOrEmpty(error)) EditorGUILayout.HelpBox(error, MessageType.Error);
+                if (tab == 0) DrawSetup();
+                else if (tab == 1) DrawProcess();
+                else if (tab == 2) DrawReview();
+                else EditorGUILayout.HelpBox("Export becomes available after a verified ranking and subset review. The original PLY is never modified.", MessageType.Info);
+                DrawJobs();
+            }
         }
         void DrawSetup()
         {
@@ -82,7 +101,7 @@ namespace SplatPreprocess.Editor
                 sourcePath = EditorGUILayout.TextField(sourcePath);
                 if (GUILayout.Button("Browse…", GUILayout.Width(80)))
                 {
-                    string selected = EditorUtility.OpenFilePanel("Choose the original Gaussian PLY", Path.GetDirectoryName(sourcePath) ?? "", "ply");
+                    string selected = EditorUtility.OpenFilePanel("Choose the original Gaussian PLY", ResolveBrowseDirectory(sourcePath, WorkerEnvironment.ProjectRoot), "ply");
                     if (!string.IsNullOrEmpty(selected)) { sourcePath=selected; EditorPrefs.SetString(PreferenceKey,sourcePath); }
                 }
             }
@@ -119,13 +138,15 @@ namespace SplatPreprocess.Editor
                 manifest.Validate();
                 EditorGUILayout.LabelField($"Last inspected source: {manifest.vertex_count:N0} splats · SH{manifest.sh_degree}");
                 EditorGUILayout.LabelField("SHA-256: " + manifest.sha256, EditorStyles.miniLabel);
-                if (!string.Equals(Path.GetFullPath(sourcePath), Path.GetFullPath(manifest.source_path), StringComparison.OrdinalIgnoreCase))
+                if (string.IsNullOrWhiteSpace(sourcePath) || !string.Equals(Path.GetFullPath(sourcePath), Path.GetFullPath(manifest.source_path), StringComparison.OrdinalIgnoreCase))
                     EditorGUILayout.HelpBox("These results belong to a different source path. Inspect the chosen source before using its results.", MessageType.Warning);
             }
             catch (Exception e) { EditorGUILayout.HelpBox(e.Message, MessageType.Error); }
         }
         void DrawReview()
         {
+            DrawEditModePreview();
+            EditorGUILayout.Space();
             foreach (var renderer in FindObjectsByType<GsplatRenderer>(FindObjectsSortMode.None))
             {
                 if (!renderer.GsplatAsset) continue;
@@ -147,7 +168,7 @@ namespace SplatPreprocess.Editor
                 rankManifestPath = EditorGUILayout.TextField(rankManifestPath);
                 if (GUILayout.Button("Browse…", GUILayout.Width(80)))
                 {
-                    var selected = EditorUtility.OpenFilePanel("Choose a completed rank manifest", Path.GetDirectoryName(rankManifestPath) ?? WorkerEnvironment.DataRoot, "json");
+                    var selected = EditorUtility.OpenFilePanel("Choose a completed rank manifest", ResolveBrowseDirectory(rankManifestPath, WorkerEnvironment.DataRoot), "json");
                     if (!string.IsNullOrEmpty(selected)) rankManifestPath = selected;
                 }
             }
@@ -160,37 +181,50 @@ namespace SplatPreprocess.Editor
                     foreach (var controller in FindObjectsByType<Stage1SelectionController>(FindObjectsSortMode.None))
                         if (controller.State != null) SetEditModePreview(controller, controller.EditModeCentiPercent / 100f, controller.EditModeShowOriginal);
                 });
+            if (Stage1ReviewActions.CaptureEnabled)
+            {
+                EditorGUILayout.HelpBox("In Play Mode, the existing physical slider controls Keep splats (%). Right A saves the exact view and remembered candidate; right B compares the eligible original with that candidate. Rank changes are available only between review sessions.", MessageType.Info);
+                EditorGUILayout.HelpBox("Ordinary pose recording and exact bookmarks are saved separately under SplatData/sessions. Use the scene review controls to start or stop pose recording. The source and scene must match the selected rank.", MessageType.None);
+            }
+            else EditorGUILayout.HelpBox("In Play Mode, the existing physical slider controls Keep splats (%), and right B compares the eligible original with the candidate. Rank changes are available only between review sessions.", MessageType.Info);
+        }
+
+        void DrawEditModePreview()
+        {
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Edit Mode preview", EditorStyles.boldLabel);
             bool hasLoadedRank = false;
             foreach (var controller in FindObjectsByType<Stage1SelectionController>(FindObjectsSortMode.None))
             {
-                if (controller.State == null)
-                {
-                    if (!string.IsNullOrEmpty(controller.LastPreviewError)) EditorGUILayout.HelpBox(controller.LastPreviewError, MessageType.Warning);
-                    continue;
-                }
-                hasLoadedRank = true;
                 var state = controller.State;
-                EditorGUILayout.LabelField("Loaded rank: " + state.FrozenRankId, EditorStyles.wordWrappedLabel);
-                EditorGUILayout.LabelField($"Candidate: {state.CandidateCentiPercent / 100.0:F2}% · Showing {state.DisplayMode} · {state.DisplayedCount:N0} / {state.EligibleCount:N0}");
-                EditorGUILayout.LabelField($"Original source provenance: {state.SourceCount:N0} rows", EditorStyles.miniLabel);
-                using (new EditorGUI.DisabledScope(Busy || EditorApplication.isPlayingOrWillChangePlaymode || controller.IsSessionActive || !controller.Renderer || !controller.Renderer.isActiveAndEnabled))
+                hasLoadedRank |= state != null;
+                if (!string.IsNullOrEmpty(controller.LastPreviewError)) EditorGUILayout.HelpBox(controller.LastPreviewError, MessageType.Warning);
+                if (!string.IsNullOrEmpty(controller.LastPreviewWarning)) EditorGUILayout.HelpBox(controller.LastPreviewWarning, MessageType.Warning);
+                using (new EditorGUI.DisabledScope(state == null || Busy || File.Exists(Stage1Round1Service.LeasePath) || EditorApplication.isPlayingOrWillChangePlaymode || controller.IsSessionActive || !controller.Renderer || !controller.Renderer.isActiveAndEnabled))
                 {
-                    EditorGUILayout.Space();
-                    EditorGUILayout.LabelField("Edit Mode preview", EditorStyles.boldLabel);
                     EditorGUI.BeginChangeCheck();
-                    float percent = EditorGUILayout.Slider("Keep splats (%)", state.CandidateCentiPercent / 100f, 0f, 100f);
-                    bool original = EditorGUILayout.Toggle("Show original (100%)", state.IsOriginal);
+                    float percent = EditorGUILayout.Slider("Keep splats (%)", (state?.CandidateCentiPercent ?? controller.EditModeCentiPercent) / 100f, 0f, 100f);
+                    bool original = EditorGUILayout.Toggle("Show original (100%)", state?.IsOriginal ?? controller.EditModeShowOriginal);
                     if (EditorGUI.EndChangeCheck()) Attempt(() =>
                     {
                         SetEditModePreview(controller, percent, original);
                         editModeKeepPercent = controller.State.CandidateCentiPercent / 100f;
                     });
                 }
+                if (state != null)
+                {
+                    EditorGUILayout.LabelField($"Candidate: {state.CandidateCentiPercent / 100.0:F2}% · Showing {state.DisplayMode} · {state.DisplayedCount:N0} / {state.EligibleCount:N0}");
+                    EditorGUILayout.LabelField("Loaded rank: " + state.FrozenRankId, EditorStyles.wordWrappedLabel);
+                    EditorGUILayout.LabelField($"Original source provenance: {state.SourceCount:N0} rows", EditorStyles.miniLabel);
+                }
+                else
+                {
+                    using (new EditorGUI.DisabledScope(Busy || EditorApplication.isPlayingOrWillChangePlaymode || controller.IsSessionActive || string.IsNullOrEmpty(controller.RankManifestPath)))
+                        if (GUILayout.Button("Reload configured preview")) Attempt(() => Stage1Round1Service.ReloadConfiguredReview(controller));
+                }
             }
             if (!hasLoadedRank) EditorGUILayout.HelpBox("The configured preview reloads after scripts recompile or a saved scene opens. Save pending edits first. A changed wall, deletion box or surface layout requires an updated ranking.", MessageType.Info);
             EditorGUILayout.HelpBox("Edit Mode preview updates the Game and Scene views without entering Play Mode or recording a session. Keep Show original unchecked to see the selected percentage. In Play Mode, the physical slider's position controls the percentage.", MessageType.None);
-            EditorGUILayout.HelpBox("In Play Mode, the existing physical slider controls Keep splats (%). Right A saves the exact view and remembered candidate; right B compares the eligible original with that candidate. Rank changes are available only between review sessions.", MessageType.Info);
-            EditorGUILayout.HelpBox("Ordinary pose recording and exact bookmarks are saved separately under SplatData/sessions. Use the scene review controls to start or stop pose recording. The source and scene must match the selected rank.", MessageType.None);
         }
 
         public static void SetEditModePreview(Stage1SelectionController controller, float keepPercent, bool showOriginal)

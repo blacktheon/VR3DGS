@@ -28,6 +28,7 @@ namespace SplatPreprocess
         public GsplatRenderer Renderer => _renderer;
         public string RankManifestPath => _rankManifestPath;
         public string LastPreviewError { get; private set; } = string.Empty;
+        public string LastPreviewWarning { get; private set; } = string.Empty;
         public int EditModeCentiPercent => _editModeCentiPercent;
         public bool EditModeShowOriginal => _editModeShowOriginal;
 
@@ -55,6 +56,7 @@ namespace SplatPreprocess
         }
 
         public void ReportPreviewLoadError(string message) => LastPreviewError = message ?? string.Empty;
+        public void ReportPreviewWarning(string message) => LastPreviewWarning = message ?? string.Empty;
 
         public void Bind(GsplatRenderer renderer, string manifestPath, string sourceHash, string sceneHash)
         {
@@ -70,6 +72,7 @@ namespace SplatPreprocess
             _loadedAsset = null;
             _selectionResource = null;
             LastPreviewError = string.Empty;
+            LastPreviewWarning = string.Empty;
             _reportedPreviewError = null;
         }
 
@@ -114,6 +117,7 @@ namespace SplatPreprocess
             else State.SetCandidate(_editModeCentiPercent);
             if (_editModeShowOriginal) State.ToggleOriginal();
             ApplySelection();
+            LastPreviewWarning = string.Empty;
         }
 
         public void BeginSession()
